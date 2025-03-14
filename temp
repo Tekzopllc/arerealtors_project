@@ -23,17 +23,17 @@ export default function Home() {
 
       {/* Hero Section */}
       <div
-        className="h-screen relative bg-cover bg-center"
+        className="min-h-screen md:h-screen relative bg-cover bg-center bg-fixed"
         style={{
           backgroundImage: 'url("/assets/bg.jpg")'
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50" />
-        <div className="absolute inset-0 flex items-center justify-center px-4">
-          <div className="flex justify-between items-center w-full max-w-7xl mx-auto">
-            <div className="text-white w-full max-w-2xl text-left">
+        <div className="relative flex flex-col min-h-screen px-4 py-20 md:py-0">
+          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto gap-8 md:h-screen">
+            <div className="text-white w-full max-w-2xl text-left px-4">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 px-4">
-                Find Your Dream Home with AceRealtors
+                Find the Top RealEstate Agents
               </h1>
               <p className="text-xl md:text-2xl mb-12 px-4">
                 Expert agents, premium listings, and seamless buying & selling experiences.
@@ -59,7 +59,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full max-w-md bg-white rounded-lg shadow-xl p-6 h-[calc(100vh-200px)] max-h-[600px]">
+            <div className="w-full md:max-w-md bg-white rounded-lg shadow-xl p-6 h-[calc(100vh-200px)] max-h-[600px]">
               <div className="h-full overflow-y-auto">
                 <AgentQuestionnaire
                   isOpen={true}
@@ -378,95 +378,99 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center text-secondary mb-10">
             More Resources
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="col-span-full md:col-span-1">
-              <Link to="/blog/market-trends" className="block">
-                <div className="bg-gray-50 rounded-lg overflow-hidden">
-                  <img
-                    src="/assets/blog1.jpg"
-                    alt="Real Estate Market Trends"
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-6">
-                    <div className="flex items-center gap-2 text-sm text-primary mb-3">
-                      <BookOpen className="w-4 h-4" />
-                      <span>Market Analysis</span>
-                    </div>
-                    <h3 className="text-xl font-semibold mb-3">Real Estate Market Trends & Property Valuation</h3>
-                    <p className="text-gray-600">
-                      Learn how to analyze market trends and determine the right price for your property.
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+             <Link to="/blog/market-trends" className="block">
+               <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
+                 <img
+                   src="/assets/blog1.jpg"
+                   alt="Real Estate Market Trends"
+                   className="w-full h-48 object-cover"
+                 />
+                 <div className="p-6">
+                   <div className="flex items-center gap-2 text-sm text-primary mb-3">
+                     <BookOpen className="w-4 h-4" />
+                     <span>Market Analysis</span>
+                   </div>
+                   <h3 className="text-xl font-semibold mb-3">Real Estate Market Trends & Property Valuation</h3>
+                   <p className="text-gray-600">Learn how to analyze market trends and determine the right price for your property.</p>
+                 </div>
+               </div>
+             </Link>
 
-            <div className="space-y-6 md:col-span-2">
-              <h3 className="text-xl font-semibold">Featured Blog Posts</h3>
-              <div className="space-y-6">
-                <Link to="/blog/real-estate-agent" className="block">
-                  <div className="flex gap-4 items-start">
-                    <img
-                      src="/assets/blog5.jpg"
-                      alt="Real Estate Agent Role"
-                      className="w-24 h-24 rounded-lg object-cover"
-                    />
-                    <div>
-                      <div className="text-sm text-primary mb-2">Agent Guide</div>
-                      <h4 className="font-semibold mb-2">The Role of a Real Estate Agent</h4>
-                      <p className="text-gray-600 text-sm">Learn about effective selling strategies and agent responsibilities.</p>
-                    </div>
-                  </div>
-                </Link>
-                <Link to="/blog/mortgage-financing" className="block">
-                  <div className="flex gap-4 items-start">
-                    <img
-                      src="/assets/blog2.jpg"
-                      alt="Mortgage & Financing"
-                      className="w-24 h-24 rounded-lg object-cover"
-                    />
-                    <div>
-                      <div className="text-sm text-primary mb-2">Home Financing</div>
-                      <h4 className="font-semibold mb-2">Mortgage & Financing Options Guide</h4>
-                      <p className="text-gray-600 text-sm">Navigate the complex world of home loans and financing options.</p>
-                    </div>
-                  </div>
-                </Link>
+             <Link to="/blog/mortgage-financing" className="block">
+               <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
+                 <img
+                   src="/assets/blog2.jpg"
+                   alt="Mortgage & Financing"
+                   className="w-full h-48 object-cover"
+                 />
+                 <div className="p-6">
+                   <div className="flex items-center gap-2 text-sm text-primary mb-3">
+                     <BookOpen className="w-4 h-4" />
+                     <span>Home Financing</span>
+                   </div>
+                   <h3 className="text-xl font-semibold mb-3">Mortgage & Financing Options Guide</h3>
+                   <p className="text-gray-600">Navigate the complex world of home loans and financing options.</p>
+                 </div>
+               </div>
+             </Link>
 
-                <Link to="/blog/legal-tax" className="block">
-                  <div className="flex gap-4 items-start">
-                    <img
-                      src="/assets/blog2.jpg"
-                      alt="Legal and Tax Considerations"
-                      className="w-24 h-24 rounded-lg object-cover"
-                    />
-                    <div>
-                      <div className="text-sm text-primary mb-2">Legal & Tax Guide</div>
-                      <h4 className="font-semibold mb-2">Legal & Tax Considerations in Real Estate</h4>
-                      <p className="text-gray-600 text-sm">Essential legal and tax knowledge for property transactions.</p>
-                    </div>
-                  </div>
-                </Link>
+             <Link to="/blog/legal-tax" className="block">
+               <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
+                 <img
+                   src="/assets/blog3.jpg"
+                   alt="Legal and Tax Considerations"
+                   className="w-full h-48 object-cover"
+                 />
+                 <div className="p-6">
+                   <div className="flex items-center gap-2 text-sm text-primary mb-3">
+                     <BookOpen className="w-4 h-4" />
+                     <span>Legal & Tax Guide</span>
+                   </div>
+                   <h3 className="text-xl font-semibold mb-3">Legal & Tax Considerations in Real Estate</h3>
+                   <p className="text-gray-600">Essential legal and tax knowledge for property transactions.</p>
+                 </div>
+               </div>
+             </Link>
 
-                <Link to="/blog/home-inspection" className="block">
-                  <div className="flex gap-4 items-start">
-                    <img
-                      src="/assets/blog4.jpg"
-                      alt="Home Inspection and Appraisal"
-                      className="w-24 h-24 rounded-lg object-cover"
-                    />
-                    <div>
-                      <div className="text-sm text-primary mb-2">Buyer's Guide</div>
-                      <h4 className="font-semibold mb-2">Home Inspection & Appraisal Guide</h4>
-                      <p className="text-gray-600 text-sm">Understanding these crucial steps in real estate transactions.</p>
-                    </div>
-                  </div>
-                </Link>
+             <Link to="/blog/home-inspection" className="block">
+               <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
+                 <img
+                   src="/assets/blog4.jpg"
+                   alt="Home Inspection and Appraisal"
+                   className="w-full h-48 object-cover"
+                 />
+                 <div className="p-6">
+                   <div className="flex items-center gap-2 text-sm text-primary mb-3">
+                     <BookOpen className="w-4 h-4" />
+                     <span>Buyer's Guide</span>
+                   </div>
+                   <h3 className="text-xl font-semibold mb-3">Home Inspection & Appraisal Guide</h3>
+                   <p className="text-gray-600">Understanding these crucial steps in real estate transactions.</p>
+                 </div>
+               </div>
+             </Link>
+
+             <Link to="/blog/real-estate-agent" className="block">
+               <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
+                 <img
+                   src="/assets/blog5.jpg"
+                   alt="Real Estate Agent Role"
+                   className="w-full h-48 object-cover"
+                 />
+                 <div className="p-6">
+                   <div className="flex items-center gap-2 text-sm text-primary mb-3">
+                     <BookOpen className="w-4 h-4" />
+                     <span>Agent Guide</span>
+                   </div>
+                   <h3 className="text-xl font-semibold mb-3">The Role of a Real Estate Agent</h3>
+                   <p className="text-gray-600">Learn about effective selling strategies and agent responsibilities.</p>
+                 </div>
+               </div>
+             </Link>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
       {/* FAQ Section */}
       <div className="py-12 bg-gray-50">

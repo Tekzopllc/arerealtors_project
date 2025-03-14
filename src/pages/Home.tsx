@@ -23,15 +23,15 @@ export default function Home() {
 
       {/* Hero Section */}
       <div
-        className="h-screen relative bg-cover bg-center"
+        className="min-h-screen md:h-screen relative bg-cover bg-center bg-fixed"
         style={{
           backgroundImage: 'url("/assets/bg.jpg")'
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50" />
-        <div className="absolute inset-0 flex items-center justify-center px-4">
-          <div className="flex justify-between items-center w-full max-w-7xl mx-auto">
-            <div className="text-white w-full max-w-2xl text-left">
+        <div className="relative flex flex-col min-h-screen px-4 py-20 md:py-0">
+          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto gap-8 md:h-screen">
+            <div className="text-white w-full max-w-2xl text-left px-4">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 px-4">
                 Find the Top RealEstate Agents
               </h1>
@@ -59,7 +59,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full max-w-md bg-white rounded-lg shadow-xl p-6 h-[calc(100vh-200px)] max-h-[600px]">
+            <div className="w-full md:max-w-md bg-white rounded-lg shadow-xl p-6 h-[calc(100vh-200px)] max-h-[600px]">
               <div className="h-full overflow-y-auto">
                 <AgentQuestionnaire
                   isOpen={true}

@@ -76,6 +76,22 @@ export default function Navbar() {
             >
               About Us
             </Link>
+            <HashLink
+              to="/#more-resources"
+              className="block px-3 py-2 text-secondary hover:text-primary transition-colors"
+              onClick={() => setIsOpen(false)}
+              smooth
+            >
+              Blogs
+            </HashLink>
+            <HashLink
+              to="/#reviews_section"
+              className="block px-3 py-2 text-secondary hover:text-primary transition-colors"
+              onClick={() => setIsOpen(false)}
+              smooth
+            >
+              Reviews
+            </HashLink>
           </div>
         </div>
       )}
