@@ -42,7 +42,7 @@ const MortgageFinancingBlogPost: React.FC = () => {
         {/* Feature Image */}
         <figure className={styles.featureImageWrapper}>
           <img 
-            src="/assets/blog2.jpg" 
+            src="/blog2.jpg" 
             alt="Mortgage & Financing Options" 
             className={styles.featureImage}
           />

@@ -42,7 +42,7 @@ const RealEstateAgentBlogPost: React.FC = () => {
         {/* Feature Image */}
         <figure className={styles.featureImageWrapper}>
           <img 
-            src="/assets/blog5.jpg" 
+            src="/blog5.jpg" 
             alt="Real Estate Agent with Clients" 
             className={styles.featureImage}
           />

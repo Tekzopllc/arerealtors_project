@@ -25,7 +25,7 @@ export default function Home() {
       <div
         className="min-h-screen md:h-screen relative bg-cover bg-center bg-fixed"
         style={{
-          backgroundImage: 'url("/assets/bg.jpg")'
+          backgroundImage: 'url("/bg.jpg")'
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50" />
@@ -208,7 +208,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="/assets/woman-looking-camera-smiling-waving-with-stars-american-flag.jpg"
+                src="/woman-looking-camera-smiling-waving-with-stars-american-flag.jpg"
                 alt="Professional real estate agent with American flag"
                 className="rounded-lg shadow-xl"
               />
@@ -280,7 +280,7 @@ export default function Home() {
             </div>
             <div className="relative">
               <img
-                src="/assets/young-family-with-their-sons-home-having-fun.jpg"
+                src="/young-family-with-their-sons-home-having-fun.jpg"
                 alt="Happy family in their new home"
                 className="rounded-lg shadow-xl"
               />
@@ -312,7 +312,7 @@ export default function Home() {
             <div className="relative">
               <div className="image-container rounded-lg shadow-xl overflow-hidden">
                 <img
-                  src="/assets/parents-kids-spending-time-together.jpg"
+                  src="/parents-kids-spending-time-together.jpg"
                   alt="Happy family enjoying their new home"
                   className="w-full h-full object-cover"
                 />
@@ -382,7 +382,7 @@ export default function Home() {
              <Link to="/blog/market-trends" className="block">
                <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
                  <img
-                   src="/assets/blog1.jpg"
+                   src="/blog1.jpg"
                    alt="Real Estate Market Trends"
                    className="w-full h-48 object-cover"
                  />
@@ -400,7 +400,7 @@ export default function Home() {
              <Link to="/blog/mortgage-financing" className="block">
                <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
                  <img
-                   src="/assets/blog2.jpg"
+                   src="/blog2.jpg"
                    alt="Mortgage & Financing"
                    className="w-full h-48 object-cover"
                  />
@@ -418,7 +418,7 @@ export default function Home() {
              <Link to="/blog/legal-tax" className="block">
                <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
                  <img
-                   src="/assets/blog3.jpg"
+                   src="/blog3.jpg"
                    alt="Legal and Tax Considerations"
                    className="w-full h-48 object-cover"
                  />
@@ -436,7 +436,7 @@ export default function Home() {
              <Link to="/blog/home-inspection" className="block">
                <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
                  <img
-                   src="/assets/blog4.jpg"
+                   src="/blog4.jpg"
                    alt="Home Inspection and Appraisal"
                    className="w-full h-48 object-cover"
                  />
@@ -454,7 +454,7 @@ export default function Home() {
              <Link to="/blog/real-estate-agent" className="block">
                <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
                  <img
-                   src="/assets/blog5.jpg"
+                   src="/blog5.jpg"
                    alt="Real Estate Agent Role"
                    className="w-full h-48 object-cover"
                  />

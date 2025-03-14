@@ -16,7 +16,7 @@ export default function Navbar() {
               <Home className="h-8 w-8 text-primary" />
               <span className="ml-2 text-xl font-bold text-secondary">AceRealtors</span>
               <img
-                src='/assets/Flag-United-States-of-America.webp'
+                src='/Flag-United-States-of-America.webp'
                 alt="American flag"
                 className="h-6 w-8 object-cover ml-2"
               />

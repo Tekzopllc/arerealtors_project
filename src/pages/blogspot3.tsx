@@ -42,7 +42,7 @@ const LegalTaxBlogPost: React.FC = () => {
         {/* Feature Image */}
         <figure className={styles.featureImageWrapper}>
           <img 
-            src="/assets/blog3.jpg" 
+            src="/blog3.jpg" 
             alt="Legal and Tax Considerations in Real Estate" 
             className={styles.featureImage}
           />
