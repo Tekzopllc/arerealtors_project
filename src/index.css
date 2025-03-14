@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOut {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-fadeOut {
+    animation: fadeOut 0.5s ease-out forwards;
+  }
+
+  .animate-slideIn {
+    animation: slideIn 0.5s ease-out forwards;
+  }
+
+  .animate-slideOut {
+    animation: slideOut 0.5s ease-out forwards;
+  }
+}
+
+.testimonials-swiper {
+  padding-bottom: 3rem !important;
+}
+
+.testimonials-swiper .swiper-pagination-bullet {
+  background: theme('colors.primary.DEFAULT');
+  opacity: 0.5;
+  width: 8px;
+  height: 8px;
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: theme('colors.primary.DEFAULT');
+}
+
+/* Ensure consistent image sizing for testimonials */
+.testimonials-swiper img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Responsive image containers */
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%; /* 4:3 aspect ratio */
+  overflow: hidden;
+}
+
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Improved spacing for mobile */
+@media (max-width: 768px) {
+  .section-spacing {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .content-wrapper {
+    margin-top: 1.5rem;
+  }
+}

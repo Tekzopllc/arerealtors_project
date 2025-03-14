@@ -1,0 +1,2 @@
+add a flag and country code in the popup section number.
+so in the price distribution add a range not the exact price.
