@@ -468,13 +468,13 @@ function AgentQuestionnaire({
           </div>
           <div className="flex flex-col gap-2 mt-4 px-5 md:px-9 pb-6 bg-white">
             <p className="text-sm md:text-base text-gray-500">
-              ✅ We've worked with over 10K happy home buyers & sellers across the U.S.
+              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> We've worked with over 10K happy home buyers & sellers across the U.S.
             </p>
             <p className="text-sm md:text-base text-gray-500">
-              ✅ We hand select the top agents from your area
+              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> We hand select the top agents from your area
             </p>
             <p className="text-sm md:text-base text-gray-500">
-              ✅ Get a free custom list of top agents and get connected within 2 minutes.
+              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> Get a free custom list of top agents and get connected within 2 minutes.
             </p>
           </div>
         </div>
@@ -659,10 +659,10 @@ function AgentQuestionnaire({
               className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c]"
             />
             <p className="text-xs text-gray-500 mt-2">
-            ✅ Get a list of great local agents in your inbox today
+            <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> Get a list of great local agents in your inbox today
             </p>
             <p className="text-xs text-gray-500 mt-2">
-            ✅ We or your carefully selected agents may email you to help with your transaction
+            <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> We or your carefully selected agents may email you to help with your transaction
             </p>
             {/* Email validation function */}
             {formData.email && (
@@ -695,9 +695,9 @@ function AgentQuestionnaire({
           <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10">
             What's your phone number?
           </div>
-          <p>✅ A phone consultation with your recommended agents is the best way to get help</p>
+          <p><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> A phone consultation with your recommended agents is the best way to get help</p>
 
-              <p>✅ We or your carefully selected agents may call you to assist with your transaction</p>
+              <p><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> We or your carefully selected agents may call you to assist with your transaction</p>
           
           <div className="mt-4">
           <PhoneInput

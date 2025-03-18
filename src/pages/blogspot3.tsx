@@ -114,7 +114,7 @@ const LegalTaxBlogPost: React.FC = () => {
             <li><strong>Fraudulent Titles:</strong> Forged documents or identity theft leading to ownership claims.</li>
           </ul>
           <p>
-            ✅ <strong>Solution:</strong> Buyers should obtain title insurance to protect against hidden title defects.
+            <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> <strong>Solution:</strong> Buyers should obtain title insurance to protect against hidden title defects.
           </p>
 
           <h2 id="real-estate-taxes">3. Real Estate Taxes You Need to Know</h2>
@@ -159,10 +159,10 @@ const LegalTaxBlogPost: React.FC = () => {
 
           <h2 id="legal-risks">5. Legal Risks & How to Avoid Them</h2>
           <ul>
-            <li>✅ <strong>Avoid verbal agreements</strong> – Always document everything in writing.</li>
-            <li>✅ <strong>Verify property boundaries</strong> – Get a professional survey before purchase.</li>
-            <li>✅ <strong>Check zoning laws</strong> – Ensure your intended property use is legal.</li>
-            <li>✅ <strong>Know your rights & obligations</strong> – Understand tenant laws if selling a rental property.</li>
+            <li><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> <strong>Avoid verbal agreements</strong> – Always document everything in writing.</li>
+            <li><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> <strong>Verify property boundaries</strong> – Get a professional survey before purchase.</li>
+            <li><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> <strong>Check zoning laws</strong> – Ensure your intended property use is legal.</li>
+            <li><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> <strong>Know your rights & obligations</strong> – Understand tenant laws if selling a rental property.</li>
           </ul>
 
           <h2 id="conclusion">Conclusion</h2>

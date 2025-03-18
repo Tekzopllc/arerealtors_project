@@ -153,10 +153,10 @@ const MortgageFinancingBlogPost: React.FC = () => {
             Lenders evaluate these key factors before approving your loan:
           </p>
           <ul>
-            <li>✅ <strong>Credit Score:</strong> Higher scores (700+) get better interest rates.</li>
-            <li>✅ <strong>Debt-to-Income Ratio (DTI):</strong> Lenders prefer a DTI below 43%.</li>
-            <li>✅ <strong>Employment & Income Stability:</strong> Proof of steady employment is required.</li>
-            <li>✅ <strong>Down Payment Amount:</strong> A larger down payment can reduce your loan costs.</li>
+            <li><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> <strong>Credit Score:</strong> Higher scores (700+) get better interest rates.</li>
+            <li><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> <strong>Debt-to-Income Ratio (DTI):</strong> Lenders prefer a DTI below 43%.</li>
+            <li><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> <strong>Employment & Income Stability:</strong> Proof of steady employment is required.</li>
+            <li><img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> <strong>Down Payment Amount:</strong> A larger down payment can reduce your loan costs.</li>
           </ul>
 
           <h2 id="best-deals">6. Tips to Get the Best Mortgage Deal</h2>
