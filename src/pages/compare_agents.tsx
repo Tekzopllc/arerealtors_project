@@ -896,7 +896,7 @@ export default function CompareAgentsPage() {
           </div>
           <div className={styles.Footer__bottom}>
             <div className={styles.Footer__copyright}>
-              A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, RealEstateAgents.com. All Rights Reserved.
+              A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, AceRealtors.com. All Rights Reserved.
             </div>
             <select className={styles.LanguageSelector}>
               <option value="/" selected>ENG</option>
