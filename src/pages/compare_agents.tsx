@@ -875,8 +875,8 @@ export default function CompareAgentsPage() {
               <li><a href="/contact">Contact Us</a></li>
               <li><a href="/tos">Terms of Use</a></li>
               <li><a href="/privacy">Privacy Policy</a></li>
-              <li><a href="https://www.referralexchange.com/referral?site=917">Agents Join Here</a></li>
-              <li><a href="http://www.referralexchange.com/information">Do Not Sell My Information</a></li>
+              <li><a href="#">Agents Join Here</a></li>
+              <li><a href="#">Do Not Sell My Information</a></li>
             </ul>
             <div className={styles.Footer__icons}>
               <div className={styles.Footer__icon}>
