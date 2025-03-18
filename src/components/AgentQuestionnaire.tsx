@@ -283,7 +283,7 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
         name: formData.name,
         email: formData.email,
         phone: formatPhoneNumber(formData.phone),
-        budget: formData.budget.toString(),
+        budget: `${formData.budget} - ${formData.budget + 50000}`,
         location: formData.location,
         propertytype: formData.propertyType,
         timeframe: formData.timeframe
@@ -438,12 +438,6 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
             </div>
             
             <div className="MessageAgentForm__screen-controls flex justify-between items-center mt-4">
-              {/* <button 
-                onClick={prevStep}
-                className="bg-white border border-[#eaeaea] rounded-md text-[#1e293b] px-6 py-3.5 md:min-w-[100px] font-bold transition-all duration-200 hover:border-[#ea580c] hover:text-[#ea580c] hover:shadow-sm"
-              >
-                Back
-              </button> */}
             </div>
           </div>
 
@@ -536,7 +530,7 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
 
             <div className="mt-4">
               <div className="text-center text-2xl md:text-3xl font-bold text-[#ea580c] mb-4">
-                {formatCurrency(formData.budget)}
+                {formatCurrency(formData.budget)} - {formatCurrency(formData.budget + 50000)}
               </div>
               
               <div className="mb-4">

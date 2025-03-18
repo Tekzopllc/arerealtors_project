@@ -1,5 +1,6 @@
 import { HomeIcon, Phone } from 'lucide-react';
 import React, { useState, useEffect, useRef } from 'react';
+import styles from '../styles/Footer.module.css';
 import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import PhoneInput from 'react-phone-input-2';
@@ -267,7 +268,7 @@ function AgentQuestionnaire({
         propertyType: '',
         name: '',
         email: '',
-        phone: '',
+        phone: '+1', // Initialize with +1 for US
       });
       setSubmitError(null);
       setShowSuccess(false);
@@ -290,7 +291,7 @@ function AgentQuestionnaire({
         name: formData.name,
         email: formData.email,
         phone: formatPhoneNumber(formData.phone),
-        budget: formData.budget.toString(),
+        budget: `${formData.budget.toString()} - ${formData.budget + 50000}`,
         location: formData.location,
         propertytype: formData.propertyType,
         timeframe: formData.timeframe
@@ -326,7 +327,7 @@ function AgentQuestionnaire({
             propertyType: '',
             name: '',
             email: '',
-            phone: '',
+            phone: '+1', // Initialize with +1 for US
           });
           setCurrentStep(1);
           setShowSuccess(false);
@@ -371,16 +372,34 @@ function AgentQuestionnaire({
   };
 
   const formatCurrency = (value: number): string => {
-    if (value >= 1000000) {
-      return `$${(value / 1000000).toFixed(1)}M`;
-    } else if (value >= 1000) {
-      return `$${(value / 1000).toFixed(0)}K`;
-    } else {
-      return `$${value}`;
+    // Special case for max value
+    if (value >= 2000000) {
+      return "$2M+";
     }
+
+    // Format the range
+    const rangeEnd = value + 50000;
+    
+    // Format start of range
+    const startValue = value >= 1000000
+      ? `$${(value / 1000000).toFixed(1)}M`
+      : `$${(value / 1000).toFixed(0)}K`;
+    
+    // Format end of range
+    const endValue = rangeEnd >= 1000000
+      ? `$${(rangeEnd / 1000000).toFixed(1)}M`
+      : `$${(rangeEnd / 1000).toFixed(0)}K`;
+    
+    return `${startValue} - ${endValue}`;
   };
 
   if (!isOpen) return null;
+
+  // Log initial mount and state
+  useEffect(() => {
+    console.log('AgentQuestionnaire mounted');
+    console.log('Initial formData:', formData);
+  }, []);
 
   return (
     <div className="bg-white rounded-lg w-full h-auto min-h-[650px] overflow-hidden shadow-lg border border-[#eaeaea] relative">
@@ -389,7 +408,7 @@ function AgentQuestionnaire({
         <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] animate-fadeIn">
           <div className="text-center">
             <div className="text-2xl font-bold text-[#272727] mb-4">Thank you for your time</div>
-            <div className="text-gray-600">We will reach out to you.</div>
+            <div className="text-gray-600">We will hand select a realtor for you from your area within next few minutes and have them reach out to you.</div>
           </div>
         </div>
       )}
@@ -421,7 +440,7 @@ function AgentQuestionnaire({
                 type="range"
                 min="50000"
                 max="2000000"
-                step="10000"
+                step="50000"
                 value={formData.budget}
                 onChange={(e) => setFormData({ ...formData, budget: parseInt(e.target.value) })}
                 className="w-full h-2 bg-[#eaeaea] rounded-lg appearance-none cursor-pointer"
@@ -432,46 +451,86 @@ function AgentQuestionnaire({
             </div>
             
             <div className="flex justify-between text-xs text-gray-500">
-              <span>$50K</span>
-              <span>$500K</span>
-              <span>$1M</span>
+              <span>$50K - $100K</span>
+              <span>$500K - $550K</span>
+              <span>$1M - $1.05M</span>
               <span>$2M+</span>
             </div>
           </div>
           
-          <div className="MessageAgentForm__screen-controls flex justify-between items-center mt-4">
+          <div className="MessageAgentForm__screen-controls flex justify-end items-center mt-4">
             <button
+              onClick={nextStep}
+              className="bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors hover:bg-[#d24b09]"
+            >
+              Continue
+            </button>
+          </div>
+          <div className="flex flex-col gap-2 mt-4 px-5 md:px-9 pb-6 bg-white">
+            <p className="text-sm md:text-base text-gray-500">
+              ✅ We've worked with over 10K happy home buyers & sellers across the U.S.
+            </p>
+            <p className="text-sm md:text-base text-gray-500">
+              ✅ We hand select the top agents from your area
+            </p>
+            <p className="text-sm md:text-base text-gray-500">
+              ✅ Get a free custom list of top agents and get connected within 2 minutes.
+            </p>
+          </div>
+        </div>
+
+        {/* Step 2: Property Type */}
+        <div className={`MessageAgentForm__screen ${currentStep === 2 ? 'block animate-fadeInRight' : 'hidden'}
+          absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[70px] md:px-9 md:pt-[70px]`}>
+          <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10">
+            What kind of property are you selling?
+          </div>
+          
+          <div className="flex flex-col gap-4 mt-4">
+            {["Single Family", "Condo", "Land/Lot", "Other"].map((option) => (
+              <button
+                key={option}
+                onClick={() => {
+                  if (option === "Other") {
+                    setShowOtherPropertyTypePopup(true);
+                    setFormData({ ...formData, propertyType: "Other" });
+                  } else {
+                    setFormData({ ...formData, propertyType: option });
+                    nextStep();
+                  }
+                }}
+                className={`flex items-center justify-between p-4 border rounded-md hover:border-[#ea580c] transition-all duration-200
+                  ${formData.propertyType === option ? 'border-2 border-[#ea580c] shadow-[0_0_0_1px_#ea580c]' : 'border-[#eaeaea]'}`}
+              >
+                <span className="text-[#272727]">{option}</span>
+                {formData.propertyType === option && (
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="#ea580c"/>
+                  </svg>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Popup is now handled in parent component */}
+          
+          <div className="MessageAgentForm__screen-controls flex justify-between items-center mt-6 pt-4">
+            <button 
               onClick={prevStep}
               className="bg-white border border-[#eaeaea] rounded-md text-[#1e293b] px-6 py-3.5 md:min-w-[100px] font-bold transition-all duration-200 hover:border-[#ea580c] hover:text-[#ea580c] hover:shadow-sm"
             >
               Back
             </button>
-            <button
-              onClick={nextStep}
-              className="ml-auto bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors hover:bg-[#d24b09]"
-            >
-              Continue
-            </button>
-          </div>
-          <div className="flex flex-col gap-2 absolute bottom-14 left-0 right-0 px-5 md:px-9 pb-6 bg-white">
-            <p className="text-sm md:text-base text-gray-400 italic">
-              We've worked with over 10k happy home buyers and sellers across the U.S.
-            </p>
-            <p className="text-sm md:text-base text-gray-400 italic">
-              We hand select the top agents from your area
-            </p>
-            <p className="text-sm md:text-base text-gray-400 italic">
-              Get a custom list of top agents and get connected within 2 minutes
-            </p>
           </div>
         </div>
 
-        {/* Step 2: Location */}
-        <div className={`MessageAgentForm__screen ${currentStep === 2 ? 'block animate-fadeInRight' : 'hidden'}
+        {/* Step 3: Location */}
+        <div className={`MessageAgentForm__screen ${currentStep === 3 ? 'block animate-fadeInRight' : 'hidden'}
           absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[70px] md:px-9 md:pt-[70px]`}>
           <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10">
-            What is your preferred location?
+          What is the address of your property?
           </div>
+          <p>So we can recommend experts who have sold similar properties.</p>
           
           <div className="mt-4 relative">
             <div className="relative" onClick={(e) => e.stopPropagation()}>
@@ -546,50 +605,7 @@ function AgentQuestionnaire({
           </div>
         </div>
 
-        {/* Step 3: Property Type */}
-        <div className={`MessageAgentForm__screen ${currentStep === 3 ? 'block animate-fadeInRight' : 'hidden'}
-          absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[70px] md:px-9 md:pt-[70px]`}>
-          <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10">
-            What kind of property are you selling?
-          </div>
-          
-          <div className="flex flex-col gap-4 mt-4">
-            {["Single Family", "Condo", "Land/Lot", "Other"].map((option) => (
-              <button
-                key={option}
-                onClick={() => {
-                  if (option === "Other") {
-                    setShowOtherPropertyTypePopup(true);
-                    setFormData({ ...formData, propertyType: "Other" });
-                  } else {
-                    setFormData({ ...formData, propertyType: option });
-                    nextStep();
-                  }
-                }}
-                className={`flex items-center justify-between p-4 border rounded-md hover:border-[#ea580c] transition-all duration-200
-                  ${formData.propertyType === option ? 'border-2 border-[#ea580c] shadow-[0_0_0_1px_#ea580c]' : 'border-[#eaeaea]'}`}
-              >
-                <span className="text-[#272727]">{option}</span>
-                {formData.propertyType === option && (
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="#ea580c"/>
-                  </svg>
-                )}
-              </button>
-            ))}
-          </div>
-
-          {/* Popup is now handled in parent component */}
-          
-          <div className="MessageAgentForm__screen-controls flex justify-between items-center mt-6 pt-4">
-            <button 
-              onClick={prevStep}
-              className="bg-white border border-[#eaeaea] rounded-md text-[#1e293b] px-6 py-3.5 md:min-w-[100px] font-bold transition-all duration-200 hover:border-[#ea580c] hover:text-[#ea580c] hover:shadow-sm"
-            >
-              Back
-            </button>
-          </div>
-        </div>
+        
 
         {/* Step 4: Full Name */}
         <div className={`MessageAgentForm__screen ${currentStep === 4 ? 'block animate-fadeInRight' : 'hidden'}
@@ -597,6 +613,7 @@ function AgentQuestionnaire({
           <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10">
             What's your name?
           </div>
+          <p>Our recommendations are free. No strings attached.</p>
           
           <div className="mt-4">
             <input
@@ -642,7 +659,10 @@ function AgentQuestionnaire({
               className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c]"
             />
             <p className="text-xs text-gray-500 mt-2">
-              We'll send your property matches to this email
+            ✅ Get a list of great local agents in your inbox today
+            </p>
+            <p className="text-xs text-gray-500 mt-2">
+            ✅ We or your carefully selected agents may email you to help with your transaction
             </p>
             {/* Email validation function */}
             {formData.email && (
@@ -653,20 +673,20 @@ function AgentQuestionnaire({
           </div>
           
           <div className="MessageAgentForm__screen-controls flex justify-between items-center mt-6 pt-4">
-            <button 
-              onClick={prevStep}
-              className="bg-white border border-[#eaeaea] rounded-md text-[#1e293b] px-6 py-3.5 md:min-w-[100px] font-bold transition-all duration-200 hover:border-[#ea580c] hover:text-[#ea580c] hover:shadow-sm"
-            >
-              Back
-            </button>
-            <button 
-              onClick={nextStep}
-              disabled={!formData.email.trim() || !validateEmail(formData.email)}
-              className={`ml-auto bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors ${!formData.email.trim() || !validateEmail(formData.email) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#d24b09]'}`}
-            >
-              Continue
-            </button>
-          </div>
+                      <button
+                        onClick={prevStep}
+                        className="bg-white border border-[#eaeaea] rounded-md text-[#1e293b] px-6 py-3.5 md:min-w-[100px] font-bold transition-all duration-200 hover:border-[#ea580c] hover:text-[#ea580c] hover:shadow-sm"
+                      >
+                        Back
+                      </button>
+                      <button
+                        onClick={nextStep}
+                        disabled={!formData.email.trim() || !validateEmail(formData.email)}
+                        className={`ml-auto bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors ${!formData.email.trim() || !validateEmail(formData.email) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#d24b09]'}`}
+                      >
+                        Continue
+                      </button>
+                    </div>
         </div>
 
         {/* Step 6: Phone */}
@@ -675,25 +695,34 @@ function AgentQuestionnaire({
           <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10">
             What's your phone number?
           </div>
+          <p>✅ A phone consultation with your recommended agents is the best way to get help</p>
+
+              <p>✅ We or your carefully selected agents may call you to assist with your transaction</p>
           
           <div className="mt-4">
-            <div className={`relative z-[100] ${showSuccess ? 'animate-fadeOut' : ''}`}>
-              <PhoneInput
-                country={'us'}
-                value={formData.phone}
-                onChange={(phone) => setFormData({ ...formData, phone: `+${phone}` })}
-                containerClass="!w-full phone-input-container"
-                inputClass="!w-full !h-[46px] !py-3 !text-[#272727] !border-[#eaeaea] !rounded-md focus:!ring-[#ea580c] focus:!border-[#ea580c]"
-                buttonClass="!border-[#eaeaea] !h-[46px] !rounded-l-md hover:!border-[#ea580c]"
-                dropdownClass="!rounded-b-md !border-[#eaeaea] !text-[#272727]"
-                searchClass="!rounded-t-md !m-0 !py-2"
-                enableSearch={true}
-                countryCodeEditable={false}
-                specialLabel=""
-              />
-            </div>
+          <PhoneInput
+            country={'us'}
+            value={formData.phone}
+            onChange={(phone) => {
+              console.log('Phone changed:', phone);
+              setFormData({ ...formData, phone: `+${phone}` });
+            }}
+            onCountryChange={(country) => {
+              console.log('Country changed:', country);
+            }}
+            defaultCountry={'us'}
+            preferredCountries={['us']}
+            containerClass="!w-full phone-input-container"
+            inputClass="!w-full !h-[46px] !py-3 !text-[#272727] !border-[#eaeaea] !rounded-md focus:!ring-[#ea580c] focus:!border-[#ea580c]"
+            buttonClass="!border-[#eaeaea] !h-[46px] !rounded-l-md hover:!border-[#ea580c]"
+            dropdownClass="!rounded-b-md !border-[#eaeaea] !text-[#272727]"
+            searchClass="!rounded-t-md !m-0 !py-2"
+            enableSearch={true}
+            countryCodeEditable={false}
+            specialLabel=""
+          />
             <p className="text-xs text-gray-500 mt-2">
-              Your agent will call you at this number
+            By clicking “Accept”, I am providing my esign and express written consent to allow ReferralExchange and our affiliated Participating Agents, or parties calling on their behalf, to contact me at the phone number above for marketing purposes, including through the use of calls, SMS/MMS, prerecorded and/or artificial voice messages using an automated dialing system to provide agent info, even if your number is listed on a corporate, state or federal Do-Not-Call list. Consent is not a condition for our service and you can revoke it at any time.
             </p>
           </div>
           
@@ -704,21 +733,20 @@ function AgentQuestionnaire({
           )}
           
           <div className="MessageAgentForm__screen-controls flex justify-between items-center mt-6 pt-4">
-            <button 
-              onClick={prevStep}
-              className="bg-white border border-[#eaeaea] rounded-md text-[#1e293b] px-6 py-3.5 md:min-w-[100px] font-bold transition-all duration-200 hover:border-[#ea580c] hover:text-[#ea580c] hover:shadow-sm"
-              disabled={isSubmitting}
-            >
-              Back
-            </button>
-            <button 
-              onClick={handleSubmit}
-              disabled={!formData.phone || formData.phone.length < 8 || isSubmitting}
-              className={`ml-auto bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors ${(!formData.phone || formData.phone.length < 8 || isSubmitting) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#d24b09]'}`}
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit'}
-            </button>
-          </div>
+                      <button
+                        onClick={prevStep}
+                        className="bg-white border border-[#eaeaea] rounded-md text-[#1e293b] px-6 py-3.5 md:min-w-[100px] font-bold transition-all duration-200 hover:border-[#ea580c] hover:text-[#ea580c] hover:shadow-sm"
+                      >
+                        Back
+                      </button>
+                      <button
+                        onClick={handleSubmit}
+                        disabled={!formData.phone || formData.phone.length < 8 || isSubmitting}
+                        className={`ml-auto bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors ${(!formData.phone || formData.phone.length < 8 || isSubmitting) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#d24b09]'}`}
+                      >
+                        {isSubmitting ? 'Submitting...' : 'Submit'}
+                      </button>
+                    </div>
         </div>
       </div>
     </div>
@@ -738,7 +766,7 @@ export default function CompareAgentsPage() {
     propertyType: '',
     name: '',
     email: '',
-    phone: '',
+    phone: '+1', // Initialize with +1 for US
   });
 
   const totalSteps = 6; // Each input is a separate page
@@ -839,47 +867,41 @@ export default function CompareAgentsPage() {
         )}
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Main Footer Content */}
-          <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Company Info */}
-            <div className="space-y-6">
-              <div className="flex items-center">
-                <HomeIcon className="h-8 w-8 text-primary" />
-                <span className="ml-2 text-xl font-bold">AceRealtors</span>
+      <footer className={styles.Footer}>
+        <div className={styles.Footer__container}>
+          <div className={styles.Footer__top}>
+            <ul className={styles.Footer__nav}>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/contact">Contact Us</a></li>
+              <li><a href="/tos">Terms of Use</a></li>
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="https://www.referralexchange.com/referral?site=917">Agents Join Here</a></li>
+              <li><a href="http://www.referralexchange.com/information">Do Not Sell My Information</a></li>
+            </ul>
+            <div className={styles.Footer__icons}>
+              <div className={styles.Footer__icon}>
+                  <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="90" height="35" />
+              
               </div>
-              <p className="text-gray-400">
-                Your trusted partner in finding the perfect home. Expert agents, premium listings, and seamless experiences.
-              </p>
-              <div className="space-y-3">
-                <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary transition-colors">
-                  <Phone className="h-5 w-5 mr-2" />
-                  855-696-1455
-                </a>
+              <div className={styles.Footer__icon}>
+                <img alt="Verisign" src="/verisign.webp" width="63" height="37" />
               </div>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h3 className="text-lg font-semibold mb-6">Legal</h3>
-              <ul className="space-y-3">
-                <li>
-                  <Link to="/terms" className="text-gray-400 hover:text-primary transition-colors">Terms of Service</Link>
-                </li>
-                <li>
-                  <Link to="/privacy" className="text-gray-400 hover:text-primary transition-colors">Privacy Policy</Link>
-                </li>
-              </ul>
+              <div className={styles.Footer__icon}>
+                <img alt="Realtor" src="/office_R_white.webp" width="34" height="38" />
+              </div>
+              {/* <div className={`${styles.Footer__icon} ${styles.bbbContainer}`}>
+                <img src="/referralexchange-458879.png" alt="BBB Logo" width="89" height="34" />
+              </div> */}
             </div>
           </div>
-
-          {/* Bottom Footer */}
-          <div className="py-6 border-t border-gray-800">
-            <p className="text-gray-400 text-sm text-center">
-              © {new Date().getFullYear()} AceRealtors. All rights reserved.
-            </p>
+          <div className={styles.Footer__bottom}>
+            <div className={styles.Footer__copyright}>
+              A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, RealEstateAgents.com. All Rights Reserved.
+            </div>
+            <select className={styles.LanguageSelector}>
+              <option value="/" selected>ENG</option>
+              <option value="fr">FR</option>
+            </select>
           </div>
         </div>
       </footer>
