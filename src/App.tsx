@@ -18,15 +18,15 @@ import RealEstateAgentBlogPost from './pages/blogspot5';
 
 function AppContent() {
   const location = useLocation();
-  const isAdminPage = location.pathname === '/adminlogin';
+  const hideNavbar = location.pathname === '/adminlogin' || location.pathname === '/compare_agents';
   
   console.log('Current path:', location.pathname);
-  console.log('Is admin page:', isAdminPage);
+  console.log('Hide navbar:', hideNavbar);
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {!isAdminPage && <Navbar />}
-      <main className={!isAdminPage ? "pt-16" : ""}>
+      {!hideNavbar && <Navbar />}
+      <main className={!hideNavbar ? "pt-16" : ""}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sell" element={<SellProperty />} />
