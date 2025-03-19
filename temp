@@ -235,16 +235,19 @@ function AgentQuestionnaire({
         closeTimeoutRef.current = null;
       }
       
-      setCurrentStep(1);
-      setFormData({
-        timeframe: '',
-        location: '',
-        budget: 300000,
-        propertyType: '',
-        name: '',
-        email: '',
-        phone: '+1', // Initialize with +1 for US
-      });
+      // Only reset form if it's the initial open
+      if (currentStep === 1) {
+        setFormData({
+          timeframe: '',
+          location: '',
+          budget: 300000,
+          propertyType: '',
+          name: '',
+          email: '',
+          phone: '+1', // Initialize with +1 for US
+        });
+      }
+      
       setSubmitError(null);
       setShowSuccess(false);
       setIsClosing(false);
@@ -252,7 +255,7 @@ function AgentQuestionnaire({
       setIsPopupClosing(false);
       setOtherPropertyType('');
     }
-  }, [isOpen]);
+  }, [isOpen, currentStep]);
 
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -261,6 +264,25 @@ function AgentQuestionnaire({
     setSubmitError(null);
     
     try {
+      // Log the form data before submission
+      console.log('Form data before submission:', formData);
+      
+      // Check for property type in both form data and localStorage
+      const savedPropertyType = localStorage.getItem('propertyType');
+      if (!formData.propertyType && savedPropertyType) {
+        setFormData(prev => ({
+          ...prev,
+          propertyType: savedPropertyType
+        }));
+      }
+      
+      // Validate property type
+      if (!formData.propertyType && !savedPropertyType) {
+        setSubmitError('Please select a property type');
+        setIsSubmitting(false);
+        return;
+      }
+      
       // Format the data for Supabase
       const submissionData = {
         name: formData.name,
@@ -271,6 +293,8 @@ function AgentQuestionnaire({
         propertytype: formData.propertyType,
         timeframe: formData.timeframe
       };
+      
+      console.log('Submission data:', submissionData);
       
       // Insert data into Supabase
       const { error } = await supabase
@@ -294,21 +318,29 @@ function AgentQuestionnaire({
         setIsClosing(true);
         // Close after animation completes and reset states
         closeTimeoutRef.current = window.setTimeout(() => {
-          // Reset form data and states
-          setFormData({
-            timeframe: '',
-            location: '',
-            budget: 300000,
-            propertyType: '',
-            name: '',
-            email: '',
-            phone: '+1', // Initialize with +1 for US
-          });
+          // Only reset after successful submission
+          console.log('Form submitted successfully, resetting...');
+          onSubmit(formData); // Call onSubmit before resetting
+          
+          // Reset the form
           setCurrentStep(1);
           setShowSuccess(false);
           setIsClosing(false);
           onClose();
           closeTimeoutRef.current = null;
+          
+          // Reset form data last
+          setTimeout(() => {
+            setFormData({
+              timeframe: '',
+              location: '',
+              budget: 300000,
+              propertyType: '',
+              name: '',
+              email: '',
+              phone: '+1', // Initialize with +1 for US
+            });
+          }, 500);
         }, 500);
       }, 2000);
     } catch (err) {
@@ -330,6 +362,35 @@ function AgentQuestionnaire({
 
   const nextStep = () => {
     if (currentStep < totalSteps) {
+      // Log current state before moving to next step
+      console.log('Current state before next step:', {
+        step: currentStep,
+        formData: formData
+      });
+      
+      // Special handling for step 2 (property type)
+      if (currentStep === 2) {
+        // Ensure property type is selected
+        if (!formData.propertyType) {
+          console.log('Preventing next step - no property type selected');
+          return;
+        }
+        
+        // Store property type in local storage to prevent loss
+        localStorage.setItem('propertyType', formData.propertyType);
+      }
+      
+      // If moving past step 2, ensure property type is preserved
+      if (currentStep > 2) {
+        const savedPropertyType = localStorage.getItem('propertyType');
+        if (savedPropertyType && !formData.propertyType) {
+          setFormData(prev => ({
+            ...prev,
+            propertyType: savedPropertyType
+          }));
+        }
+      }
+      
       setCurrentStep(currentStep + 1);
     } else {
       handleSubmit();
@@ -338,9 +399,26 @@ function AgentQuestionnaire({
 
   const prevStep = () => {
     if (currentStep > 1) {
+      // If returning to step 2, restore property type from storage
+      if (currentStep - 1 === 2) {
+        const savedPropertyType = localStorage.getItem('propertyType');
+        if (savedPropertyType) {
+          setFormData(prev => ({
+            ...prev,
+            propertyType: savedPropertyType
+          }));
+        }
+      }
       setCurrentStep(currentStep - 1);
     }
   };
+
+  // Cleanup localStorage on unmount
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('propertyType');
+    };
+  }, []);
 
   const getProgressWidth = () => {
     return `${(currentStep / totalSteps) * 100}%`;
@@ -375,6 +453,11 @@ function AgentQuestionnaire({
     console.log('AgentQuestionnaire mounted');
     console.log('Initial formData:', formData);
   }, []);
+
+  // Monitor propertyType changes
+  useEffect(() => {
+    console.log('Property type changed:', formData.propertyType);
+  }, [formData.propertyType]);
 
   return (
     <div className="bg-white rounded-lg w-full h-auto min-h-[650px] overflow-hidden shadow-lg border border-[#eaeaea] relative">
@@ -476,11 +559,15 @@ function AgentQuestionnaire({
                 key={option}
                 onClick={() => {
                   if (option === "Other") {
+                    setFormData(prevData => ({ ...prevData, propertyType: "Other" }));
                     setShowOtherPropertyTypePopup(true);
-                    setFormData({ ...formData, propertyType: "Other" });
                   } else {
-                    setFormData({ ...formData, propertyType: option });
-                    nextStep();
+                    // Update form data and navigate in a single operation
+                    setFormData(prevData => ({ ...prevData, propertyType: option }));
+                    // Store in localStorage to prevent loss of selection
+                    localStorage.setItem('propertyType', option);
+                    // Immediately proceed to next step
+                    setCurrentStep(prev => prev + 1);
                   }
                 }}
                 className={`flex items-center justify-between p-4 border rounded-md hover:border-[#ea580c] transition-all duration-200
@@ -753,9 +840,13 @@ export default function CompareAgentsPage() {
     <div className="min-h-screen flex flex-col">
       <main className="flex-1">
         <div className="w-full min-h-full bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/bg.jpg)' }}>
-          {/* Logo */}
-          <div className="w-full flex justify-center pt-6">
-            <img src="/new_logo.png" alt="Company Logo" className="w-48 h-auto mix-blend-screen brightness-200 contrast-200" />
+          {/* Logo and Phone Number */}
+          <div className="w-full flex justify-between items-center px-8 pt-6">
+            <img src="/new_logo.png" alt="Company Logo" className="w-64 h-auto mix-blend-screen brightness-200 contrast-200" />
+            <div className="flex items-center gap-3 text-white">
+              <Phone size={24} />
+              <span className="text-xl font-semibold">855-696-1455</span>
+            </div>
           </div>
           <div className="w-full max-w-[900px] mx-auto py-10 relative">
         {/* Agent Questionnaire */}
@@ -801,7 +892,7 @@ export default function CompareAgentsPage() {
                     setTimeout(() => {
                       setShowOtherPropertyTypePopup(false);
                       setOtherPropertyType('');
-                      setFormData({ ...formData, propertyType: '' });
+                      // Don't reset property type on cancel, keep the "Other" selection
                       setIsPopupClosing(false);
                     }, 300);
                   }}
@@ -811,13 +902,28 @@ export default function CompareAgentsPage() {
                 </button>
                 <button
                   onClick={() => {
+                    if (!otherPropertyType.trim()) return;
+                    
+                    const newPropertyType = `Other: ${otherPropertyType.trim()}`;
+                    console.log('Setting Other property type to:', newPropertyType);
+                    
+                    // Update form data first
+                    setFormData(prevData => {
+                      const updatedData = { ...prevData, propertyType: newPropertyType };
+                      console.log('Updated form data:', updatedData);
+                      return updatedData;
+                    });
+                    
+                    // Ensure the form data is updated before proceeding
                     setIsPopupClosing(true);
                     setTimeout(() => {
-                      setFormData({ ...formData, propertyType: `Other: ${otherPropertyType}` });
                       setShowOtherPropertyTypePopup(false);
                       setOtherPropertyType('');
                       setIsPopupClosing(false);
-                      nextStep();
+                      // Add slight delay to ensure state is updated
+                      setTimeout(() => {
+                        nextStep();
+                      }, 100);
                     }, 300);
                   }}
                   disabled={!otherPropertyType.trim()}

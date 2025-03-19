@@ -533,15 +533,18 @@ function AgentQuestionnaire({
               Continue
             </button>
           </div>
-          <div className="flex flex-col gap-2 mt-4 px-5 md:px-9 pb-6 bg-white">
-            <p className="text-sm md:text-base text-gray-500">
-              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> We've worked with over 10K happy home buyers & sellers across the U.S.
+          <div className="flex flex-col gap-3 mt-4 px-4 md:px-9 pb-6 bg-white">
+            <p className="text-sm md:text-base text-gray-500 flex items-start">
+              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
+              <span>We've worked with over 10K happy home buyers & sellers across the U.S.</span>
             </p>
-            <p className="text-sm md:text-base text-gray-500">
-              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> We hand select the top agents from your area
+            <p className="text-sm md:text-base text-gray-500 flex items-start">
+              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
+              <span>We hand select the top agents from your area</span>
             </p>
-            <p className="text-sm md:text-base text-gray-500">
-              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="inline-block w-4 h-4 mr-1"/> Get a free custom list of top agents and get connected within 2 minutes.
+            <p className="text-sm md:text-base text-gray-500 flex items-start">
+              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
+              <span>Get a free custom list of top agents and get connected within 2 minutes.</span>
             </p>
           </div>
         </div>
@@ -841,11 +844,11 @@ export default function CompareAgentsPage() {
       <main className="flex-1">
         <div className="w-full min-h-full bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/bg.jpg)' }}>
           {/* Logo and Phone Number */}
-          <div className="w-full flex justify-between items-center px-8 pt-6">
-            <img src="/new_logo.png" alt="Company Logo" className="w-64 h-auto mix-blend-screen brightness-200 contrast-200" />
-            <div className="flex items-center gap-3 text-white">
-              <Phone size={24} />
-              <span className="text-xl font-semibold">855-696-1455</span>
+          <div className="w-full flex flex-col md:flex-row justify-between items-center px-4 md:px-8 pt-6 gap-4 md:gap-0">
+            <img src="/new_logo.png" alt="Company Logo" className="w-48 md:w-64 h-auto mix-blend-screen brightness-200 contrast-200" />
+            <div className="flex items-center gap-2 md:gap-3 text-white whitespace-nowrap">
+              <Phone size={18} className="md:size-[20px]" />
+              <span className="text-lg md:text-xl font-semibold">855-696-1455</span>
             </div>
           </div>
           <div className="w-full max-w-[900px] mx-auto py-10 relative">
