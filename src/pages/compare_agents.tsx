@@ -460,7 +460,7 @@ function AgentQuestionnaire({
   }, [formData.propertyType]);
 
   return (
-    <div className="bg-white rounded-lg w-full h-auto min-h-[650px] overflow-hidden shadow-lg border border-[#eaeaea] relative">
+    <div className="bg-white rounded-lg w-full h-auto min-h-[550px] overflow-hidden shadow-lg border border-[#eaeaea] relative">
       {/* Success message overlay with higher z-index */}
       {showSuccess && (
         <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] animate-fadeIn">
@@ -484,7 +484,8 @@ function AgentQuestionnaire({
         {/* Step 1: Budget (Slider) */}
         <div className={`MessageAgentForm__screen ${currentStep === 1 ? 'block animate-fadeInRight' : 'hidden'}
           absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[70px] md:px-9 md:pt-[70px]`}>
-            <div className="flex flex-col items-center mb-16">
+            {/* Heading - Hidden on mobile, visible on desktop */}
+            <div className="hidden md:flex flex-col items-center mb-16">
               <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-2">
                 Find The Best REALTORS
               </div>
@@ -533,7 +534,7 @@ function AgentQuestionnaire({
               Continue
             </button>
           </div>
-          <div className="flex flex-col gap-3 mt-4 px-4 md:px-9 pb-6 bg-white">
+          <div className="flex flex-col gap-4 md:gap-3 mt-4 px-4 md:px-9 pb-4 md:pb-6 bg-white">
             <p className="text-sm md:text-base text-gray-500 flex items-start">
               <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
               <span>We've worked with over 10K happy home buyers & sellers across the U.S.</span>
@@ -843,15 +844,46 @@ export default function CompareAgentsPage() {
     <div className="min-h-screen flex flex-col">
       <main className="flex-1">
         <div className="w-full min-h-full bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/bg.jpg)' }}>
-          {/* Logo and Phone Number */}
-          <div className="w-full flex flex-col md:flex-row justify-between items-center px-4 md:px-8 pt-6 gap-4 md:gap-0">
-            <img src="/new_logo.png" alt="Company Logo" className="w-48 md:w-64 h-auto mix-blend-screen brightness-200 contrast-200" />
-            <div className="flex items-center gap-2 md:gap-3 text-white whitespace-nowrap">
-              <Phone size={18} className="md:size-[20px]" />
-              <span className="text-lg md:text-xl font-semibold">855-696-1455</span>
+          {/* Header Container */}
+          <div className="Header_Header__container__ZX38g py-4">
+            <div className="Header_Header__brand__sztra max-w-7xl mx-auto px-4 md:px-8">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-3">
+                  <Link to="/" className="block">
+                  <img
+                    src="/new_logo.png"
+                    alt="RealEstateAgents.com"
+                    className="w-[120px] md:w-[180px] h-auto mix-blend-screen brightness-200 contrast-200"
+                  />
+                  </Link>
+                  <img
+                    src="/Flag-United-States-of-America.webp"
+                    alt="USA Flag"
+                    className="w-[30px] md:w-[40px] h-auto object-contain"
+                  />
+                </div>
+                <div className="Header_Header__phone__rT5_y flex flex-col md:flex-row items-end md:items-center gap-0.5 md:gap-2">
+                  <div className="text-white text-[10px] md:text-sm text-right">Questions? Call:</div>
+                  <a href="tel:+18556961455" className="text-white text-sm md:text-base font-medium hover:text-orange-500 transition-colors whitespace-nowrap">
+                    +1 (855) 696-1455
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="w-full max-w-[900px] mx-auto py-10 relative">
+          <div className="w-full max-w-[900px] mx-auto py-6 md:py-10 relative px-4 md:px-8">
+            {/* Page Heading - Outside form for mobile */}
+            <div className="block md:hidden text-center mb-6">
+              <h1 className="text-2xl font-bold text-white mb-2">
+                Find The Best REALTORS
+              </h1>
+              <h2 className="text-2xl font-bold text-white mb-4">
+                In Salt Lake City, UT
+              </h2>
+              <p className="text-white/90 text-sm">
+                Instantly see a personalized list of great agents to choose from.
+              </p>
+            </div>
         {/* Agent Questionnaire */}
         <AgentQuestionnaire
           isOpen={true}
