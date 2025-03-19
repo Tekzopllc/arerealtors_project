@@ -131,31 +131,19 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// List of cities for the location dropdown
-const cities = [
-  "New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX", "Phoenix, AZ",
-  "Philadelphia, PA", "San Antonio, TX", "San Diego, CA", "Dallas, TX", "San Jose, CA",
-  "Austin, TX", "Jacksonville, FL", "Fort Worth, TX", "Columbus, OH", "Charlotte, NC",
-  "San Francisco, CA", "Indianapolis, IN", "Seattle, WA", "Denver, CO", "Washington, DC",
-  "Boston, MA", "El Paso, TX", "Nashville, TN", "Detroit, MI", "Oklahoma City, OK",
-  "Portland, OR", "Las Vegas, NV", "Memphis, TN", "Louisville, KY", "Baltimore, MD",
-  "Milwaukee, WI", "Albuquerque, NM", "Tucson, AZ", "Fresno, CA", "Sacramento, CA",
-  "Mesa, AZ", "Kansas City, MO", "Atlanta, GA", "Long Beach, CA", "Colorado Springs, CO",
-  "Raleigh, NC", "Miami, FL", "Virginia Beach, VA", "Omaha, NE", "Oakland, CA",
-  "Minneapolis, MN", "Tulsa, OK", "Arlington, TX", "New Orleans, LA", "Wichita, KS",
-  "Cleveland, OH", "Tampa, FL", "Bakersfield, CA", "Aurora, CO", "Honolulu, HI",
-  "Anaheim, CA", "Santa Ana, CA", "Riverside, CA", "Corpus Christi, TX", "Lexington, KY",
-  "Stockton, CA", "Henderson, NV", "Saint Paul, MN", "St. Louis, MO", "Cincinnati, OH",
-  "Pittsburgh, PA", "Greensboro, NC", "Anchorage, AK", "Plano, TX", "Lincoln, NE",
-  "Orlando, FL", "Irvine, CA", "Newark, NJ", "Toledo, OH", "Durham, NC",
-  "Chula Vista, CA", "Fort Wayne, IN", "Jersey City, NJ", "St. Petersburg, FL",
-  "Laredo, TX", "Madison, WI", "Chandler, AZ", "Buffalo, NY", "Lubbock, TX",
-  "Scottsdale, AZ", "Reno, NV", "Glendale, AZ", "Gilbert, AZ", "Winston-Salem, NC",
-  "North Las Vegas, NV", "Norfolk, VA", "Chesapeake, VA", "Garland, TX", "Boise, ID",
-  "Baton Rouge, LA", "Richmond, VA", "Spokane, WA", "Des Moines, IA", "Montgomery, AL",
-  "Modesto, CA", "Fayetteville, NC", "Shreveport, LA", "Akron, OH", "Tacoma, WA",
-  "Aurora, IL"
-];
+// Google Places Autocomplete input reference
+// Google Maps type declarations
+declare global {
+  interface Window {
+    google: {
+      maps: {
+        places: {
+          Autocomplete: typeof google.maps.places.Autocomplete;
+        };
+      };
+    };
+  }
+}
 
 // Define interface for questionnaire data
 export interface QuestionnaireData {
@@ -222,25 +210,12 @@ function AgentQuestionnaire({
 }: QuestionnaireProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const totalSteps = 6; // Each input is now a separate page
   
   // Reference to store and clear timeouts
   const closeTimeoutRef = useRef<number | null>(null);
-
-  // Handle click outside to close dropdown
-  useEffect(() => {
-    const handleClickOutside = () => {
-      setIsDropdownVisible(false);
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
 
   // Clean up any lingering timeouts when component unmounts or isOpen changes
   useEffect(() => {
@@ -264,7 +239,7 @@ function AgentQuestionnaire({
       setFormData({
         timeframe: '',
         location: '',
-        budget: 500000,
+        budget: 300000,
         propertyType: '',
         name: '',
         email: '',
@@ -323,7 +298,7 @@ function AgentQuestionnaire({
           setFormData({
             timeframe: '',
             location: '',
-            budget: 500000,
+            budget: 300000,
             propertyType: '',
             name: '',
             email: '',
@@ -426,10 +401,19 @@ function AgentQuestionnaire({
         {/* Step 1: Budget (Slider) */}
         <div className={`MessageAgentForm__screen ${currentStep === 1 ? 'block animate-fadeInRight' : 'hidden'}
           absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[70px] md:px-9 md:pt-[70px]`}>
-          <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10">
-            What price are you hoping to sell at?
-          </div>
-
+            <div className="flex flex-col items-center mb-16">
+              <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-2">
+                Find The Best REALTORS
+              </div>
+              <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-4">
+                In Salt Lake City, UT
+              </div>
+              <p>Instantly see a personalized list of great agents to choose from.</p>
+            </div>
+            
+          <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10 text-center">
+                      What price are you hoping to sell at?
+                    </div>
           <div className="mt-4">
             <div className="text-center text-2xl md:text-3xl font-bold text-[#ea580c] mb-8">
               {formatCurrency(formData.budget)}
@@ -537,54 +521,32 @@ function AgentQuestionnaire({
               <input
                 type="text"
                 value={formData.location}
-                onChange={(e) => {
-                  setFormData({ ...formData, location: e.target.value });
-                  setIsDropdownVisible(true);
-                }}
-                onFocus={() => setIsDropdownVisible(true)}
-                placeholder="Type to search cities..."
+                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                placeholder="Enter your property address..."
                 className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c] bg-white hover:border-[#ea580c] transition-colors"
+                ref={(input) => {
+                  if (input && !input.getAttribute('data-places-initialized')) {
+                    const autocomplete = new window.google.maps.places.Autocomplete(input, {
+                      types: ['address'],
+                      componentRestrictions: { country: 'us' }
+                    });
+                    
+                    autocomplete.addListener('place_changed', () => {
+                      const place = autocomplete.getPlace();
+                      if (place.formatted_address) {
+                        setFormData({ ...formData, location: place.formatted_address });
+                      }
+                    });
+                    
+                    input.setAttribute('data-places-initialized', 'true');
+                  }
+                }}
               />
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-              {isDropdownVisible && (
-                <div
-                  className="absolute z-10 w-full mt-1 bg-white border border-[#eaeaea] rounded-md shadow-lg max-h-60 overflow-auto"
-                  style={{ scrollbarWidth: 'thin' }}
-                >
-                  {cities
-                    .filter(city =>
-                      city.toLowerCase().includes(formData.location.toLowerCase())
-                    )
-                    .map((city) => (
-                      <div
-                        key={city}
-                        onClick={() => {
-                          setFormData({ ...formData, location: city });
-                          setIsDropdownVisible(false);
-                        }}
-                        onMouseDown={(e) => e.preventDefault()}
-                        className={`px-4 py-2 cursor-pointer transition-colors ${
-                          formData.location === city
-                            ? 'bg-[#fff7ed] text-[#ea580c] font-medium'
-                            : 'text-[#272727] hover:bg-[#fff7ed]'
-                        }`}
-                      >
-                        {city}
-                      </div>
-                    ))}
-                  {cities.filter(city =>
-                    city.toLowerCase().includes(formData.location.toLowerCase())
-                  ).length === 0 && (
-                    <div className="px-4 py-2 text-gray-500 italic">
-                      No cities found
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
           </div>
           
@@ -707,10 +669,7 @@ function AgentQuestionnaire({
               console.log('Phone changed:', phone);
               setFormData({ ...formData, phone: `+${phone}` });
             }}
-            onCountryChange={(country) => {
-              console.log('Country changed:', country);
-            }}
-            defaultCountry={'us'}
+            // defaultCountry={'us'}
             preferredCountries={['us']}
             containerClass="!w-full phone-input-container"
             inputClass="!w-full !h-[46px] !py-3 !text-[#272727] !border-[#eaeaea] !rounded-md focus:!ring-[#ea580c] focus:!border-[#ea580c]"
@@ -762,7 +721,7 @@ export default function CompareAgentsPage() {
   const [formData, setFormData] = useState<QuestionnaireData>({
     timeframe: '',
     location: '',
-    budget: 500000,
+    budget: 300000,
     propertyType: '',
     name: '',
     email: '',
@@ -791,9 +750,18 @@ export default function CompareAgentsPage() {
   };
 
   return (
-    <>
-      {/* Main Content */}
-      <div className="w-full max-w-[900px] mx-auto py-10 relative">
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1">
+        <div className="w-full min-h-full bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/bg.jpg)' }}>
+          {/* Logo and Phone Number */}
+          <div className="w-full flex justify-between items-center px-8 pt-6">
+            <img src="/new_logo.png" alt="Company Logo" className="w-64 h-auto mix-blend-screen brightness-200 contrast-200" />
+            <div className="flex items-center gap-3 text-white">
+              <Phone size={24} />
+              <span className="text-xl font-semibold">855-696-1455</span>
+            </div>
+          </div>
+          <div className="w-full max-w-[900px] mx-auto py-10 relative">
         {/* Agent Questionnaire */}
         <AgentQuestionnaire
           isOpen={true}
@@ -905,6 +873,8 @@ export default function CompareAgentsPage() {
           </div>
         </div>
       </footer>
-    </>
+      </div>
+    </main>
+    </div>
   );
 }
