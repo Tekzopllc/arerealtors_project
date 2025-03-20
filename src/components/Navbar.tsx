@@ -33,7 +33,7 @@ export default function Navbar() {
 
   // Dynamic navbar classes based on scroll position and current page
   const navbarClasses = !isHomePage || hasScrolled
-    ? "bg-white shadow-lg fixed w-full z-50 transition-all duration-300"
+    ? "bg-black/50 shadow-lg fixed w-full z-50 transition-all duration-300 backdrop-blur-md"
     : "bg-transparent fixed w-full z-50 transition-all duration-300";
 
   return (
@@ -41,13 +41,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <Home className="h-8 w-8 text-primary" />
-              <span className={`ml-2 text-xl font-bold ${!isHomePage || hasScrolled ? 'text-secondary' : 'text-white'}`}>AceRealtors</span>
+            <Link to="/" className="flex items-center space-x-2 text-white">
+              <img 
+                src="/new_logo.png" 
+                alt="AceRealtors" 
+                className="h-8 w-auto mix-blend-screen brightness-200 contrast-200" 
+              />
               <img
                 src='/Flag-United-States-of-America.webp'
                 alt="American flag"
-                className="h-6 w-8 object-cover ml-2"
+                className="w-[30px] md:w-[40px] h-auto object-contain"
               />
             </Link>
           </div>
@@ -81,12 +84,12 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
-            <a href="tel:855-696-1455" className={`mr-6 ${!isHomePage || hasScrolled ? 'text-secondary' : 'text-white'} hover:text-primary`}>
+            <a href="tel:855-696-1455" className="mr-6 text-white hover:text-primary">
               <Phone className="h-6 w-6" />
             </a>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`${!isHomePage || hasScrolled ? 'text-secondary' : 'text-white'} hover:text-primary focus:outline-none`}
+              className="text-white hover:text-primary focus:outline-none"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>

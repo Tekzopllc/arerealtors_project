@@ -460,7 +460,7 @@ function AgentQuestionnaire({
   }, [formData.propertyType]);
 
   return (
-    <div className="bg-white rounded-lg w-full h-auto min-h-[600px] overflow-hidden shadow-lg border border-[#eaeaea] relative">      {/* Success message overlay with higher z-index */}
+    <div className="bg-white rounded-lg w-full h-auto min-h-[610px] overflow-hidden shadow-lg border border-[#eaeaea] relative">      {/* Success message overlay with higher z-index */}
       {showSuccess && (
         <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] animate-fadeIn">
           <div className="text-center">
@@ -486,7 +486,7 @@ function AgentQuestionnaire({
             {/* Heading - Hidden on mobile, visible on desktop */}
             <div className="hidden md:flex flex-col items-center mb-4">
               <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-1 pt-6 md:pt-0">
-                Find The Best REALTORS
+                Find The Best Realtors
               </div>
               <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-1">
                 In Yous City
@@ -494,11 +494,14 @@ function AgentQuestionnaire({
               <p className="mb-2 mt-4">Instantly see a personalized list of great agents to choose from.</p>
             </div>
             
-          <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-3 md:mb-4 text-center">
-                      What price are you hoping to sell at?
-                    </div>
+          <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-3 md:mb-4 text-center" style={{
+                      marginTop: '1rem',
+                      marginBottom: '2rem',
+                    }}>What price are you hoping to sell at?</div>
           <div>
-            <div className="text-center text-2xl md:text-3xl font-bold text-[#ea580c] mb-4">
+            <div className="text-center text-2xl md:text-3xl font-bold text-[#ea580c] mb-4" style={{
+              marginBottom: '2rem',
+            }}>
               {formatCurrency(formData.budget)}
             </div>
             
@@ -517,7 +520,9 @@ function AgentQuestionnaire({
               />
             </div>
             
-            <div className="flex justify-between text-xs text-gray-500 mb-3">
+            <div className="flex justify-between text-xs text-gray-500 mb-3" style={{
+              marginBottom: '1rem',
+            }}>
               <span>$50K - $100K</span>
               <span>$500K - $550K</span>
               <span>$1M - $1.05M</span>
@@ -529,6 +534,9 @@ function AgentQuestionnaire({
             <button
               onClick={nextStep}
               className="bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors hover:bg-[#d24b09]"
+              style={{
+                marginBottom: '4rem',
+              }}
             >
               Continue
             </button>
