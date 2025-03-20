@@ -289,7 +289,7 @@ export default function Home() {
               <img
                 src="/usp1.jpg"
                 alt="Happy family in their new home"
-                className="rounded-lg shadow-xl"
+                className="rounded-lg shadow-xl h-[350px] md:h-auto w-full object-cover"
               />
               <div className="absolute bottom-4 left-4 right-4 bg-white p-4 rounded-lg shadow-lg">
                 <div className="flex items-start gap-4">
@@ -302,7 +302,7 @@ export default function Home() {
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
-                    <p className="text-gray-600 text-sm line-clamp-2">"We didn't want to waste time with the wrong realtor, and AceRealtors made sure we didn't. The agent they connected us with sold our home fast and for a great price!"</p>
+                    <p className="text-gray-600 text-sm line-clamp-3">"We didn't want to waste time with the wrong realtor, and AceRealtors made sure we didn't. The agent they connected us with sold our home fast and for a great price!"</p>
                     <p className="text-sm font-semibold mt-1">Megan D. from Florida</p>
                   </div>
                 </div>
@@ -321,7 +321,7 @@ export default function Home() {
                 <img
                   src="/usp2.webp"
                   alt="Happy family enjoying their new home"
-                  className="w-full h-full object-cover"
+                  className="w-full h-[350px] md:h-full object-cover"
                 />
               </div>
               <div className="absolute bottom-4 left-4 right-4 bg-white p-4 rounded-lg shadow-lg">
