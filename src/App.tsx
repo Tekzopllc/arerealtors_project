@@ -14,7 +14,8 @@ import MortgageFinancingBlogPost from './pages/blogspot2';
 import LegalTaxBlogPost from './pages/blogspot3';
 import HomeInspectionAppraisalBlogPost from './pages/blogspot4';
 import RealEstateAgentBlogPost from './pages/blogspot5';
-
+import SocialMediaBlogPost from './pages/blogpost6';
+import Blogs from './pages/Blogs';
 
 function AppContent() {
   const location = useLocation();
@@ -42,6 +43,8 @@ function AppContent() {
           <Route path="/blog/legal-tax" element={<LegalTaxBlogPost />} />
           <Route path="/blog/home-inspection" element={<HomeInspectionAppraisalBlogPost />} />
           <Route path="/blog/real-estate-agent" element={<RealEstateAgentBlogPost />} />
+          <Route path="/blog/social-media-marketing" element={<SocialMediaBlogPost />} />
+          <Route path="/blogs" element={<Blogs />} />
         </Routes>
       </main>
     </div>

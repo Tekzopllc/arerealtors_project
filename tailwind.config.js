@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontSize: {
+        'lg': ['1.5rem', '2rem'], // Modifying text-lg to be larger with adjusted line height
+      },
       colors: {
         'modalprimary': '#ea580c',
         'modalprimary-dark': '#d24b09',

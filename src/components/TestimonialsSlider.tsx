@@ -4,62 +4,68 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const testimonials = [
+const testimonials: Array<{
+  name: string;
+  location: string;
+  text: string;
+  image: string;
+  role: string | null;
+}> = [
   {
-    "name": "David",
-    "location": "FL",
-    "text": "I can't thank AceRealtors enough! They connected me with an amazing agent and helped me save a ton with a lower commission rate. The whole process was so smooth, and I really felt supported and guided the entire time. Highly recommend them!",
-    "image": 'clent1.webp',
-    "role": null,
+    name: "Emily R.",
+    location: "Austin, Texas",
+    text: "Selling a house is stressful, but AceRealtors made it so easy. I got matched with a top agent in Austin, and the best part? They already worked out a lower commission, so I did not even have to negotiate. Saved me a ton of money!",
+    image: "https://images.unsplash.com/photo-1598550874175-4d0ef436c909?auto=format&fit=crop&q=80&w=400&h=400",
+    role: null
   },
   {
-    "name": "Michael and Sarah",
-    "location": "CA",
-    "text": "I'm so glad I worked with AceRealtors! They paired me with a great agent and even helped me lower my commission rate, which was a huge win. It was a stressful time, but they made everything feel easy and took care of me throughout. Can't thank them enough!",
-    "image": 'client3.webp',
-    "role": null,
-  },
-  {
-    "name": "James",
-    "location": "TX",
-    "text": "AceRealtors made selling my home so much easier. They found me a fantastic agent and helped me secure a lower commission rate, which saved me a lot of money. I'm really grateful for their help and couldn't have asked for a better experience!",
-    "image": 'clent2.webp',
-    "role": null,
-  },
-  {
-    name: 'Emily W.',
-    location: 'Tampa, FL',
-    text: 'Our agent helped us sell our vacation home for 15% above asking price. Their local market knowledge and staging suggestions made all the difference.',
-    image: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?auto=format&fit=crop&q=80&w=400&h=400',
-    role: 'Real Estate Investor'
-  },
-  {
-    name: 'Michael P.',
-    location: 'Manhattan, NY',
-    text: 'Relocating from overseas was daunting, but AceRealtors made it seamless. They found us the perfect apartment and handled everything while we were still abroad.',
+    name: 'James & Olivia W.',
+    location: 'Miami, Florida',
+    text: 'We had no idea where to start when selling our home, but AceRealtors took care of everything. They hooked us up with an amazing realtor in Miami and somehow got us a lower commission than the agent normally charges. It was super easy, and we saved a bunch!',
     image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400&h=400',
-    role: 'Finance Executive'
+    role: null
   },
   {
-    name: 'Sarah L.',
-    location: 'Los Angeles, CA',
-    text: "Our agent's expertise in luxury properties was evident. They helped us find a stunning home in Beverly Hills and negotiated terms that exceeded our expectations.",
+    name: 'Sarah M.',
+    location: 'Denver, Colorado',
+    text: 'Honestly, I thought finding a good realtor would be a pain, but AceRealtors matched me with someone awesome. They knew the Denver market inside and out, and I ended up paying way less in commission than I expected. Totally worth it!',
     image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&q=80&w=400&h=400',
-    role: 'Entertainment Producer'
+    role: null
   },
   {
-    name: 'David H.',
-    location: 'Naples, FL',
-    text: 'The team at AceRealtors helped us find the perfect retirement home. Their patience and attention to our specific needs made the process enjoyable and stress-free.',
+    name: 'David & Amanda L.',
+    location: 'Los Angeles, California',
+    text: "We wanted a solid realtor but didn't want to get ripped off on commission. AceRealtors came through big time! They connected us with one of the best agents in L.A., and we paid way less than we thought we would. Super happy with how everything worked out.",
     image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400&h=400',
-    role: 'Retired Executive'
+    role: null
   },
   {
-    name: 'James K.',
-    location: 'Brooklyn, NY',
-    text: 'Found the perfect brownstone thanks to AceRealtors. They understood exactly what we were looking for and helped us navigate the complex NYC market with ease.',
+    name: 'Jessica T.',
+    location: 'Chicago, Illinois',
+    text: "Took the quiz, got matched with a great agent, and sold my house fast. Seriously, that's it. No stress, no hassle—just super easy. Can't recommend AceRealtors enough!",
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400&h=400',
-    role: 'Business Owner'
+    role: null
+  },
+  {
+    name: 'Mark & Emily S.',
+    location: 'Atlanta, Georgia',
+    text: "A friend told us about AceRealtors, and I'm so glad they did. The quiz was quick, and we got matched with a fantastic agent who made the whole selling process smooth. If you're looking for a stress-free way to find a realtor, this is it.",
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=400&h=400',
+    role: null
+  },
+  {
+    name: 'Rachel H.',
+    location: 'Phoenix, Arizona',
+    text: "I didn't want to spend hours searching for a realtor, and thanks to AceRealtors, I didn't have to. They matched me with someone great, and everything just worked. Super easy, highly recommend!",
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400&h=400',
+    role: null
+  },
+  {
+    name: 'Brian C.',
+    location: 'Seattle, Washington',
+    text: "AceRealtors was a lifesaver. I had no idea how to find a good agent, but I took their quiz, got matched, and boom—house sold. Simple as that. I'd use them again in a heartbeat.",
+    image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=400&h=400',
+    role: null
   }
 ];
 
@@ -74,7 +80,6 @@ export default function TestimonialsSlider() {
         delay: 5000,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
-        speed: 500,
       }}
       speed={500}
       breakpoints={{

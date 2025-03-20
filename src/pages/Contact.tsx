@@ -39,7 +39,7 @@ export default function Contact() {
                 <Phone className="h-6 w-6 text-primary mr-4" />
                 <div>
                   <h3 className="font-semibold">Phone</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
+                  <p className="text-gray-600">+1 (855) 696-1455</p>
                 </div>
               </div>
 
@@ -47,7 +47,7 @@ export default function Contact() {
                 <Mail className="h-6 w-6 text-primary mr-4" />
                 <div>
                   <h3 className="font-semibold">Email</h3>
-                  <p className="text-gray-600">contact@acerealtors.com</p>
+                  <p className="text-gray-600">signups@acerealtors.com</p>
                 </div>
               </div>
 

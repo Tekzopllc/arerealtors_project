@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import TestimonialsSlider from '../components/TestimonialsSlider';
 import FAQAccordion from '../components/FAQAccordion';
 import AgentQuestionnaire, { QuestionnaireData } from '../components/AgentQuestionnaire';
+import styles from '../styles/Footer.module.css';
 
 export default function Home() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
@@ -14,7 +15,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ marginTop: '-64px' }}> {/* Added negative margin to offset navbar height */}
       <AgentQuestionnaire
         isOpen={isQuestionnaireOpen}
         onClose={() => setIsQuestionnaireOpen(false)}
@@ -25,18 +26,20 @@ export default function Home() {
       <div
         className="min-h-screen md:h-screen relative bg-cover bg-center bg-fixed"
         style={{
-          backgroundImage: 'url("/bg.jpg")'
+          backgroundImage: 'url("/bg.jpg")',
+          paddingTop: '64px' /* Add padding equal to navbar height to ensure content doesn't go under navbar */
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50" />
-        <div className="relative flex flex-col min-h-screen px-4 py-20 md:py-0">
-          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto gap-8 md:h-screen">
-            <div className="text-white w-full max-w-2xl text-left px-4">
+        <div className="relative flex flex-col min-h-screen">
+          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto gap-8 md:h-screen px-4">
+            
+            <div className="text-white w-full max-w-2xl text-left px-4 mt-4">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 px-4">
-                Find the Top RealEstate Agents
+                Find the best listing agent
               </h1>
               <p className="text-xl md:text-2xl mb-12 px-4">
-                Expert agents, premium listings, and seamless buying & selling experiences.
+                We Negotiate So You Don't Have To - Get the Best Realtor while paying less commissions
               </p>
               <div className="flex flex-col md:flex-row items-start gap-4 mb-12 px-4">
                 <div className="flex items-center gap-2">
@@ -49,17 +52,18 @@ export default function Home() {
                   <div className="bg-primary/20 p-2 rounded-full">
                     <Check className="h-6 w-6 text-primary" />
                   </div>
-                  <span className="text-lg">Top 1% Agents</span>
+                  <span className="text-lg">Takes just 1 minute</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="bg-primary/20 p-2 rounded-full">
                     <Check className="h-6 w-6 text-primary" />
                   </div>
-                  <span className="text-lg">Exclusive Lowest Commision</span>
-                </div>
-              </div>
+                  <span className="text-lg">No strings attached</span>
+               </div>
+             </div>
+             <p className="text-sm text-gray-300 mt-4 px-4">* No spam, your information is 100% safe with us</p>
             </div>
-            <div className="w-full md:max-w-md bg-white rounded-lg shadow-xl p-6 h-[calc(100vh-200px)] max-h-[600px]">
+            <div className="w-full md:max-w-md bg-white rounded-lg shadow-xl p-6 h-[calc(100vh-200px)] max-h-[600px] mb-[100px]">
               <div className="h-full overflow-y-auto">
                 <AgentQuestionnaire
                   isOpen={true}
@@ -81,13 +85,13 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="flex flex-col">
-              <div className="bg-white rounded-lg p-8 shadow-lg text-center min-h-[240px] flex flex-col justify-between">
+              <div className="bg-white rounded-lg p-8 shadow-lg text-center min-h-[324px] flex flex-col justify-between">
                 <div>
                   <div className="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6">
                     1
                   </div>
-                  <h3 className="text-xl font-semibold mb-4">Search for Agents</h3>
-                  <p className="text-gray-600">Find experienced real estate agents in your area</p>
+                  <h3 className="text-xl font-semibold mb-4">Take a Quick Quiz</h3>
+                  <p className="text-gray-600">Answer a few simple questions about your home and selling goals to help us understand your needs</p>
                 </div>
                 <div className="hidden md:flex justify-center mt-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right w-8 h-8 text-primary">
@@ -97,13 +101,13 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-col">
-              <div className="bg-white rounded-lg p-8 shadow-lg text-center min-h-[240px] flex flex-col justify-between">
+              <div className="bg-white rounded-lg p-8 shadow-lg text-center min-h-[324px] flex flex-col justify-between">
                 <div>
                   <div className="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6">
                     2
                   </div>
-                  <h3 className="text-xl font-semibold mb-4">Schedule Consultation</h3>
-                  <p className="text-gray-600">Meet with your agent to discuss your needs</p>
+                  <h3 className="text-xl font-semibold mb-4">Get a Personalized Agent List</h3>
+                  <p className="text-gray-600">We match you with top-rated realtors in your area, tailored to your preferences and requirements</p>
                 </div>
                 <div className="hidden md:flex justify-center mt-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right w-8 h-8 text-primary">
@@ -113,13 +117,13 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-col">
-              <div className="bg-white rounded-lg p-8 shadow-lg text-center min-h-[240px] flex flex-col justify-between">
+              <div className="bg-white rounded-lg p-8 shadow-lg text-center min-h-[324px] flex flex-col justify-between">
                 <div>
                   <div className="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6">
                     3
                   </div>
-                  <h3 className="text-xl font-semibold mb-4">Close the Deal</h3>
-                  <p className="text-gray-600">Buy or sell with confidence</p>
+                  <h3 className="text-xl font-semibold mb-4">Connect & Save on Commission</h3>
+                  <p className="text-gray-600">Choose a pre-vetted realtor with pre-negotiated commissions, so you get the best deal without the hassle</p>
                   <br/>
                 </div>
                 <div className="hidden md:flex justify-center mt-4">
@@ -152,8 +156,8 @@ export default function Home() {
               <p className="text-xl text-white/80">Top 1% Agents Across US</p>
             </div>
             <div className="text-center px-8 py-6 md:border-x border-white/20">
-              <h3 className="text-5xl font-bold text-white mb-4">$400M</h3>
-              <p className="text-xl text-white/80">Transactions Closed</p>
+              <h3 className="text-5xl font-bold text-white mb-4">$13.2</h3>
+              <p className="text-xl text-white/80">Commissions Saved</p>
             </div>
             <div className="text-center px-8 py-6">
               <h3 className="text-5xl font-bold text-white mb-4">4500+</h3>
@@ -237,8 +241,11 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold text-secondary mb-6">
-                The best local real estate agents
+                The right realtor makes all the difference, we handpick one for you.
               </h2>
+              <p className="text-xl text-gray-600 mb-8">
+                Not all realtors are equal. A bad one can leave your home unsold for months, while a top agent prices, markets, and sells fast. We connect you with the best, so you don't waste time.
+              </p>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary/10 p-2 rounded-full">
@@ -280,14 +287,14 @@ export default function Home() {
             </div>
             <div className="relative">
               <img
-                src="/young-family-with-their-sons-home-having-fun.jpg"
+                src="/usp1.webp"
                 alt="Happy family in their new home"
                 className="rounded-lg shadow-xl"
               />
               <div className="absolute bottom-4 left-4 right-4 bg-white p-4 rounded-lg shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl font-bold text-primary">JM</span>
+                    <span className="text-xl font-bold text-primary">MD</span>
                   </div>
                   <div>
                     <div className="flex text-primary mb-1">
@@ -295,8 +302,8 @@ export default function Home() {
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
-                    <p className="text-gray-600 text-sm">"Great realtors. My home sold in five days!"</p>
-                    <p className="text-sm font-semibold mt-1">John M. from Texas</p>
+                    <p className="text-gray-600 text-sm">"We didn't want to waste time with the wrong realtor, and AceRealtors made sure we didn't. The agent they connected us with sold our home fast and for a great price!"</p>
+                    <p className="text-sm font-semibold mt-1">Megan D. from Florida</p>
                   </div>
                 </div>
               </div>
@@ -312,7 +319,7 @@ export default function Home() {
             <div className="relative">
               <div className="image-container rounded-lg shadow-xl overflow-hidden">
                 <img
-                  src="/parents-kids-spending-time-together.jpg"
+                  src="/usp2.webp"
                   alt="Happy family enjoying their new home"
                   className="w-full h-full object-cover"
                 />
@@ -320,7 +327,7 @@ export default function Home() {
               <div className="absolute bottom-4 left-4 right-4 bg-white p-4 rounded-lg shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl font-bold text-primary">AC</span>
+                    <span className="text-xl font-bold text-primary">TJ</span>
                   </div>
                   <div>
                     <div className="flex text-primary mb-1">
@@ -328,16 +335,19 @@ export default function Home() {
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
-                    <p className="text-gray-600 text-sm line-clamp-3">"I used the website to identify potential agents in the new city I was moving to. I ultimately went with one of the recommended agents and had a very smooth home buying process."</p>
-                    <p className="text-sm font-semibold mt-1">Dan K. from New York</p>
+                    <p className="text-gray-600 text-sm line-clamp-3">"AceRealtors made selling my home so easy! They matched me with a top agent, and I saved a ton on commission without any awkward negotiations."</p>
+                    <p className="text-sm font-semibold mt-1">Tyler J. from Tennessee</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="content-wrapper">
               <h2 className="text-2xl md:text-3xl font-bold text-secondary mb-6">
-                Your trusted partner in real estate
+                When you save on commissions, we win.
               </h2>
+              <p className="text-xl text-gray-600 mb-8">
+                At AceRealtors, we've already done the hard work—negotiating lower commission rates with top realtors in your area. That means you get the best agents without overpaying. More money in your pocket, less stress on your plate.
+              </p>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary/10 p-2 rounded-full flex-shrink-0">
@@ -375,9 +385,12 @@ export default function Home() {
       {/* More Resources */}
       <div id="more-resources" className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-secondary mb-10">
+          <h2 className="text-3xl font-bold text-center text-secondary mb-4">
             More Resources
           </h2>
+          <p className="text-center text-gray-600 mb-10">
+            Explore our guides and insights to help you navigate the real estate market.
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
              <Link to="/blog/market-trends" className="block">
                <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
@@ -392,7 +405,12 @@ export default function Home() {
                      <span>Market Analysis</span>
                    </div>
                    <h3 className="text-xl font-semibold mb-3">Real Estate Market Trends & Property Valuation</h3>
-                   <p className="text-gray-600">Learn how to analyze market trends and determine the right price for your property.</p>
+                   <p className="text-gray-600 mb-4">Learn how to analyze market trends and determine the right price for your property.</p>
+                   <div className="flex justify-end">
+                     <button className="text-primary hover:text-primary-dark font-semibold flex items-center gap-2">
+                       Read More <ChevronRight className="w-4 h-4" />
+                     </button>
+                   </div>
                  </div>
                </div>
              </Link>
@@ -410,7 +428,12 @@ export default function Home() {
                      <span>Home Financing</span>
                    </div>
                    <h3 className="text-xl font-semibold mb-3">Mortgage & Financing Options Guide</h3>
-                   <p className="text-gray-600">Navigate the complex world of home loans and financing options.</p>
+                   <p className="text-gray-600 mb-4">Navigate the complex world of home loans and financing options.</p>
+                   <div className="flex justify-end">
+                     <button className="text-primary hover:text-primary-dark font-semibold flex items-center gap-2">
+                       Read More <ChevronRight className="w-4 h-4" />
+                     </button>
+                   </div>
                  </div>
                </div>
              </Link>
@@ -428,7 +451,12 @@ export default function Home() {
                      <span>Legal & Tax Guide</span>
                    </div>
                    <h3 className="text-xl font-semibold mb-3">Legal & Tax Considerations in Real Estate</h3>
-                   <p className="text-gray-600">Essential legal and tax knowledge for property transactions.</p>
+                   <p className="text-gray-600 mb-4">Essential legal and tax knowledge for property transactions.</p>
+                   <div className="flex justify-end">
+                     <button className="text-primary hover:text-primary-dark font-semibold flex items-center gap-2">
+                       Read More <ChevronRight className="w-4 h-4" />
+                     </button>
+                   </div>
                  </div>
                </div>
              </Link>
@@ -446,7 +474,12 @@ export default function Home() {
                      <span>Buyer's Guide</span>
                    </div>
                    <h3 className="text-xl font-semibold mb-3">Home Inspection & Appraisal Guide</h3>
-                   <p className="text-gray-600">Understanding these crucial steps in real estate transactions.</p>
+                   <p className="text-gray-600 mb-4">Understanding these crucial steps in real estate transactions.</p>
+                   <div className="flex justify-end">
+                     <button className="text-primary hover:text-primary-dark font-semibold flex items-center gap-2">
+                       Read More <ChevronRight className="w-4 h-4" />
+                     </button>
+                   </div>
                  </div>
                </div>
              </Link>
@@ -464,10 +497,47 @@ export default function Home() {
                      <span>Agent Guide</span>
                    </div>
                    <h3 className="text-xl font-semibold mb-3">The Role of a Real Estate Agent</h3>
-                   <p className="text-gray-600">Learn about effective selling strategies and agent responsibilities.</p>
+                   <p className="text-gray-600 mb-4">Learn about effective selling strategies and agent responsibilities.</p>
+                   <div className="flex justify-end">
+                     <button className="text-primary hover:text-primary-dark font-semibold flex items-center gap-2">
+                       Read More <ChevronRight className="w-4 h-4" />
+                     </button>
+                   </div>
                  </div>
                </div>
              </Link>
+
+             <Link to="/blog/social-media-marketing" className="block">
+               <div className="bg-gray-50 rounded-lg overflow-hidden h-full">
+                 <img
+                   src="/blog6.jpg"
+                   alt="Social Media Marketing in Real Estate"
+                   className="w-full h-48 object-cover"
+                 />
+                 <div className="p-6">
+                   <div className="flex items-center gap-2 text-sm text-primary mb-3">
+                     <BookOpen className="w-4 h-4" />
+                     <span>Digital Marketing</span>
+                   </div>
+                   <h3 className="text-xl font-semibold mb-3">Social Media Marketing in Real Estate</h3>
+                   <p className="text-gray-600 mb-4">Master the art of social media marketing for real estate success.</p>
+                   <div className="flex justify-end">
+                     <button className="text-primary hover:text-primary-dark font-semibold flex items-center gap-2">
+                       Read More <ChevronRight className="w-4 h-4" />
+                     </button>
+                   </div>
+                 </div>
+               </div>
+             </Link>
+              </div>
+              <div className="flex justify-center mt-12">
+                <Link
+                  to="/blogs"
+                  className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark transition-colors"
+                >
+                  View All Blogs
+                  <ChevronRight className="w-5 h-5" />
+                </Link>
               </div>
             </div>
           </div>
@@ -486,7 +556,7 @@ export default function Home() {
       <div className="py-12 bg-secondary">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Find Your Perfect Home?
+          Ready to save big on commissions? 
           </h2>
           <p className="text-xl text-white/80 mb-8">
             Let our expert agents help you navigate the real estate market.
@@ -495,56 +565,64 @@ export default function Home() {
             onClick={() => setIsQuestionnaireOpen(true)}
             className="bg-primary text-white px-8 py-4 rounded-md text-lg font-semibold hover:bg-primary-dark transition-colors inline-flex items-center gap-2"
           >
-            Schedule a Consultation
+            Find an Agent
             <ArrowRight className="h-5 w-5" />
           </button>
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Main Footer Content */}
-          <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Company Info */}
-            <div className="space-y-6">
-              <div className="flex items-center">
+      <footer className={styles.Footer}>
+        <div className={styles.Footer__container}>
+          <div className="grid grid-cols-3 gap-8 py-8">
+            {/* Company Info - Left Column */}
+            <div>
+              <div className="flex items-center mb-4">
                 <HomeIcon className="h-8 w-8 text-primary" />
-                <span className="ml-2 text-xl font-bold">AceRealtors</span>
+                <span className="ml-2 text-xl font-bold text-white">AceRealtors</span>
               </div>
-              <p className="text-gray-400">
-                Your trusted partner in finding the perfect home. Expert agents, premium listings, and seamless experiences.
+              <p className="text-gray-400 mb-3">
+                123 Main Street, Suite 456<br />
+                Salt Lake City, UT 84101
               </p>
-              <div className="space-y-3">
-                <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary transition-colors">
-                  <Phone className="h-5 w-5 mr-2" />
-                  855-696-1455
-                </a>
-              </div>
+              <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary transition-colors">
+                <Phone className="h-5 w-5 mr-2" />
+                855-696-1455
+              </a>
             </div>
 
-            {/* Legal */}
-            <div>
-              <h3 className="text-lg font-semibold mb-6">Legal</h3>
+            {/* Navigation Links - Middle Column */}
+            <div className="flex justify-center">
               <ul className="space-y-3">
-                <li>
-                  <Link to="/terms" className="text-gray-400 hover:text-primary transition-colors">Terms of Service</Link>
-                </li>
-                <li>
-                  <Link to="/privacy" className="text-gray-400 hover:text-primary transition-colors">Privacy Policy</Link>
-                </li>
+                <li><a href="/about" className="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
+                <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
+                <li><a href="/tos" className="text-gray-400 hover:text-primary transition-colors">Terms of Use</a></li>
+                <li><a href="/privacy" className="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
+                <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Agents Join Here</a></li>
+                <li><a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary transition-colors">Do Not Sell My Information</a></li>
               </ul>
             </div>
-          </div>
 
-          {/* Bottom Footer */}
-          <div className="py-6 border-t border-gray-800">
-            <p className="text-gray-400 text-sm text-center">
-              © {new Date().getFullYear()} AceRealtors. All rights reserved.
-            </p>
+            {/* Certification Logos - Right Column */}
+            <div className="flex flex-col justify-start items-end gap-4">
+              <div>
+                <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="90" height="35" className="object-contain" />
+              </div>
+              <div>
+                <img alt="Verisign" src="/verisign.webp" width="63" height="37" className="object-contain" />
+              </div>
+              <div>
+                <img alt="Realtor" src="/office_R_white.webp" width="34" height="38" className="object-contain" />
+              </div>
+            </div>
+          </div>
+          <div className={styles.Footer__bottom}>
+            <div className={styles.Footer__copyright}>
+              A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, AceRealtors.com. All Rights Reserved.
+            </div>
           </div>
         </div>
       </footer>
     </div>
   );
 }
+

@@ -460,8 +460,7 @@ function AgentQuestionnaire({
   }, [formData.propertyType]);
 
   return (
-    <div className="bg-white rounded-lg w-full h-auto min-h-[550px] overflow-hidden shadow-lg border border-[#eaeaea] relative">
-      {/* Success message overlay with higher z-index */}
+    <div className="bg-white rounded-lg w-full h-auto min-h-[600px] overflow-hidden shadow-lg border border-[#eaeaea] relative">      {/* Success message overlay with higher z-index */}
       {showSuccess && (
         <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] animate-fadeIn">
           <div className="text-center">
@@ -483,27 +482,27 @@ function AgentQuestionnaire({
 
         {/* Step 1: Budget (Slider) */}
         <div className={`MessageAgentForm__screen ${currentStep === 1 ? 'block animate-fadeInRight' : 'hidden'}
-          absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[70px] md:px-9 md:pt-[70px]`}>
+  absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[30px] md:pt-[40px] md:px-9`}>
             {/* Heading - Hidden on mobile, visible on desktop */}
-            <div className="hidden md:flex flex-col items-center mb-16">
-              <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-2">
+            <div className="hidden md:flex flex-col items-center mb-4">
+              <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-1 pt-6 md:pt-0">
                 Find The Best REALTORS
               </div>
-              <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-4">
-                In Salt Lake City, UT
+              <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-1">
+                In Yous City
               </div>
-              <p>Instantly see a personalized list of great agents to choose from.</p>
+              <p className="mb-2 mt-4">Instantly see a personalized list of great agents to choose from.</p>
             </div>
             
-          <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10 text-center">
+          <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-3 md:mb-4 text-center">
                       What price are you hoping to sell at?
                     </div>
-          <div className="mt-4">
-            <div className="text-center text-2xl md:text-3xl font-bold text-[#ea580c] mb-8">
+          <div>
+            <div className="text-center text-2xl md:text-3xl font-bold text-[#ea580c] mb-4">
               {formatCurrency(formData.budget)}
             </div>
             
-            <div className="mb-4">
+            <div className="mb-3">
               <input
                 type="range"
                 min="50000"
@@ -518,7 +517,7 @@ function AgentQuestionnaire({
               />
             </div>
             
-            <div className="flex justify-between text-xs text-gray-500">
+            <div className="flex justify-between text-xs text-gray-500 mb-3">
               <span>$50K - $100K</span>
               <span>$500K - $550K</span>
               <span>$1M - $1.05M</span>
@@ -526,7 +525,7 @@ function AgentQuestionnaire({
             </div>
           </div>
           
-          <div className="MessageAgentForm__screen-controls flex justify-end items-center mt-4">
+          <div className="MessageAgentForm__screen-controls flex justify-end items-center mt-2">
             <button
               onClick={nextStep}
               className="bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors hover:bg-[#d24b09]"
@@ -534,16 +533,16 @@ function AgentQuestionnaire({
               Continue
             </button>
           </div>
-          <div className="flex flex-col gap-4 md:gap-3 mt-4 px-4 md:px-9 pb-4 md:pb-6 bg-white">
-            <p className="text-sm md:text-base text-gray-500 flex items-start">
+          <div className="flex flex-col gap-2 mt-2 px-4 md:px-9 pb-4 md:pb-6 bg-white mt-auto">
+            <p className="text-sm text-gray-500 flex items-start">
               <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
               <span>We've worked with over 10K happy home buyers & sellers across the U.S.</span>
             </p>
-            <p className="text-sm md:text-base text-gray-500 flex items-start">
+            <p className="text-sm text-gray-500 flex items-start">
               <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
               <span>We hand select the top agents from your area</span>
             </p>
-            <p className="text-sm md:text-base text-gray-500 flex items-start">
+            <p className="text-sm text-gray-500 flex items-start">
               <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
               <span>Get a free custom list of top agents and get connected within 2 minutes.</span>
             </p>
@@ -862,12 +861,12 @@ export default function CompareAgentsPage() {
                     className="w-[30px] md:w-[40px] h-auto object-contain"
                   />
                 </div>
-                <div className="Header_Header__phone__rT5_y flex flex-col md:flex-row items-end md:items-center gap-0.5 md:gap-2">
+                {/* <div className="Header_Header__phone__rT5_y flex flex-col md:flex-row items-end md:items-center gap-0.5 md:gap-2">
                   <div className="text-white text-[10px] md:text-sm text-right">Questions? Call:</div>
                   <a href="tel:+18556961455" className="text-white text-sm md:text-base font-medium hover:text-orange-500 transition-colors whitespace-nowrap">
                     +1 (855) 696-1455
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -880,7 +879,7 @@ export default function CompareAgentsPage() {
               <h2 className="text-2xl font-bold text-white mb-4">
                 In Salt Lake City, UT
               </h2>
-              <p className="text-white/90 text-sm">
+              <p className="text-white/90 text-sm" style={{ marginBottom: '3.5rem'}}>
                 Instantly see a personalized list of great agents to choose from.
               </p>
             </div>
@@ -980,8 +979,8 @@ export default function CompareAgentsPage() {
               <li><a href="/contact">Contact Us</a></li>
               <li><a href="/tos">Terms of Use</a></li>
               <li><a href="/privacy">Privacy Policy</a></li>
-              <li><a href="#">Agents Join Here</a></li>
-              <li><a href="#">Do Not Sell My Information</a></li>
+              <li><a href="/contact">Agents Join Here</a></li>
+              <li><a href="https://www.referralexchange.com/information">Do Not Sell My Information</a></li>
             </ul>
             <div className={styles.Footer__icons}>
               <div className={styles.Footer__icon}>
@@ -1003,10 +1002,10 @@ export default function CompareAgentsPage() {
             <div className={styles.Footer__copyright}>
               A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, AceRealtors.com. All Rights Reserved.
             </div>
-            <select className={styles.LanguageSelector}>
+            {/* <select className={styles.LanguageSelector}>
               <option value="/" selected>ENG</option>
               <option value="fr">FR</option>
-            </select>
+            </select> */}
           </div>
         </div>
       </footer>
