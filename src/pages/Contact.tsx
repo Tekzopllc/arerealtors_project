@@ -51,7 +51,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <MapPin className="h-6 w-6 text-primary mr-4" />
                 <div>
                   <h3 className="font-semibold">Office</h3>
@@ -60,7 +60,7 @@ export default function Contact() {
                     Beverly Hills, CA 90210
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

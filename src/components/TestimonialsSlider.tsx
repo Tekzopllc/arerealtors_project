@@ -43,7 +43,7 @@ const testimonials: Array<{
     name: 'Jessica T.',
     location: 'Chicago, Illinois',
     text: "Took the quiz, got matched with a great agent, and sold my house fast. Seriously, that's it. No stress, no hassle—just super easy. Can't recommend AceRealtors enough!",
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400&h=400',
+    image: 'https://media.istockphoto.com/id/1486674561/photo/young-woman-taking-a-selfie.webp?a=1&b=1&s=612x612&w=0&k=20&c=Cnf47gdBz2fpvF-bwegQUxTJl54dJGmc3qhiJJ1UE0o=',
     role: null
   },
   {

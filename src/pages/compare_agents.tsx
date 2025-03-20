@@ -877,7 +877,7 @@ export default function CompareAgentsPage() {
                 Find The Best REALTORS
               </h1>
               <h2 className="text-2xl font-bold text-white mb-4">
-                In Salt Lake City, UT
+                In Your City
               </h2>
               <p className="text-white/90 text-sm" style={{ marginBottom: '3.5rem'}}>
                 Instantly see a personalized list of great agents to choose from.
@@ -974,18 +974,32 @@ export default function CompareAgentsPage() {
       <footer className={styles.Footer}>
         <div className={styles.Footer__container}>
           <div className={styles.Footer__top}>
+            {/* Company Info */}
+            <div className="flex flex-row items-center justify-between md:justify-start gap-4 mb-6 md:mb-0 w-full md:w-auto">
+              <div className="flex items-center">
+                <HomeIcon className="h-8 w-8 text-primary" />
+                <span className="ml-2 text-xl font-bold text-white">AceRealtors</span>
+              </div>
+              <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary transition-colors whitespace-nowrap">
+                <Phone className="h-5 w-5 mr-2" />
+                855-696-1455
+              </a>
+            </div>
+
+            {/* Navigation Links */}
             <ul className={styles.Footer__nav}>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/contact">Contact Us</a></li>
-              <li><a href="/tos">Terms of Use</a></li>
-              <li><a href="/privacy">Privacy Policy</a></li>
-              <li><a href="/contact">Agents Join Here</a></li>
-              <li><a href="https://www.referralexchange.com/information">Do Not Sell My Information</a></li>
+              <li><a href="/about" className="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
+              <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
+              <li><a href="/tos" className="text-gray-400 hover:text-primary transition-colors">Terms of Use</a></li>
+              <li><a href="/privacy" className="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
+              <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Agents Join Here</a></li>
+              <li><a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary transition-colors">Do Not Sell My Information</a></li>
             </ul>
+
+            {/* Certification Logos */}
             <div className={styles.Footer__icons}>
               <div className={styles.Footer__icon}>
-                  <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="90" height="35" />
-              
+                <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="90" height="35" />
               </div>
               <div className={styles.Footer__icon}>
                 <img alt="Verisign" src="/verisign.webp" width="63" height="37" />
@@ -993,19 +1007,12 @@ export default function CompareAgentsPage() {
               <div className={styles.Footer__icon}>
                 <img alt="Realtor" src="/office_R_white.webp" width="34" height="38" />
               </div>
-              {/* <div className={`${styles.Footer__icon} ${styles.bbbContainer}`}>
-                <img src="/referralexchange-458879.png" alt="BBB Logo" width="89" height="34" />
-              </div> */}
             </div>
           </div>
           <div className={styles.Footer__bottom}>
             <div className={styles.Footer__copyright}>
               A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, AceRealtors.com. All Rights Reserved.
             </div>
-            {/* <select className={styles.LanguageSelector}>
-              <option value="/" selected>ENG</option>
-              <option value="fr">FR</option>
-            </select> */}
           </div>
         </div>
       </footer>

@@ -156,7 +156,7 @@ export default function Home() {
               <p className="text-xl text-white/80">Top 1% Agents Across US</p>
             </div>
             <div className="text-center px-8 py-6 md:border-x border-white/20">
-              <h3 className="text-5xl font-bold text-white mb-4">$13.2</h3>
+              <h3 className="text-5xl font-bold text-white mb-4">$13.2 M</h3>
               <p className="text-xl text-white/80">Commissions Saved</p>
             </div>
             <div className="text-center px-8 py-6">
@@ -287,7 +287,7 @@ export default function Home() {
             </div>
             <div className="relative">
               <img
-                src="/usp1.webp"
+                src="/usp1.jpg"
                 alt="Happy family in their new home"
                 className="rounded-lg shadow-xl"
               />
@@ -302,7 +302,7 @@ export default function Home() {
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
-                    <p className="text-gray-600 text-sm">"We didn't want to waste time with the wrong realtor, and AceRealtors made sure we didn't. The agent they connected us with sold our home fast and for a great price!"</p>
+                    <p className="text-gray-600 text-sm line-clamp-2">"We didn't want to waste time with the wrong realtor, and AceRealtors made sure we didn't. The agent they connected us with sold our home fast and for a great price!"</p>
                     <p className="text-sm font-semibold mt-1">Megan D. from Florida</p>
                   </div>
                 </div>
@@ -573,45 +573,39 @@ export default function Home() {
 
       <footer className={styles.Footer}>
         <div className={styles.Footer__container}>
-          <div className="grid grid-cols-3 gap-8 py-8">
-            {/* Company Info - Left Column */}
-            <div>
-              <div className="flex items-center mb-4">
+          <div className={styles.Footer__top}>
+            {/* Company Info */}
+            <div className="flex flex-row items-center justify-between md:justify-start gap-4 mb-6 md:mb-0 w-full md:w-auto">
+              <div className="flex items-center">
                 <HomeIcon className="h-8 w-8 text-primary" />
                 <span className="ml-2 text-xl font-bold text-white">AceRealtors</span>
               </div>
-              <p className="text-gray-400 mb-3">
-                123 Main Street, Suite 456<br />
-                Salt Lake City, UT 84101
-              </p>
-              <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary transition-colors">
+              <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary transition-colors whitespace-nowrap">
                 <Phone className="h-5 w-5 mr-2" />
                 855-696-1455
               </a>
             </div>
 
-            {/* Navigation Links - Middle Column */}
-            <div className="flex justify-center">
-              <ul className="space-y-3">
-                <li><a href="/about" className="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
-                <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
-                <li><a href="/tos" className="text-gray-400 hover:text-primary transition-colors">Terms of Use</a></li>
-                <li><a href="/privacy" className="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
-                <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Agents Join Here</a></li>
-                <li><a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary transition-colors">Do Not Sell My Information</a></li>
-              </ul>
-            </div>
+            {/* Navigation Links */}
+            <ul className={styles.Footer__nav}>
+              <li><a href="/about" className="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
+              <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
+              <li><a href="/tos" className="text-gray-400 hover:text-primary transition-colors">Terms of Use</a></li>
+              <li><a href="/privacy" className="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
+              <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Agents Join Here</a></li>
+              <li><a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary transition-colors">Do Not Sell My Information</a></li>
+            </ul>
 
-            {/* Certification Logos - Right Column */}
-            <div className="flex flex-col justify-start items-end gap-4">
-              <div>
-                <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="90" height="35" className="object-contain" />
+            {/* Certification Logos */}
+            <div className={styles.Footer__icons}>
+              <div className={styles.Footer__icon}>
+                <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="90" height="35" />
               </div>
-              <div>
-                <img alt="Verisign" src="/verisign.webp" width="63" height="37" className="object-contain" />
+              <div className={styles.Footer__icon}>
+                <img alt="Verisign" src="/verisign.webp" width="63" height="37" />
               </div>
-              <div>
-                <img alt="Realtor" src="/office_R_white.webp" width="34" height="38" className="object-contain" />
+              <div className={styles.Footer__icon}>
+                <img alt="Realtor" src="/office_R_white.webp" width="34" height="38" />
               </div>
             </div>
           </div>
