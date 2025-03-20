@@ -576,10 +576,20 @@ export default function Home() {
           <div className={styles.Footer__top}>
             {/* Company Info */}
             <div className="flex flex-row items-center justify-between md:justify-start gap-4 mb-6 md:mb-0 w-full md:w-auto">
-            <div className="flex items-center">
-                  <HomeIcon className="h-8 w-8 text-primary" />
-                  <span className="ml-2 text-xl font-bold text-white">AceRealtors</span>
-                </div>
+            <div className="flex items-center gap-3">
+                              <Link to="/" className="block">
+                              <img
+                                src="/new_logo.png"
+                                alt="RealEstateAgents.com"
+                                className="w-[120px] md:w-[180px] h-auto mix-blend-screen brightness-200 contrast-200"
+                              />
+                              </Link>
+                              <img
+                                src="/Flag-United-States-of-America.webp"
+                                alt="USA Flag"
+                                className="w-[30px] md:w-[40px] h-auto object-contain"
+                              />
+                            </div>
               <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary transition-colors whitespace-nowrap">
                 <Phone className="h-5 w-5 mr-2" />
                 855-696-1455
