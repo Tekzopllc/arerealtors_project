@@ -96,8 +96,8 @@ export default function Home() {
             >
               <motion.h1
                 variants={fadeInUp}
-                className="text-2xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 text-white"
-                style={{lineHeight: isMobile ? '2.5rem' : '4rem'}}
+                className="text-2xl sm:text-4xl md:text-4 font-bold mb-4 md:mb-6 text-white"
+                style={{lineHeight: isMobile ? '2.5rem' : '5rem', fontSize: isMobile ? '2.5rem' : '5.5rem'}}
               >
                 Find the best listing agent
               </motion.h1>
@@ -670,6 +670,33 @@ export default function Home() {
             </Link>
           </motion.div>
         </div>
+      </div>
+
+      <div className="py-12 sm:py-16 bg-gradient-to-r from-secondary to-secondary/90 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5"></div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
+            Ready to save big on commissions?
+          </h2>
+          <p className="text-base sm:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
+            Let our expert agents help you navigate the real estate market.
+          </p>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setIsQuestionnaireOpen(true)}
+            className="bg-white text-secondary px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-lg font-semibold hover:bg-white/90 transition-colors inline-flex items-center gap-2 shadow-xl hover:shadow-2xl shadow-black/10"
+          >
+            Find an Agent
+            <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 animate-pulse" />
+          </motion.button>
+        </motion.div>
       </div>
 
       {/* Footer - Mobile optimized */}
