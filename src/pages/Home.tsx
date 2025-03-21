@@ -148,7 +148,7 @@ export default function Home() {
       </div>
 
       {/* Why Choose AceRealtors */}
-      <div className="py-12 bg-gray-50">
+      {/* <div className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-secondary mb-10">
             Why Choose AceRealtors?
@@ -184,7 +184,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Find Real Estate Agents for Free section */}
       {/* <div className="py-16 bg-white">
@@ -226,7 +226,7 @@ export default function Home() {
               <p className="text-xl text-gray-600 mb-8">
                 Not all realtors are equal. A bad one can leave your home unsold for months, while a top agent prices, markets, and sells fast. We connect you with the best, so you don't waste time.
               </p>
-              <div className="space-y-6">
+              {/* <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary/10 p-2 rounded-full">
                     <Users className="w-6 h-6 text-primary" />
@@ -254,7 +254,7 @@ export default function Home() {
                     <p className="text-gray-600">Take your time to find the perfect match</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="mt-8">
                 <button
                   onClick={() => setIsQuestionnaireOpen(true)}
@@ -328,7 +328,7 @@ export default function Home() {
               <p className="text-xl text-gray-600 mb-8">
                 At AceRealtors, we've already done the hard work—negotiating lower commission rates with top realtors in your area. That means you get the best agents without overpaying. More money in your pocket, less stress on your plate.
               </p>
-              <div className="space-y-6">
+              {/* <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary/10 p-2 rounded-full flex-shrink-0">
                     <Star className="w-6 h-6 text-primary" />
@@ -356,7 +356,7 @@ export default function Home() {
                     <p className="text-gray-600">Join thousands of satisfied homebuyers who found their perfect match</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
