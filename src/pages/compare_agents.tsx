@@ -191,6 +191,50 @@ const formatPhoneNumber = (phone: string): string => {
   return `+1 ${cleanPhone}`;
 };
 
+// Format currency with better precision
+const formatCurrency = (value: number): string => {
+  // Special case for max value
+  if (value >= 2000000) {
+    return "$2M+";
+  }
+
+  if (value >= 1000000) {
+    return `$${(value / 1000000).toFixed(1)}M`;
+  } else {
+    return `$${(value / 1000).toFixed(0)}K`;
+  }
+};
+
+// Function to format budget range for display
+const formatBudgetRange = (value: number): string => {
+  // Calculate the upper range based on value
+  let upperValue;
+  if (value < 1000000) {
+    upperValue = value + 50000;
+  } else {
+    upperValue = value + 250000;
+  }
+  
+  return `${formatCurrency(value)} - ${formatCurrency(upperValue)}`;
+};
+
+// Handle step size change for slider
+const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>, setFormData: React.Dispatch<React.SetStateAction<QuestionnaireData>>, formData: QuestionnaireData) => {
+  const value = parseInt(e.target.value);
+  
+  // Determine the closest valid step
+  let adjustedValue;
+  if (value < 1000000) {
+    // Below 1M: steps of 50K
+    adjustedValue = Math.round(value / 50000) * 50000;
+  } else {
+    // Above 1M: steps of 250K
+    adjustedValue = Math.round(value / 250000) * 250000;
+  }
+  
+  setFormData({ ...formData, budget: adjustedValue });
+};
+
 // AgentQuestionnaire Component
 function AgentQuestionnaire({
   isOpen,
@@ -283,12 +327,14 @@ function AgentQuestionnaire({
         return;
       }
       
-      // Format the data for Supabase
+      // Format the data for Supabase - Update budget range formatting
       const submissionData = {
         name: formData.name,
         email: formData.email,
         phone: formatPhoneNumber(formData.phone),
-        budget: `${formData.budget.toString()} - ${formData.budget + 50000}`,
+        budget: formData.budget < 1000000 
+          ? `${formData.budget} - ${formData.budget + 50000}`
+          : `${formData.budget} - ${formData.budget + 250000}`,
         location: formData.location,
         propertytype: formData.propertyType,
         timeframe: formData.timeframe
@@ -424,28 +470,6 @@ function AgentQuestionnaire({
     return `${(currentStep / totalSteps) * 100}%`;
   };
 
-  const formatCurrency = (value: number): string => {
-    // Special case for max value
-    if (value >= 2000000) {
-      return "$2M+";
-    }
-
-    // Format the range
-    const rangeEnd = value + 50000;
-    
-    // Format start of range
-    const startValue = value >= 1000000
-      ? `$${(value / 1000000).toFixed(1)}M`
-      : `$${(value / 1000).toFixed(0)}K`;
-    
-    // Format end of range
-    const endValue = rangeEnd >= 1000000
-      ? `$${(rangeEnd / 1000000).toFixed(1)}M`
-      : `$${(rangeEnd / 1000).toFixed(0)}K`;
-    
-    return `${startValue} - ${endValue}`;
-  };
-
   if (!isOpen) return null;
 
   // Log initial mount and state
@@ -460,7 +484,7 @@ function AgentQuestionnaire({
   }, [formData.propertyType]);
 
   return (
-    <div className="bg-white rounded-lg w-full h-auto min-h-[610px] overflow-hidden shadow-lg border border-[#eaeaea] relative">      {/* Success message overlay with higher z-index */}
+    <div className="bg-white rounded-lg w-full h-auto min-h-[550px] overflow-hidden shadow-lg border border-[#eaeaea] relative">      {/* Success message overlay with higher z-index */}
       {showSuccess && (
         <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] animate-fadeIn">
           <div className="text-center">
@@ -502,7 +526,7 @@ function AgentQuestionnaire({
             <div className="text-center text-2xl md:text-3xl font-bold text-[#ea580c] mb-4" style={{
               marginBottom: '2rem',
             }}>
-              {formatCurrency(formData.budget)}
+              {formatBudgetRange(formData.budget)}
             </div>
             
             <div className="mb-3">
@@ -510,9 +534,9 @@ function AgentQuestionnaire({
                 type="range"
                 min="50000"
                 max="2000000"
-                step="50000"
+                step="1000" // Use a small step for smooth slider movement
                 value={formData.budget}
-                onChange={(e) => setFormData({ ...formData, budget: parseInt(e.target.value) })}
+                onChange={(e) => handleSliderChange(e, setFormData, formData)}
                 className="w-full h-2 bg-[#eaeaea] rounded-lg appearance-none cursor-pointer"
                 style={{
                   background: `linear-gradient(to right, #ea580c 0%, #ea580c ${((formData.budget - 50000) / (2000000 - 50000)) * 100}%, #eaeaea ${((formData.budget - 50000) / (2000000 - 50000)) * 100}%, #eaeaea 100%)`,
@@ -523,9 +547,9 @@ function AgentQuestionnaire({
             <div className="flex justify-between text-xs text-gray-500 mb-3" style={{
               marginBottom: '1rem',
             }}>
-              <span>$50K - $100K</span>
-              <span>$500K - $550K</span>
-              <span>$1M - $1.05M</span>
+              <span>$50K</span>
+              <span>$500K</span>
+              <span>$1M</span>
               <span>$2M+</span>
             </div>
           </div>
@@ -540,20 +564,6 @@ function AgentQuestionnaire({
             >
               Continue
             </button>
-          </div>
-          <div className="flex flex-col gap-2 mt-2 px-4 md:px-9 pb-4 md:pb-6 bg-white mt-auto items-center">
-            <p className="text-sm text-gray-500 flex items-center justify-center">
-              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 flex-shrink-0"/>
-              <span className="text-center">We've worked with over 10K happy home buyers & sellers across the U.S.</span>
-            </p>
-            <p className="text-sm text-gray-500 flex items-center justify-center">
-              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 flex-shrink-0"/>
-              <span className="text-center">We hand select the top agents from your area</span>
-            </p>
-            <p className="text-sm text-gray-500 flex items-center justify-center">
-              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 flex-shrink-0"/>
-              <span className="text-center">Get a free custom list of top agents and get connected within 2 minutes.</span>
-            </p>
           </div>
         </div>
 
@@ -979,56 +989,100 @@ export default function CompareAgentsPage() {
         )}
       </div>
 
-      <footer className={styles.Footer}>
-        <div className={styles.Footer__container}>
-          <div className={styles.Footer__top}>
-            {/* Company Info */}
-            <div className="flex flex-row items-center justify-between md:flex-col md:items-start gap-4 mb-6 md:mb-0 w-full md:w-auto">
-            <div className="flex items-center gap-3">
-                  <Link to="/" className="block">
-                  <img
-                    src="/new_logo.png"
-                    alt="RealEstateAgents.com"
-                    className="w-[120px] md:w-[180px] h-auto mix-blend-screen brightness-200 contrast-200"
-                  />
-                  </Link>
-                  <img
-                    src="/Flag-United-States-of-America.webp"
-                    alt="USA Flag"
-                    className="w-[30px] md:w-[40px] h-auto object-contain"
-                  />
+      <footer className={`${styles.Footer} bg-[#12151a]`}>
+        <div className={`${styles.Footer__container} max-w-7xl mx-auto px-4`}>
+          <div className={`${styles.Footer__top} py-6 sm:py-12`}>
+            <div className="flex flex-col md:grid md:grid-cols-4 gap-6 md:gap-4">
+              {/* Column 1: Company Info - Name and Number on same line for mobile */}
+              <div className="flex flex-col md:flex-col gap-4 w-full">
+                <div className="flex justify-between items-center md:items-start">
+                  <div className="flex items-center gap-2">
+                    <Link to="/" className="block">
+                      <img
+                        src="/new_logo.png"
+                        alt="RealEstateAgents.com"
+                        className="w-[100px] sm:w-[120px] md:w-[180px] h-[20px] sm:h-[24px] md:h-[30px] mix-blend-screen brightness-200 contrast-200"
+                      />
+                    </Link>
+                    <img
+                      src="/Flag-United-States-of-America.webp"
+                      alt="USA Flag"
+                      className="w-[25px] sm:w-[30px] md:w-[40px] h-auto object-contain"
+                    />
+                  </div>
+                  <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary whitespace-nowrap group md:hidden">
+                    <div className="bg-gray-800 p-1.5 sm:p-2 rounded-full mr-2">
+                      <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                    </div>
+                    <span className="text-sm sm:text-base">855-696-1455</span>
+                  </a>
                 </div>
-              <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary transition-colors whitespace-nowrap">
-                <Phone className="h-5 w-5 mr-2" />
-                855-696-1455
-              </a>
-            </div>
-
-            {/* Navigation Links */}
-            <ul className={styles.Footer__nav}>
-              <li><a href="/about" className="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
-              <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
-              <li><a href="/tos" className="text-gray-400 hover:text-primary transition-colors">Terms of Use</a></li>
-              <li><a href="/privacy" className="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="/contact" className="text-gray-400 hover:text-primary transition-colors">Agents Join Here</a></li>
-              <li><a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary transition-colors">Do Not Sell My Information</a></li>
-            </ul>
-
-            {/* Certification Logos */}
-            <div className={styles.Footer__icons}>
-              <div className={styles.Footer__icon}>
-                <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="90" height="35" />
+                <a href="tel:855-696-1455" className="hidden md:flex items-center text-gray-400 hover:text-primary whitespace-nowrap group">
+                  <div className="bg-gray-800 p-1.5 sm:p-2 rounded-full mr-2">
+                    <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                  </div>
+                  <span className="text-sm sm:text-base">855-696-1455</span>
+                </a>
               </div>
-              <div className={styles.Footer__icon}>
-                <img alt="Verisign" src="/verisign.webp" width="63" height="37" />
+
+              {/* Links Container - Stack on mobile, grid on desktop */}
+              <div className="flex flex-col items-center md:items-start md:col-span-2 space-y-2 w-full">
+                <ul className="space-y-2 w-full">
+                  <li className="flex justify-center md:justify-start">
+                    <a href="/about" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                      <span className="w-1 h-1 bg-primary rounded-full"></span>
+                      About Us
+                    </a>
+                  </li>
+                  <li className="flex justify-center md:justify-start">
+                    <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                      <span className="w-1 h-1 bg-primary rounded-full"></span>
+                      Contact Us
+                    </a>
+                  </li>
+                  <li className="flex justify-center md:justify-start">
+                    <a href="/tos" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                      <span className="w-1 h-1 bg-primary rounded-full"></span>
+                      Terms of Use
+                    </a>
+                  </li>
+                  <li className="flex justify-center md:justify-start">
+                    <a href="/privacy" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                      <span className="w-1 h-1 bg-primary rounded-full"></span>
+                      Privacy Policy
+                    </a>
+                  </li>
+                  <li className="flex justify-center md:justify-start">
+                    <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                      <span className="w-1 h-1 bg-primary rounded-full"></span>
+                      Agents Join Here
+                    </a>
+                  </li>
+                  <li className="flex justify-center md:justify-start">
+                    <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                      <span className="w-1 h-1 bg-primary rounded-full"></span>
+                      Do Not Sell Info
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <div className={styles.Footer__icon}>
-                <img alt="Realtor" src="/office_R_white.webp" width="34" height="38" />
+
+              {/* Column 4: Certification Logos */}
+              <div className="flex flex-row md:flex-col justify-center items-center md:items-start gap-4 w-full">
+                <div className={`${styles.Footer__icon}`}>
+                  <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="75" height="29" className="sm:w-[90px] sm:h-[35px]" />
+                </div>
+                <div className={`${styles.Footer__icon}`}>
+                  <img alt="Verisign" src="/verisign.webp" width="52" height="31" className="sm:w-[63px] sm:h-[37px]" />
+                </div>
+                <div className={`${styles.Footer__icon}`}>
+                  <img alt="Realtor" src="/office_R_white.webp" width="28" height="31" className="sm:w-[34px] sm:h-[38px]" />
+                </div>
               </div>
             </div>
           </div>
-          <div className={styles.Footer__bottom}>
-            <div className={styles.Footer__copyright}>
+          <div className={`${styles.Footer__bottom} border-t border-gray-800 py-3 sm:py-6`}>
+            <div className={`${styles.Footer__copyright} text-gray-500 text-xs text-center`}>
               A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, AceRealtors.com. All Rights Reserved.
             </div>
           </div>
