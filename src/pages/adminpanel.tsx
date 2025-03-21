@@ -873,15 +873,19 @@ const AdminPanel: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {formatDate(item.created_at)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">{item.name || '-'}</div>
+                      <td className="px-6 py-4">
+                        <div className="max-w-[120px] overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-gray-900" title={item.name || '-'}>
+                          {item.name || '-'}
+                        </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {item.email ? (
-                          <a href={`mailto:${item.email}`} className="text-indigo-600 hover:text-indigo-800 transition-colors duration-200">
-                            {item.email}
-                          </a>
-                        ) : '-'}
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        <div className="max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap">
+                          {item.email ? (
+                            <a href={`mailto:${item.email}`} className="text-indigo-600 hover:text-indigo-800 transition-colors duration-200" title={item.email}>
+                              {item.email}
+                            </a>
+                          ) : '-'}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {item.phone ? (
@@ -890,8 +894,10 @@ const AdminPanel: React.FC = () => {
                           </a>
                         ) : '-'}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {item.location || '-'}
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        <div className="max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap" title={item.location || '-'}>
+                          {item.location || '-'}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {item.propertytype ? (
