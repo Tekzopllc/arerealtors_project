@@ -105,7 +105,7 @@ export default function Home() {
                 variants={fadeInUp} 
                 className="text-base sm:text-xl md:text-2xl mb-6 font-light"
               >
-                We Negotiate So You Don't Have To - Get the Best Realtor while paying less commissions
+                We negotiate so you don't have to - get the best realtor while paying less commissions
               </motion.p>
               <motion.div 
                 variants={staggerContainer}
@@ -115,8 +115,8 @@ export default function Home() {
                   variants={scaleUp}
                   className="flex items-center gap-2 group"
                 >
-                  <div className="bg-primary/20 p-2 rounded-full">
-                    <Check className="h-4 w-4 sm:h-6 sm:w-6 text-primary" />
+                  <div className="bg-white p-2 rounded-full">
+                    <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
                   <span className="text-sm sm:text-lg">100% free</span>
                 </motion.div>
@@ -124,8 +124,8 @@ export default function Home() {
                   variants={scaleUp}
                   className="flex items-center gap-2 group"
                 >
-                  <div className="bg-primary/20 p-2 rounded-full">
-                    <Check className="h-4 w-4 sm:h-6 sm:w-6 text-primary" />
+                  <div className="bg-white p-2 rounded-full">
+                    <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
                   <span className="text-sm sm:text-lg">Takes just 1 minute</span>
                 </motion.div>
@@ -133,8 +133,8 @@ export default function Home() {
                   variants={scaleUp}
                   className="flex items-center gap-2 group"
                 >
-                  <div className="bg-primary/20 p-2 rounded-full">
-                    <Check className="h-4 w-4 sm:h-6 sm:w-6 text-primary" />
+                  <div className="bg-white p-2 rounded-full">
+                    <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
                   <span className="text-sm sm:text-lg">No strings attached</span>
                </motion.div>
@@ -167,13 +167,10 @@ export default function Home() {
       <div className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 1, y: 0 }}
             className="text-xl sm:text-3xl font-bold text-center text-secondary mb-6 sm:mb-10 relative inline-block mx-auto w-full"
           >
-            <span className="relative inline-block">
+            <span className="relative inline-block" style={{fontSize: '2.5rem'}}>
               How It Works
               <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 sm:w-20 h-1 bg-primary rounded-full"></span>
             </span>
@@ -181,10 +178,7 @@ export default function Home() {
           
           <div className="grid md:grid-cols-3 gap-4 sm:gap-8">
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              initial={{ opacity: 1, y: 0 }}
               className="flex flex-col"
             >
               <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
@@ -199,10 +193,7 @@ export default function Home() {
             </motion.div>
             
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              initial={{ opacity: 1, y: 0 }}
               className="flex flex-col"
             >
               <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
@@ -217,10 +208,7 @@ export default function Home() {
             </motion.div>
             
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              initial={{ opacity: 1, y: 0 }}
               className="flex flex-col"
             >
               <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
@@ -240,23 +228,17 @@ export default function Home() {
             <div id="reviews_section" className="py-16 sm:py-24 bg-white">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.h2 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ opacity: 1, y: 0 }}
                   className="text-2xl sm:text-3xl font-bold text-center text-secondary mb-8 sm:mb-10 relative inline-block mx-auto w-full"
                 >
-                  <span className="relative inline-block">
+                  <span className="relative inline-block" style={{fontSize: '2.5rem'}}>
                     Homeowners Love Acerealtors
                     <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-primary rounded-full"></span>
                   </span>
                 </motion.h2>
                 
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: 0.2 }}
+                  initial={{ opacity: 1 }}
                 >
                   <TestimonialsSlider />
                 </motion.div>
@@ -268,10 +250,7 @@ export default function Home() {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
                   <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                    initial={{ opacity: 1, x: 0 }}
                     className="order-2 md:order-1"
                   >
                     <h2 className="text-2xl sm:text-3xl font-bold text-secondary mb-4 sm:mb-6">
@@ -295,10 +274,7 @@ export default function Home() {
                   </motion.div>
                   
                   <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                    initial={{ opacity: 1, x: 0 }}
                     className="relative group order-1 md:order-2"
                   >
                     <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
@@ -350,22 +326,7 @@ export default function Home() {
                           className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-700"
                         />
                       </div>
-                      <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-3 sm:p-5 rounded-xl shadow-lg transform group-hover:translate-y-[-5px] transition-all duration-500">
-                        <div className="flex items-start gap-3 sm:gap-4">
-                          <div className="bg-primary/10 w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-primary/20">
-                            <span className="text-base sm:text-xl font-bold text-primary">TJ</span>
-                          </div>
-                          <div>
-                            <div className="flex text-primary mb-1">
-                              {[...Array(5)].map((_, i) => (
-                                <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
-                              ))}
-                            </div>
-                            <p className="text-xs sm:text-sm text-gray-600 line-clamp-3">"AceRealtors made selling my home so easy! They matched me with a top agent, and I saved a ton on commission without any awkward negotiations."</p>
-                            <p className="text-xs sm:text-sm font-semibold mt-1 text-secondary">Tyler J. from Tennessee</p>
-                          </div>
-                        </div>
-                      </div>
+                      
                     </div>
                   </motion.div>
                   
@@ -392,10 +353,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              initial={{ opacity: 1, y: 0 }}
               className="relative text-center px-6 sm:px-8 py-6 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10"
             >
               <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">800+</h3>
@@ -404,10 +362,7 @@ export default function Home() {
             </motion.div>
             
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              initial={{ opacity: 1, y: 0 }}
               className="relative text-center px-6 sm:px-8 py-6 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10"
             >
               <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">$13.2 M</h3>
@@ -416,10 +371,7 @@ export default function Home() {
             </motion.div>
             
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              initial={{ opacity: 1, y: 0 }}
               className="text-center px-6 sm:px-8 py-6 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10 sm:col-span-2 md:col-span-1"
             >
               <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">4500+</h3>
@@ -433,13 +385,10 @@ export default function Home() {
       <div id="more-resources" className="py-12 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 1, y: 0 }}
             className="text-center mb-6 sm:mb-12"
           >
-            <h2 className="text-xl sm:text-3xl font-bold text-center text-secondary mb-2 inline-block relative">
+            <h2 className="text-xl sm:text-3xl font-bold text-center text-secondary mb-2 inline-block relative" style={{fontSize: '2.5rem'}}>
               More Resources
               <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 sm:w-16 h-1 bg-primary rounded-full"></span>
             </h2>
@@ -451,10 +400,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             {/* Only show first 3 blog cards on mobile */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              initial={{ opacity: 1, y: 0 }}
             >
               <Link to="/blog/market-trends" className="block group">
                 <div className="bg-gray-50 rounded-xl overflow-hidden h-full border border-gray-100 shadow-md">
@@ -484,10 +430,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              initial={{ opacity: 1, y: 0 }}
             >
               <Link to="/blog/mortgage-financing" className="block group">
                 <div className="bg-gray-50 rounded-xl overflow-hidden h-full border border-gray-100 shadow-md">
@@ -551,10 +494,7 @@ export default function Home() {
 
             {/* Hidden on mobile, visible on SM+ screens */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              initial={{ opacity: 1, y: 0 }}
               className="hidden sm:block"
             >
               <Link to="/blog/home-inspection" className="block group">
@@ -655,10 +595,7 @@ export default function Home() {
           </div>
           
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            initial={{ opacity: 1, y: 0 }}
             className="flex justify-center mt-6 sm:mt-12"
           >
             <Link
@@ -675,10 +612,7 @@ export default function Home() {
       <div className="py-12 sm:py-16 bg-gradient-to-r from-secondary to-secondary/90 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5"></div>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 1, y: 0 }}
           className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
@@ -691,7 +625,7 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setIsQuestionnaireOpen(true)}
-            className="bg-white text-secondary px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-lg font-semibold hover:bg-white/90 transition-colors inline-flex items-center gap-2 shadow-xl hover:shadow-2xl shadow-black/10"
+            className="bg-orange-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-lg font-semibold hover:bg-orange-600 transition-colors inline-flex items-center gap-2 shadow-xl hover:shadow-2xl shadow-black/10"
           >
             Find an Agent
             <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 animate-pulse" />
@@ -746,19 +680,19 @@ export default function Home() {
             <ul className="space-y-2 w-full flex flex-col items-center md:items-start">
               <li className="flex justify-center md:justify-start">
                 <a href="/about" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   About Us
                 </a>
               </li>
               <li className="flex justify-center md:justify-start">
                 <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Contact Us
                 </a>
               </li>
               <li className="flex justify-center md:justify-start">
                 <a href="/tos" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Terms of Use
                 </a>
               </li>
@@ -768,19 +702,19 @@ export default function Home() {
             <ul className="space-y-2 w-full flex flex-col items-center md:items-start mt-2 md:mt-0">
               <li className="flex justify-center md:justify-start">
                 <a href="/privacy" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Privacy Policy
                 </a>
               </li>
               <li className="flex justify-center md:justify-start">
                 <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Agents Join Here
                 </a>
               </li>
               <li className="flex justify-center md:justify-start">
                 <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Do Not Sell Info
                 </a>
               </li>
