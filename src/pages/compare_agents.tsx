@@ -892,7 +892,7 @@ export default function CompareAgentsPage() {
             {/* Page Heading - Outside form for mobile */}
             <div className="block md:hidden text-center mb-6">
               <h1 className="text-2xl font-bold text-white mb-2">
-                Find The Best REALTORS
+                Find The Best Realtors
               </h1>
               <h2 className="text-2xl font-bold text-white mb-4">
                 In Your City
