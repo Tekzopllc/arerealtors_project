@@ -237,8 +237,48 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Rest of the sections... */}
-      
+      {/* Statistics Section */}
+      <div className="py-16 sm:py-20 bg-gradient-to-br from-primary to-primary/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="relative text-center px-6 sm:px-8 py-6 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10"
+            >
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">800+</h3>
+              <p className="text-lg sm:text-xl text-white/80">Top 1% Agents Across US</p>
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-2/3 bg-white/20 hidden sm:block md:hidden"></div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="relative text-center px-6 sm:px-8 py-6 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10"
+            >
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">$13.2 M</h3>
+              <p className="text-lg sm:text-xl text-white/80">Commissions Saved</p>
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-2/3 bg-white/20 hidden md:block"></div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="text-center px-6 sm:px-8 py-6 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10 sm:col-span-2 md:col-span-1"
+            >
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">4500+</h3>
+              <p className="text-lg sm:text-xl text-white/80">Happy Sellers</p>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
       {/* More Resources - Mobile optimized grid */}
       <div id="more-resources" className="py-12 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
