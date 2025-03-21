@@ -236,6 +236,156 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {/* Testimonials */}
+            <div id="reviews_section" className="py-16 sm:py-24 bg-white">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="text-2xl sm:text-3xl font-bold text-center text-secondary mb-8 sm:mb-10 relative inline-block mx-auto w-full"
+                >
+                  <span className="relative inline-block">
+                    Homeowners Love Acerealtors
+                    <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-primary rounded-full"></span>
+                  </span>
+                </motion.h2>
+                
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.2 }}
+                >
+                  <TestimonialsSlider />
+                </motion.div>
+              </div>
+            </div>
+      
+            {/* Find Local Agents */}
+            <div className="py-16 sm:py-24 bg-gradient-to-r from-white to-gray-50">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="order-2 md:order-1"
+                  >
+                    <h2 className="text-2xl sm:text-3xl font-bold text-secondary mb-4 sm:mb-6">
+                      The right realtor makes all the difference, we handpick one for you.
+                    </h2>
+                    <p className="text-base sm:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed">
+                      Not all realtors are equal. A bad one can leave your home unsold for months, while a top agent prices, markets, and sells fast. We connect you with the best, so you don't waste time.
+                    </p>
+                    
+                    <div className="mt-6 sm:mt-8">
+                      <motion.button
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setIsQuestionnaireOpen(true)}
+                        className="w-full bg-gradient-to-r from-primary to-primary/90 text-white px-6 py-3 sm:py-4 rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 font-medium text-sm sm:text-base"
+                      >
+                        Find an Agent
+                        <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="relative group order-1 md:order-2"
+                  >
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
+                    <div className="relative">
+                      <img
+                        src="/usp1.jpg"
+                        alt="Happy family in their new home"
+                        className="rounded-xl shadow-xl h-[250px] sm:h-[350px] md:h-auto w-full object-cover group-hover:shadow-2xl transition-all duration-500"
+                      />
+                      <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-3 sm:p-5 rounded-xl shadow-lg transform group-hover:translate-y-[-5px] transition-all duration-500">
+                        <div className="flex items-start gap-3 sm:gap-4">
+                          <div className="bg-primary/10 w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-primary/20">
+                            <span className="text-base sm:text-xl font-bold text-primary">MD</span>
+                          </div>
+                          <div>
+                            <div className="flex text-primary mb-1">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
+                              ))}
+                            </div>
+                            <p className="text-xs sm:text-sm text-gray-600 line-clamp-3">"We didn't want to waste time with the wrong realtor, and AceRealtors made sure we didn't. The agent they connected us with sold our home fast and for a great price!"</p>
+                            <p className="text-xs sm:text-sm font-semibold mt-1 text-secondary">Megan D. from Florida</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+      
+            {/* Additional Testimonial */}
+            <div className="py-16 sm:py-24 bg-gray-50">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="relative group"
+                  >
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
+                    <div className="relative">
+                      <div className="image-container rounded-xl shadow-xl overflow-hidden">
+                        <img
+                          src="/usp2.webp"
+                          alt="Happy family enjoying their new home"
+                          className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+                      <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-3 sm:p-5 rounded-xl shadow-lg transform group-hover:translate-y-[-5px] transition-all duration-500">
+                        <div className="flex items-start gap-3 sm:gap-4">
+                          <div className="bg-primary/10 w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-primary/20">
+                            <span className="text-base sm:text-xl font-bold text-primary">TJ</span>
+                          </div>
+                          <div>
+                            <div className="flex text-primary mb-1">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
+                              ))}
+                            </div>
+                            <p className="text-xs sm:text-sm text-gray-600 line-clamp-3">"AceRealtors made selling my home so easy! They matched me with a top agent, and I saved a ton on commission without any awkward negotiations."</p>
+                            <p className="text-xs sm:text-sm font-semibold mt-1 text-secondary">Tyler J. from Tennessee</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="content-wrapper flex flex-col justify-center h-full"
+                  >
+                    <h2 className="text-2xl sm:text-3xl font-bold text-secondary mb-4 sm:mb-6">
+                      When you save on commissions, we win.
+                    </h2>
+                    <p className="text-base sm:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed">
+                      At AceRealtors, we've already done the hard work—negotiating lower commission rates with top realtors in your area. That means you get the best agents without overpaying. More money in your pocket, less stress on your plate.
+                    </p>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
 
       {/* Statistics Section */}
       <div className="py-16 sm:py-20 bg-gradient-to-br from-primary to-primary/80">
