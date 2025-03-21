@@ -992,35 +992,29 @@ export default function CompareAgentsPage() {
       <footer className={`${styles.Footer} bg-[#12151a]`}>
   <div className={`${styles.Footer__container} max-w-7xl mx-auto px-4`}>
     <div className={`${styles.Footer__top} py-6 sm:py-12`}>
-      <div className="flex flex-col md:grid md:grid-cols-4 gap-6 md:gap-4">
-        {/* Column 1: Company Info - Logo and Phone arranged vertically in desktop */}
-        <div className="flex flex-col gap-4 w-full">
-          {/* Logo and flag - same for mobile, but reorganized for desktop */}
-          <div className="flex justify-between items-center md:items-start">
-            <div className="flex items-center gap-2">
-              <Link to="/" className="block">
-                <img
-                  src="/new_logo.png"
-                  alt="RealEstateAgents.com"
-                  className="w-[100px] sm:w-[120px] md:w-[180px] h-[20px] sm:h-[24px] md:h-[30px] mix-blend-screen brightness-200 contrast-200"
-                />
-              </Link>
+      {/* Mobile view - restructured */}
+      <div className="flex flex-col gap-5 md:hidden">
+        {/* Company Logo */}
+        <div className="flex justify-center items-center w-full">
+          <div className="flex items-center gap-2">
+            <Link to="/" className="block">
               <img
-                src="/Flag-United-States-of-America.webp"
-                alt="USA Flag"
-                className="w-[25px] sm:w-[30px] md:w-[40px] h-auto object-contain"
+                src="/new_logo.png"
+                alt="RealEstateAgents.com"
+                className="w-[120px] sm:w-[140px] h-[24px] sm:h-[28px] mix-blend-screen brightness-200 contrast-200"
               />
-            </div>
-            {/* Phone number shown only on mobile */}
-            <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary whitespace-nowrap group md:hidden">
-              <div className="bg-gray-800 p-1.5 sm:p-2 rounded-full mr-2">
-                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-              </div>
-              <span className="text-sm sm:text-base">855-696-1455</span>
-            </a>
+            </Link>
+            <img
+              src="/Flag-United-States-of-America.webp"
+              alt="USA Flag"
+              className="w-[25px] sm:w-[30px] h-auto object-contain"
+            />
           </div>
-          {/* Phone number positioned directly under logo in desktop */}
-          <a href="tel:855-696-1455" className="hidden md:flex items-center text-gray-400 hover:text-primary whitespace-nowrap group">
+        </div>
+
+        {/* Phone Number */}
+        <div className="flex justify-center items-center w-full">
+          <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary whitespace-nowrap group">
             <div className="bg-gray-800 p-1.5 sm:p-2 rounded-full mr-2">
               <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
             </div>
@@ -1028,57 +1022,11 @@ export default function CompareAgentsPage() {
           </a>
         </div>
 
-        {/* Links Container - Split into two columns for desktop */}
-        <div className="flex flex-col items-center md:items-start md:col-span-2 space-y-2 w-full">
-          <div className="w-full md:grid md:grid-cols-2 md:gap-4">
-            {/* First column of links */}
-            <ul className="space-y-2 w-full flex flex-col items-center md:items-start">
-              <li className="flex justify-center md:justify-start">
-                <a href="/about" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  
-                  About Us
-                </a>
-              </li>
-              <li className="flex justify-center md:justify-start">
-                <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  
-                  Contact Us
-                </a>
-              </li>
-              <li className="flex justify-center md:justify-start">
-                <a href="/tos" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  
-                  Terms of Use
-                </a>
-              </li>
-            </ul>
-            
-            {/* Second column of links */}
-            <ul className="space-y-2 w-full flex flex-col items-center md:items-start mt-2 md:mt-0">
-              <li className="flex justify-center md:justify-start">
-                <a href="/privacy" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  
-                  Privacy Policy
-                </a>
-              </li>
-              <li className="flex justify-center md:justify-start">
-                <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  
-                  Agents Join Here
-                </a>
-              </li>
-              <li className="flex justify-center md:justify-start">
-                <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  
-                  Do Not Sell Info
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        {/* White Border */}
+        <div className="w-full border-t border-white opacity-30 my-1"></div>
 
-        {/* Column 4: Certification Logos */}
-        <div className="flex flex-row md:flex-col justify-center items-center md:items-start gap-4 w-full">
+        {/* Certification Logos - centered */}
+        <div className="flex flex-row justify-center items-center gap-4 w-full">
           <div className={`${styles.Footer__icon}`}>
             <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="75" height="29" className="sm:w-[90px] sm:h-[35px]" />
           </div>
@@ -1089,9 +1037,139 @@ export default function CompareAgentsPage() {
             <img alt="Realtor" src="/office_R_white.webp" width="28" height="31" className="sm:w-[34px] sm:h-[38px]" />
           </div>
         </div>
+
+        {/* Copyright Text */}
+        <div className="text-gray-500 text-xs text-center mt-2 mb-4">
+          A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, AceRealtors.com. All Rights Reserved.
+        </div>
+
+        {/* Links - First Row */}
+        <div className="flex justify-center items-center w-full">
+          <nav className="flex flex-wrap justify-center">
+            <a href="/about" className="text-gray-400 hover:text-primary text-xs sm:text-sm px-2">About Us</a>
+            <span className="text-gray-400">|</span>
+            <a href="/contact" className="text-gray-400 hover:text-primary text-xs sm:text-sm px-2">Contact Us</a>
+            <span className="text-gray-400">|</span>
+            <a href="/tos" className="text-gray-400 hover:text-primary text-xs sm:text-sm px-2">Terms of Use</a>
+            <span className="text-gray-400">|</span>
+            <a href="/privacy" className="text-gray-400 hover:text-primary text-xs sm:text-sm px-2">Privacy Policy</a>
+          </nav>
+        </div>
+
+        {/* Links - Second Row */}
+        <div className="flex justify-center items-center w-full">
+          <nav className="flex flex-wrap justify-center">
+            <a href="/contact" className="text-gray-400 hover:text-primary text-xs sm:text-sm px-2">Agents Join Here</a>
+            <span className="text-gray-400">|</span>
+            <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary text-xs sm:text-sm px-2">Do Not Sell Info</a>
+          </nav>
+        </div>
+      </div>
+
+      {/* Desktop view - grid structure (unchanged) */}
+      <div className="hidden md:grid md:grid-cols-12 md:grid-rows-[auto_auto_auto] md:gap-x-4 md:gap-y-6">
+        {/* Row 1: Logo in first cell, links spread over middle, logos at end */}
+        {/* Logo and flag - First row, first column */}
+        <div className="col-span-3 row-span-1 flex items-start">
+          <div className="flex items-center gap-2">
+            <Link to="/" className="block">
+              <img
+                src="/new_logo.png"
+                alt="RealEstateAgents.com"
+                className="w-[180px] h-[30px] mix-blend-screen brightness-200 contrast-200"
+              />
+            </Link>
+            <img
+              src="/Flag-United-States-of-America.webp"
+              alt="USA Flag"
+              className="w-[40px] h-auto object-contain"
+            />
+          </div>
+        </div>
+
+        {/* First set of links - First row, columns 4-6 */}
+        <div className="col-span-3 row-span-1">
+          <ul className="space-y-2 w-full">
+            <li className="flex justify-start">
+              <a href="/about" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
+                About Us
+              </a>
+            </li>
+            <li className="flex justify-start">
+              <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Second set of links - First row, columns 7-9 */}
+        <div className="col-span-3 row-span-1">
+          <ul className="space-y-2 w-full">
+            <li className="flex justify-start">
+              <a href="/tos" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
+                Terms of Use
+              </a>
+            </li>
+            <li className="flex justify-start">
+              <a href="/privacy" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
+                Privacy Policy
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Certification Logos - First row, columns 10-12, horizontal */}
+        <div className="col-span-3 row-span-1 flex flex-row justify-end items-start gap-4">
+          <div className={`${styles.Footer__icon}`}>
+            <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="90" height="35" />
+          </div>
+          <div className={`${styles.Footer__icon}`}>
+            <img alt="Verisign" src="/verisign.webp" width="63" height="37" />
+          </div>
+          <div className={`${styles.Footer__icon}`}>
+            <img alt="Realtor" src="/office_R_white.webp" width="34" height="38" />
+          </div>
+        </div>
+
+        {/* Row 2: Phone number in first cell, more links in middle */}
+        {/* Phone number - Second row, first column */}
+        <div className="col-span-3 row-span-1">
+          <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary whitespace-nowrap group">
+            <div className="bg-gray-800 p-2 rounded-full mr-2">
+              <Phone className="h-5 w-5 text-primary" />
+            </div>
+            <span className="text-base">855-696-1455</span>
+          </a>
+        </div>
+
+        {/* More links third row */}
+        <div className="col-span-3 row-span-1">
+          <ul className="space-y-2 w-full">
+            <li className="flex justify-start">
+              <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
+                Agents Join Here
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div className="col-span-3 row-span-1">
+          <ul className="space-y-2 w-full">
+            <li className="flex justify-start">
+              <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
+                Do Not Sell Info
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Empty space for row 2, columns 10-12 */}
+        <div className="col-span-3 row-span-1"></div>
       </div>
     </div>
-    <div className={`${styles.Footer__bottom} border-t border-gray-800 py-3 sm:py-6`}>
+    {/* Only show this copyright section in desktop view */}
+    <div className={`${styles.Footer__bottom} border-t border-gray-800 py-3 sm:py-6 hidden md:block`}>
       <div className={`${styles.Footer__copyright} text-gray-500 text-xs text-center`}>
         A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, AceRealtors.com. All Rights Reserved.
       </div>
