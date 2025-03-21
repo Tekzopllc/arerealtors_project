@@ -141,29 +141,9 @@ export default function Home() {
       <div id="reviews_section" className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-secondary mb-10">
-            What Our Clients Say
+            Homeowners Love Acerealtors
           </h2>
           <TestimonialsSlider />
-        </div>
-      </div>
-
-      {/* Statistics Section */}
-      <div className="py-12 bg-primary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="text-center px-8 py-6">
-              <h3 className="text-5xl font-bold text-white mb-4">800+</h3>
-              <p className="text-xl text-white/80">Top 1% Agents Across US</p>
-            </div>
-            <div className="text-center px-8 py-6 md:border-x border-white/20">
-              <h3 className="text-5xl font-bold text-white mb-4">$13.2 M</h3>
-              <p className="text-xl text-white/80">Commissions Saved</p>
-            </div>
-            <div className="text-center px-8 py-6">
-              <h3 className="text-5xl font-bold text-white mb-4">4500+</h3>
-              <p className="text-xl text-white/80">Happy Sellers</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -207,7 +187,7 @@ export default function Home() {
       </div>
 
       {/* Find Real Estate Agents for Free section */}
-      <div className="py-16 bg-white">
+      {/* <div className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -233,7 +213,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Find Local Agents */}
       <div className="py-12 bg-white">
@@ -377,6 +357,26 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Statistics Section */}
+      <div className="py-12 bg-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="text-center px-8 py-6">
+              <h3 className="text-5xl font-bold text-white mb-4">800+</h3>
+              <p className="text-xl text-white/80">Top 1% Agents Across US</p>
+            </div>
+            <div className="text-center px-8 py-6 md:border-x border-white/20">
+              <h3 className="text-5xl font-bold text-white mb-4">$13.2 M</h3>
+              <p className="text-xl text-white/80">Commissions Saved</p>
+            </div>
+            <div className="text-center px-8 py-6">
+              <h3 className="text-5xl font-bold text-white mb-4">4500+</h3>
+              <p className="text-xl text-white/80">Happy Sellers</p>
             </div>
           </div>
         </div>
@@ -575,21 +575,21 @@ export default function Home() {
         <div className={styles.Footer__container}>
           <div className={styles.Footer__top}>
             {/* Company Info */}
-            <div className="flex flex-row items-center justify-between md:justify-start gap-4 mb-6 md:mb-0 w-full md:w-auto">
+            <div className="flex flex-row items-center justify-between md:flex-col md:items-start gap-4 mb-6 md:mb-0 w-full md:w-auto">
             <div className="flex items-center gap-3">
-                              <Link to="/" className="block">
-                              <img
-                                src="/new_logo.png"
-                                alt="RealEstateAgents.com"
-                                className="w-[120px] md:w-[180px] h-auto mix-blend-screen brightness-200 contrast-200"
-                              />
-                              </Link>
-                              <img
-                                src="/Flag-United-States-of-America.webp"
-                                alt="USA Flag"
-                                className="w-[30px] md:w-[40px] h-auto object-contain"
-                              />
-                            </div>
+                  <Link to="/" className="block">
+                  <img
+                    src="/new_logo.png"
+                    alt="RealEstateAgents.com"
+                    className="w-[120px] md:w-[180px] h-auto mix-blend-screen brightness-200 contrast-200"
+                  />
+                  </Link>
+                  <img
+                    src="/Flag-United-States-of-America.webp"
+                    alt="USA Flag"
+                    className="w-[30px] md:w-[40px] h-auto object-contain"
+                  />
+                </div>
               <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary transition-colors whitespace-nowrap">
                 <Phone className="h-5 w-5 mr-2" />
                 855-696-1455

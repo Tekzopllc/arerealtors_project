@@ -489,7 +489,7 @@ function AgentQuestionnaire({
                 Find The Best Realtors
               </div>
               <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-1">
-                In Yous City
+                In Your City
               </div>
               <p className="mb-2 mt-4">Instantly see a personalized list of great agents to choose from.</p>
             </div>
@@ -530,29 +530,29 @@ function AgentQuestionnaire({
             </div>
           </div>
           
-          <div className="MessageAgentForm__screen-controls flex justify-end items-center mt-2">
+          <div className="MessageAgentForm__screen-controls flex justify-center items-center mt-2">
             <button
               onClick={nextStep}
               className="bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors hover:bg-[#d24b09]"
               style={{
-                marginBottom: '4rem',
+                marginBottom: '2.5rem',
               }}
             >
               Continue
             </button>
           </div>
-          <div className="flex flex-col gap-2 mt-2 px-4 md:px-9 pb-4 md:pb-6 bg-white mt-auto">
-            <p className="text-sm text-gray-500 flex items-start">
-              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
-              <span>We've worked with over 10K happy home buyers & sellers across the U.S.</span>
+          <div className="flex flex-col gap-2 mt-2 px-4 md:px-9 pb-4 md:pb-6 bg-white mt-auto items-center">
+            <p className="text-sm text-gray-500 flex items-center justify-center">
+              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 flex-shrink-0"/>
+              <span className="text-center">We've worked with over 10K happy home buyers & sellers across the U.S.</span>
             </p>
-            <p className="text-sm text-gray-500 flex items-start">
-              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
-              <span>We hand select the top agents from your area</span>
+            <p className="text-sm text-gray-500 flex items-center justify-center">
+              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 flex-shrink-0"/>
+              <span className="text-center">We hand select the top agents from your area</span>
             </p>
-            <p className="text-sm text-gray-500 flex items-start">
-              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 mt-1 flex-shrink-0"/>
-              <span>Get a free custom list of top agents and get connected within 2 minutes.</span>
+            <p className="text-sm text-gray-500 flex items-center justify-center">
+              <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="w-4 h-4 mr-2 flex-shrink-0"/>
+              <span className="text-center">Get a free custom list of top agents and get connected within 2 minutes.</span>
             </p>
           </div>
         </div>
@@ -983,7 +983,7 @@ export default function CompareAgentsPage() {
         <div className={styles.Footer__container}>
           <div className={styles.Footer__top}>
             {/* Company Info */}
-            <div className="flex flex-row items-center justify-between md:justify-start gap-4 mb-6 md:mb-0 w-full md:w-auto">
+            <div className="flex flex-row items-center justify-between md:flex-col md:items-start gap-4 mb-6 md:mb-0 w-full md:w-auto">
             <div className="flex items-center gap-3">
                   <Link to="/" className="block">
                   <img
