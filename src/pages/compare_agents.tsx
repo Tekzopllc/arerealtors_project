@@ -1035,19 +1035,19 @@ export default function CompareAgentsPage() {
             <ul className="space-y-2 w-full flex flex-col items-center md:items-start">
               <li className="flex justify-center md:justify-start">
                 <a href="/about" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   About Us
                 </a>
               </li>
               <li className="flex justify-center md:justify-start">
                 <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Contact Us
                 </a>
               </li>
               <li className="flex justify-center md:justify-start">
                 <a href="/tos" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Terms of Use
                 </a>
               </li>
@@ -1057,19 +1057,19 @@ export default function CompareAgentsPage() {
             <ul className="space-y-2 w-full flex flex-col items-center md:items-start mt-2 md:mt-0">
               <li className="flex justify-center md:justify-start">
                 <a href="/privacy" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Privacy Policy
                 </a>
               </li>
               <li className="flex justify-center md:justify-start">
                 <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Agents Join Here
                 </a>
               </li>
               <li className="flex justify-center md:justify-start">
                 <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  
                   Do Not Sell Info
                 </a>
               </li>
