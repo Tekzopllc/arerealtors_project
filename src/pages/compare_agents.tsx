@@ -990,104 +990,114 @@ export default function CompareAgentsPage() {
       </div>
 
       <footer className={`${styles.Footer} bg-[#12151a]`}>
-        <div className={`${styles.Footer__container} max-w-7xl mx-auto px-4`}>
-          <div className={`${styles.Footer__top} py-6 sm:py-12`}>
-            <div className="flex flex-col md:grid md:grid-cols-4 gap-6 md:gap-4">
-              {/* Column 1: Company Info - Name and Number on same line for mobile */}
-              <div className="flex flex-col md:flex-col gap-4 w-full">
-                <div className="flex justify-between items-center md:items-start">
-                  <div className="flex items-center gap-2">
-                    <Link to="/" className="block">
-                      <img
-                        src="/new_logo.png"
-                        alt="RealEstateAgents.com"
-                        className="w-[100px] sm:w-[120px] md:w-[180px] h-[20px] sm:h-[24px] md:h-[30px] mix-blend-screen brightness-200 contrast-200"
-                      />
-                    </Link>
-                    <img
-                      src="/Flag-United-States-of-America.webp"
-                      alt="USA Flag"
-                      className="w-[25px] sm:w-[30px] md:w-[40px] h-auto object-contain"
-                    />
-                  </div>
-                  <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary whitespace-nowrap group md:hidden">
-                    <div className="bg-gray-800 p-1.5 sm:p-2 rounded-full mr-2">
-                      <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                    </div>
-                    <span className="text-sm sm:text-base">855-696-1455</span>
-                  </a>
-                </div>
-                <a href="tel:855-696-1455" className="hidden md:flex items-center text-gray-400 hover:text-primary whitespace-nowrap group">
-                  <div className="bg-gray-800 p-1.5 sm:p-2 rounded-full mr-2">
-                    <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                  </div>
-                  <span className="text-sm sm:text-base">855-696-1455</span>
-                </a>
-              </div>
-
-              {/* Links Container - Stack on mobile, grid on desktop */}
-              <div className="flex flex-col items-center md:items-start md:col-span-2 space-y-2 w-full">
-                <ul className="space-y-2 w-full">
-                  <li className="flex justify-center md:justify-start">
-                    <a href="/about" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                      <span className="w-1 h-1 bg-primary rounded-full"></span>
-                      About Us
-                    </a>
-                  </li>
-                  <li className="flex justify-center md:justify-start">
-                    <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                      <span className="w-1 h-1 bg-primary rounded-full"></span>
-                      Contact Us
-                    </a>
-                  </li>
-                  <li className="flex justify-center md:justify-start">
-                    <a href="/tos" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                      <span className="w-1 h-1 bg-primary rounded-full"></span>
-                      Terms of Use
-                    </a>
-                  </li>
-                  <li className="flex justify-center md:justify-start">
-                    <a href="/privacy" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                      <span className="w-1 h-1 bg-primary rounded-full"></span>
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li className="flex justify-center md:justify-start">
-                    <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                      <span className="w-1 h-1 bg-primary rounded-full"></span>
-                      Agents Join Here
-                    </a>
-                  </li>
-                  <li className="flex justify-center md:justify-start">
-                    <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
-                      <span className="w-1 h-1 bg-primary rounded-full"></span>
-                      Do Not Sell Info
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Column 4: Certification Logos */}
-              <div className="flex flex-row md:flex-col justify-center items-center md:items-start gap-4 w-full">
-                <div className={`${styles.Footer__icon}`}>
-                  <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="75" height="29" className="sm:w-[90px] sm:h-[35px]" />
-                </div>
-                <div className={`${styles.Footer__icon}`}>
-                  <img alt="Verisign" src="/verisign.webp" width="52" height="31" className="sm:w-[63px] sm:h-[37px]" />
-                </div>
-                <div className={`${styles.Footer__icon}`}>
-                  <img alt="Realtor" src="/office_R_white.webp" width="28" height="31" className="sm:w-[34px] sm:h-[38px]" />
-                </div>
-              </div>
+  <div className={`${styles.Footer__container} max-w-7xl mx-auto px-4`}>
+    <div className={`${styles.Footer__top} py-6 sm:py-12`}>
+      <div className="flex flex-col md:grid md:grid-cols-4 gap-6 md:gap-4">
+        {/* Column 1: Company Info - Logo and Phone arranged vertically in desktop */}
+        <div className="flex flex-col gap-4 w-full">
+          {/* Logo and flag - same for mobile, but reorganized for desktop */}
+          <div className="flex justify-between items-center md:items-start">
+            <div className="flex items-center gap-2">
+              <Link to="/" className="block">
+                <img
+                  src="/new_logo.png"
+                  alt="RealEstateAgents.com"
+                  className="w-[100px] sm:w-[120px] md:w-[180px] h-[20px] sm:h-[24px] md:h-[30px] mix-blend-screen brightness-200 contrast-200"
+                />
+              </Link>
+              <img
+                src="/Flag-United-States-of-America.webp"
+                alt="USA Flag"
+                className="w-[25px] sm:w-[30px] md:w-[40px] h-auto object-contain"
+              />
             </div>
+            {/* Phone number shown only on mobile */}
+            <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary whitespace-nowrap group md:hidden">
+              <div className="bg-gray-800 p-1.5 sm:p-2 rounded-full mr-2">
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+              </div>
+              <span className="text-sm sm:text-base">855-696-1455</span>
+            </a>
           </div>
-          <div className={`${styles.Footer__bottom} border-t border-gray-800 py-3 sm:py-6`}>
-            <div className={`${styles.Footer__copyright} text-gray-500 text-xs text-center`}>
-              A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, AceRealtors.com. All Rights Reserved.
+          {/* Phone number positioned directly under logo in desktop */}
+          <a href="tel:855-696-1455" className="hidden md:flex items-center text-gray-400 hover:text-primary whitespace-nowrap group">
+            <div className="bg-gray-800 p-1.5 sm:p-2 rounded-full mr-2">
+              <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
             </div>
+            <span className="text-sm sm:text-base">855-696-1455</span>
+          </a>
+        </div>
+
+        {/* Links Container - Split into two columns for desktop */}
+        <div className="flex flex-col items-center md:items-start md:col-span-2 space-y-2 w-full">
+          <div className="w-full md:grid md:grid-cols-2 md:gap-4">
+            {/* First column of links */}
+            <ul className="space-y-2 w-full flex flex-col items-center md:items-start">
+              <li className="flex justify-center md:justify-start">
+                <a href="/about" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  About Us
+                </a>
+              </li>
+              <li className="flex justify-center md:justify-start">
+                <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  Contact Us
+                </a>
+              </li>
+              <li className="flex justify-center md:justify-start">
+                <a href="/tos" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  Terms of Use
+                </a>
+              </li>
+            </ul>
+            
+            {/* Second column of links */}
+            <ul className="space-y-2 w-full flex flex-col items-center md:items-start mt-2 md:mt-0">
+              <li className="flex justify-center md:justify-start">
+                <a href="/privacy" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  Privacy Policy
+                </a>
+              </li>
+              <li className="flex justify-center md:justify-start">
+                <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  Agents Join Here
+                </a>
+              </li>
+              <li className="flex justify-center md:justify-start">
+                <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1">
+                  <span className="w-1 h-1 bg-primary rounded-full"></span>
+                  Do Not Sell Info
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-      </footer>
+
+        {/* Column 4: Certification Logos */}
+        <div className="flex flex-row md:flex-col justify-center items-center md:items-start gap-4 w-full">
+          <div className={`${styles.Footer__icon}`}>
+            <img src="/Your_paragraph_text.png" alt="Customer Reviews" width="75" height="29" className="sm:w-[90px] sm:h-[35px]" />
+          </div>
+          <div className={`${styles.Footer__icon}`}>
+            <img alt="Verisign" src="/verisign.webp" width="52" height="31" className="sm:w-[63px] sm:h-[37px]" />
+          </div>
+          <div className={`${styles.Footer__icon}`}>
+            <img alt="Realtor" src="/office_R_white.webp" width="28" height="31" className="sm:w-[34px] sm:h-[38px]" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className={`${styles.Footer__bottom} border-t border-gray-800 py-3 sm:py-6`}>
+      <div className={`${styles.Footer__copyright} text-gray-500 text-xs text-center`}>
+        A REALTOR is a member of the National Association of REALTORS® ©2005 - 2025, AceRealtors.com. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
       </div>
     </main>
     </div>
