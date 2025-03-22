@@ -837,9 +837,9 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
             {/* Progress header */}
             <div className="relative z-[3] bg-[#f8f8f8] animate-fadeInDown border-b border-[rgba(234,88,12,0.1)]">
               <div className="px-6 py-4 flex items-center justify-between">
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <span className="text-sm font-medium text-[#ea580c]">Step {currentStep} of {totalSteps}</span>
-                </div>
+                </div> */}
                 {!embedded && (
                   <button
                     onClick={handleCloseModal}
@@ -850,10 +850,10 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
                   </button>
                 )}
               </div>
-              <div className="premium-progress-container">
+              <div className="premium-progress-container" style={{borderRadius: "25px"}}>
                 <div
                   className="premium-progress-bar"
-                  style={{ width: getProgressWidth() }}
+                  style={{ width: getProgressWidth(), borderRadius: "25px" }}
                 />
               </div>
             </div>

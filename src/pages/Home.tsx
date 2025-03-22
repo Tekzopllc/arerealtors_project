@@ -711,8 +711,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Desktop view - grid structure (unchanged) */}
-      <div className="hidden md:grid md:grid-cols-12 md:grid-rows-[auto_auto_auto] md:gap-x-4 md:gap-y-6">
+      {/* Desktop view - grid structure (with fixes for spacing) */}
+      <div className="hidden md:grid md:grid-cols-12 md:grid-rows-[auto_auto_auto] md:gap-x-4 md:gap-y-2">
         {/* Row 1: Logo in first cell, links spread over middle, logos at end */}
         {/* Logo and flag - First row, first column */}
         <div className="col-span-3 row-span-1 flex items-start">
@@ -777,9 +777,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Row 2: Phone number in first cell, more links in middle */}
+        {/* Row 2: Phone number in first cell, more links in middle - FIXED SPACING */}
         {/* Phone number - Second row, first column */}
-        <div className="col-span-3 row-span-1">
+        <div className="col-span-3 row-span-1 flex items-center" style={{marginTop: '-3rem'}}>
           <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary whitespace-nowrap group">
             <div className="bg-gray-800 p-2 rounded-full mr-2">
               <Phone className="h-5 w-5 text-primary" />
@@ -788,25 +788,18 @@ export default function Home() {
           </a>
         </div>
 
-        {/* More links third row */}
-        <div className="col-span-3 row-span-1">
-          <ul className="space-y-2 w-full">
-            <li className="flex justify-start">
-              <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
-                Agents Join Here
-              </a>
-            </li>
-          </ul>
+        {/* Agents Join Here - Fixed */}
+        <div className="col-span-3 row-span-1 flex items-center">
+          <a href="/contact" className="text-gray-400 hover:text-primary text-xs sm:text-sm">
+            Agents Join Here
+          </a>
         </div>
 
-        <div className="col-span-3 row-span-1">
-          <ul className="space-y-2 w-full">
-            <li className="flex justify-start">
-              <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
-                Do Not Sell Info
-              </a>
-            </li>
-          </ul>
+        {/* Do Not Sell Info - Fixed */}
+        <div className="col-span-3 row-span-1 flex items-center">
+          <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary text-xs sm:text-sm">
+            Do Not Sell Info
+          </a>
         </div>
 
         {/* Empty space for row 2, columns 10-12 */}
