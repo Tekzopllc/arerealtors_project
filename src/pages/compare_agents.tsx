@@ -7,6 +7,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
 import '../animations.css';
 import '../index.css';
+import { getCityFromUrl } from '../utils/urlUtils';
 
 // Custom styles for phone input to match our theme
 const phoneInputCustomStyles = `
@@ -240,15 +241,11 @@ function AgentQuestionnaire({
   isOpen,
   onClose,
   onSubmit,
-  showOtherPropertyTypePopup,
   setShowOtherPropertyTypePopup,
-  isPopupClosing,
   setIsPopupClosing,
-  otherPropertyType,
   setOtherPropertyType,
   formData,
   setFormData,
-  onNextStep,
   currentStep,
   setCurrentStep
 }: QuestionnaireProps) {
@@ -256,6 +253,7 @@ function AgentQuestionnaire({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [cityName, setCityName] = useState('');
   const totalSteps = 6; // Each input is now a separate page
   
   // Reference to store and clear timeouts
@@ -396,16 +394,6 @@ function AgentQuestionnaire({
     }
   };
 
-  const handleCloseModal = () => {
-    setIsClosing(true);
-    // Store the timeout ID so we can clear it if needed
-    closeTimeoutRef.current = window.setTimeout(() => {
-      onClose();
-      setIsClosing(false);
-      closeTimeoutRef.current = null;
-    }, 500);
-  };
-
   const nextStep = () => {
     if (currentStep < totalSteps) {
       // Log current state before moving to next step
@@ -483,6 +471,23 @@ function AgentQuestionnaire({
     console.log('Property type changed:', formData.propertyType);
   }, [formData.propertyType]);
 
+  useEffect(() => {
+    const cityName = getCityFromUrl();
+    console.log('City name from URL:', cityName);
+    
+    if (cityName) {
+      setCityName(cityName);
+    //   // Store in localStorage for persistence
+    //   localStorage.setItem('userCity', cityName);
+    // } else {
+    //   // Check if we have a previously stored city
+    //   const storedCity = localStorage.getItem('userCity');
+    //   if (storedCity) {
+    //     setCityName(storedCity);
+    //   }
+    }
+  }, []);
+
   return (
     <div className="bg-white rounded-lg w-full h-auto min-h-[550px] overflow-hidden shadow-lg border border-[#eaeaea] relative">      {/* Success message overlay with higher z-index */}
       {showSuccess && (
@@ -513,7 +518,7 @@ function AgentQuestionnaire({
                 Find The Best Realtors
               </div>
               <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-1">
-                In Your City
+              {cityName ? `In ${cityName}` : 'In Your City'}
               </div>
               <p className="mb-2 mt-4">Instantly see a personalized list of great agents to choose from.</p>
             </div>
@@ -826,6 +831,7 @@ export default function CompareAgentsPage() {
   const [isPopupClosing, setIsPopupClosing] = useState(false);
   const [otherPropertyType, setOtherPropertyType] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
+  const [cityName, setCityName] = useState('');
   const [formData, setFormData] = useState<QuestionnaireData>({
     timeframe: '',
     location: '',
@@ -835,6 +841,22 @@ export default function CompareAgentsPage() {
     email: '',
     phone: '+1', // Initialize with +1 for US
   });
+  useEffect(() => {
+    const cityName = getCityFromUrl();
+    console.log('City name from URL:', cityName);
+    
+    if (cityName) {
+      setCityName(cityName);
+    //   // Store in localStorage for persistence
+    //   localStorage.setItem('userCity', cityName);
+    // } else {
+    //   // Check if we have a previously stored city
+    //   const storedCity = localStorage.getItem('userCity');
+    //   if (storedCity) {
+    //     setCityName(storedCity);
+    //   }
+    }
+  }, []);
 
   const totalSteps = 6; // Each input is a separate page
 
@@ -895,7 +917,7 @@ export default function CompareAgentsPage() {
                 Find The Best Realtors
               </h1>
               <h2 className="text-2xl font-bold text-white mb-4">
-                In Your City
+                {cityName ? `In ${cityName}` : 'In Your City'}
               </h2>
               <p className="text-white/90 text-sm" style={{ marginBottom: '3.5rem'}}>
                 Instantly see a personalized list of great agents to choose from.
@@ -1066,8 +1088,8 @@ export default function CompareAgentsPage() {
         </div>
       </div>
 
-      {/* Desktop view - grid structure (unchanged) */}
-      <div className="hidden md:grid md:grid-cols-12 md:grid-rows-[auto_auto_auto] md:gap-x-4 md:gap-y-6">
+      {/* Desktop view - grid structure (with fixes for spacing) */}
+      <div className="hidden md:grid md:grid-cols-12 md:grid-rows-[auto_auto_auto] md:gap-x-4 md:gap-y-2">
         {/* Row 1: Logo in first cell, links spread over middle, logos at end */}
         {/* Logo and flag - First row, first column */}
         <div className="col-span-3 row-span-1 flex items-start">
@@ -1132,9 +1154,9 @@ export default function CompareAgentsPage() {
           </div>
         </div>
 
-        {/* Row 2: Phone number in first cell, more links in middle */}
+        {/* Row 2: Phone number in first cell, more links in middle - FIXED SPACING */}
         {/* Phone number - Second row, first column */}
-        <div className="col-span-3 row-span-1">
+        <div className="col-span-3 row-span-1 flex items-center" style={{marginTop: '-3rem'}}>
           <a href="tel:855-696-1455" className="flex items-center text-gray-400 hover:text-primary whitespace-nowrap group">
             <div className="bg-gray-800 p-2 rounded-full mr-2">
               <Phone className="h-5 w-5 text-primary" />
@@ -1143,25 +1165,18 @@ export default function CompareAgentsPage() {
           </a>
         </div>
 
-        {/* More links third row */}
-        <div className="col-span-3 row-span-1">
-          <ul className="space-y-2 w-full">
-            <li className="flex justify-start">
-              <a href="/contact" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
-                Agents Join Here
-              </a>
-            </li>
-          </ul>
+        {/* Agents Join Here - Fixed */}
+        <div className="col-span-3 row-span-1 flex items-center">
+          <a href="/contact" className="text-gray-400 hover:text-primary text-xs sm:text-sm">
+            Agents Join Here
+          </a>
         </div>
 
-        <div className="col-span-3 row-span-1">
-          <ul className="space-y-2 w-full">
-            <li className="flex justify-start">
-              <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1">
-                Do Not Sell Info
-              </a>
-            </li>
-          </ul>
+        {/* Do Not Sell Info - Fixed */}
+        <div className="col-span-3 row-span-1 flex items-center">
+          <a href="https://www.referralexchange.com/information" className="text-gray-400 hover:text-primary text-xs sm:text-sm">
+            Do Not Sell Info
+          </a>
         </div>
 
         {/* Empty space for row 2, columns 10-12 */}
