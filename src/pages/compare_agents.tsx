@@ -472,20 +472,20 @@ function AgentQuestionnaire({
   }, [formData.propertyType]);
 
   useEffect(() => {
-    const cityName = getCityFromUrl();
-    console.log('City name from URL:', cityName);
-    
-    if (cityName) {
-      setCityName(cityName);
-    //   // Store in localStorage for persistence
-    //   localStorage.setItem('userCity', cityName);
-    // } else {
-    //   // Check if we have a previously stored city
-    //   const storedCity = localStorage.getItem('userCity');
-    //   if (storedCity) {
-    //     setCityName(storedCity);
-    //   }
-    }
+    const fetchCity = async () => {
+      try {
+        const cityName = await getCityFromUrl();
+        console.log('City name from URL:', cityName);
+        
+        if (cityName) {
+          setCityName(cityName);
+        }
+      } catch (error) {
+        console.error('Error fetching city:', error);
+      }
+    };
+
+    fetchCity();
   }, []);
 
   return (
@@ -842,20 +842,20 @@ export default function CompareAgentsPage() {
     phone: '+1', // Initialize with +1 for US
   });
   useEffect(() => {
-    const cityName = getCityFromUrl();
-    console.log('City name from URL:', cityName);
-    
-    if (cityName) {
-      setCityName(cityName);
-    //   // Store in localStorage for persistence
-    //   localStorage.setItem('userCity', cityName);
-    // } else {
-    //   // Check if we have a previously stored city
-    //   const storedCity = localStorage.getItem('userCity');
-    //   if (storedCity) {
-    //     setCityName(storedCity);
-    //   }
-    }
+    const fetchCity = async () => {
+      try {
+        const cityName = await getCityFromUrl();
+        console.log('City name from URL:', cityName);
+        
+        if (cityName) {
+          setCityName(cityName);
+        }
+      } catch (error) {
+        console.error('Error fetching city:', error);
+      }
+    };
+
+    fetchCity();
   }, []);
 
   const totalSteps = 6; // Each input is a separate page
