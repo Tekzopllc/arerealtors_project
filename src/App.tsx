@@ -10,45 +10,59 @@ import AdminLogin from './pages/adminlogin';
 import AdminPanel from './pages/adminpanel';
 import CompareAgents from './pages/compare_agents';
 import RealEstateBlogPost from './pages/blogpost1';
-import MortgageFinancingBlogPost from './pages/blogspot2';
-import LegalTaxBlogPost from './pages/blogspot3';
-import HomeInspectionAppraisalBlogPost from './pages/blogspot4';
-import RealEstateAgentBlogPost from './pages/blogspot5';
+import MortgageFinancingBlogPost from './pages/blogspot2.tsx';
+import LegalTaxBlogPost from './pages/blogspot3.tsx';
+import HomeInspectionAppraisalBlogPost from './pages/blogspot4.tsx';
+import RealEstateAgentBlogPost from './pages/blogspot5.tsx';
 import SocialMediaBlogPost from './pages/blogpost6';
 import Blogs from './pages/Blogs';
+import Microsite from './pages/microsite.tsx';
 
 function AppContent() {
   const location = useLocation();
-  const hideNavbar = location.pathname === '/adminlogin' || location.pathname === '/compare_agents';
+  const hideNavbar = location.pathname === '/adminlogin' || location.pathname === '/compare_agents' || location.pathname === '/microsite';
   
   console.log('Current path:', location.pathname);
   console.log('Hide navbar:', hideNavbar);
+  console.log('Component loading started');
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {!hideNavbar && <Navbar />}
-      <main className={!hideNavbar ? "pt-16" : ""}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sell" element={<SellProperty />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/adminlogin" element={<AdminLogin />} />
-          <Route path="/adminpanel" element={<AdminPanel />} />
-          <Route path="/compare_agents" element={<CompareAgents />} />
-          <Route path="/blog/market-trends" element={<RealEstateBlogPost />} />
-          <Route path="/blog/mortgage-financing" element={<MortgageFinancingBlogPost />} />
-          <Route path="/blog/legal-tax" element={<LegalTaxBlogPost />} />
-          <Route path="/blog/home-inspection" element={<HomeInspectionAppraisalBlogPost />} />
-          <Route path="/blog/real-estate-agent" element={<RealEstateAgentBlogPost />} />
-          <Route path="/blog/social-media-marketing" element={<SocialMediaBlogPost />} />
-          <Route path="/blogs" element={<Blogs />} />
-        </Routes>
-      </main>
-    </div>
-  );
+  // Adding error boundary
+  try {
+
+    return (
+      <div className="min-h-screen bg-gray-50">
+        {!hideNavbar && <Navbar />}
+        <main className={!hideNavbar ? "pt-16" : ""}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/sell" element={<SellProperty />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/adminlogin" element={<AdminLogin />} />
+            <Route path="/adminpanel" element={<AdminPanel />} />
+            <Route path="/compare_agents" element={<CompareAgents />} />
+            <Route path="/blog/market-trends" element={<RealEstateBlogPost />} />
+            <Route path="/blog/mortgage-financing" element={<MortgageFinancingBlogPost />} />
+            <Route path="/blog/legal-tax" element={<LegalTaxBlogPost />} />
+            <Route path="/blog/home-inspection" element={<HomeInspectionAppraisalBlogPost />} />
+            <Route path="/blog/real-estate-agent" element={<RealEstateAgentBlogPost />} />
+            <Route path="/blog/social-media-marketing" element={<SocialMediaBlogPost />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/microsite" element={<Microsite />} />
+          </Routes>
+        </main>
+      </div>
+    );
+  } catch (error) {
+    console.error('Error in AppContent:', error);
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p>Something went wrong. Please try again later.</p>
+      </div>
+    );
+  }
 }
 
 function App() {
