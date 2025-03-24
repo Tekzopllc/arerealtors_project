@@ -50,7 +50,7 @@ function AppContent() {
             <Route path="/blog/real-estate-agent" element={<RealEstateAgentBlogPost />} />
             <Route path="/blog/social-media-marketing" element={<SocialMediaBlogPost />} />
             <Route path="/blogs" element={<Blogs />} />
-            <Route path="/microsite" element={<Microsite />} />
+            <Route path="/find-realtor" element={<Microsite />} />
           </Routes>
         </main>
       </div>
