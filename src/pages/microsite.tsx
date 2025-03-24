@@ -158,7 +158,7 @@ export default function Home() {
                     </div>
         
                     <div 
-                      className="w-[100%] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 h-[570px] sm:h-[calc(100vh-200px)] sm:max-h-[38rem] mb-[30px] sm:mb-[100px] border border-white/20"
+                      className="w-[100%] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 h-[570px] md:h-[640px] mb-[30px] sm:mb-[100px] border border-white/20"
                     >
                       <div className="h-full overflow-y-auto">
                         <AgentQuestionnaire

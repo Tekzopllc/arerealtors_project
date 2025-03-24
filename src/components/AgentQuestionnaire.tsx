@@ -885,7 +885,7 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
                 ))}
               </div>
               {currentStep === 1 && (
-                <p className="text-xs text-gray-500 mt-0 text-center" style={{marginBottom: '1rem'}}>
+                <p className="text-xs text-gray-500 mt-auto text-center py-2" style={{marginBottom: '2rem'}}>
                   * No spam, your information is 100% safe with us
                 </p>
               )}
