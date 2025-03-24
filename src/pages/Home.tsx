@@ -99,7 +99,7 @@ export default function Home() {
               <p
                 className="text-base sm:text-xl md:text-2xl mb-6 font-light" style={{fontSize: isMobile ? '1rem' : '1.6rem'}}
               >
-                We negotiate so you don't have to - get the best realtor while paying less commissions
+                We negotiate so you don't have to - get the best realtor while paying less commissions.
               </p>
               <div 
                 className="flex flex-col items-start gap-3 mb-6"
@@ -110,7 +110,7 @@ export default function Home() {
                   <div className="bg-white p-1 rounded-full">
                     <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
-                  <span className="text-sm sm:text-lg">100% free</span>
+                  <span className="text-sm sm:text-lg" style={{fontSize: '1.2rem'}}>100% free</span>
                 </div>
                 <div 
                   className="flex items-center gap-2 group"
@@ -118,7 +118,7 @@ export default function Home() {
                   <div className="bg-white p-1 rounded-full">
                     <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
-                  <span className="text-sm sm:text-lg">Takes just 1 minute</span>
+                  <span className="text-sm sm:text-lg" style={{fontSize: '1.2rem'}}>Takes just 1 minute</span>
                 </div>
                 <div 
                   className="flex items-center gap-2 group"
@@ -126,7 +126,7 @@ export default function Home() {
                   <div className="bg-white p-1 rounded-full">
                     <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
-                  <span className="text-sm sm:text-lg">No strings attached</span>
+                  <span className="text-sm sm:text-lg" style={{fontSize: '1.2rem'}}>No strings attached</span>
                </div>
              </div>
             </div>
