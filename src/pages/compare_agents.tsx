@@ -152,7 +152,8 @@ export interface QuestionnaireData {
   location: string;
   budget: number;
   propertyType: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
 }
@@ -284,7 +285,8 @@ function AgentQuestionnaire({
           location: '',
           budget: 300000,
           propertyType: '',
-          name: '',
+          firstName: '',
+          lastName: '',
           email: '',
           phone: '+1', // Initialize with +1 for US
         });
@@ -327,7 +329,7 @@ function AgentQuestionnaire({
       
       // Format the data for Supabase - Update budget range formatting
       const submissionData = {
-        name: formData.name,
+        name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
         phone: formatPhoneNumber(formData.phone),
         budget: formData.budget < 1000000 
@@ -380,7 +382,8 @@ function AgentQuestionnaire({
               location: '',
               budget: 300000,
               propertyType: '',
-              name: '',
+              firstName: '',
+              lastName: '',
               email: '',
               phone: '+1', // Initialize with +1 for US
             });
@@ -491,7 +494,7 @@ function AgentQuestionnaire({
   return (
     <div className="bg-white rounded-lg w-full h-auto min-h-[550px] overflow-hidden shadow-lg border border-[#eaeaea] relative">      {/* Success message overlay with higher z-index */}
       {showSuccess && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] animate-fadeIn">
+        <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] ">
           <div className="text-center">
             <div className="text-2xl font-bold text-[#272727] mb-4">Thank you for your time</div>
             <div className="text-gray-600">We will hand select a realtor for you from your area within next few minutes and have them reach out to you.</div>
@@ -500,7 +503,7 @@ function AgentQuestionnaire({
       )}
       <div className="MessageAgentForm --funnel h-full flex flex-col text-[rgba(39,39,39,0.8)] text-sm md:text-base font-normal relative">
         {/* Progress header */}
-        <div className="MessageAgentForm__progress-header relative z-[3] bg-[#f8f8f8] animate-fadeInDown">
+        <div className="MessageAgentForm__progress-header relative z-[3] bg-[#f8f8f8] ">
           <div className="ProgressBar bg-[#eaeaea] h-3 w-full rounded-none">
             <div
               className="ProgressBar__inner bg-[#ea580c] h-full rounded-none transition-all duration-200 ease-in-out"
@@ -510,7 +513,7 @@ function AgentQuestionnaire({
         </div>
 
         {/* Step 1: Budget (Slider) */}
-        <div className={`MessageAgentForm__screen ${currentStep === 1 ? 'block animate-fadeInRight' : 'hidden'}
+        <div className={`MessageAgentForm__screen ${currentStep === 1 ? 'block' : 'hidden'}
   absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[30px] md:pt-[40px] md:px-9`}>
             {/* Heading - Hidden on mobile, visible on desktop */}
             <div className="hidden md:flex flex-col items-center mb-4">
@@ -684,38 +687,45 @@ function AgentQuestionnaire({
 
         {/* Step 4: Full Name */}
         <div className={`MessageAgentForm__screen ${currentStep === 4 ? 'block animate-fadeInRight' : 'hidden'}
-          absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[70px] md:px-9 md:pt-[70px]`}>
-          <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10">
-            What's your name?
-          </div>
-          <p>Our recommendations are free. No strings attached.</p>
-          
-          <div className="mt-4">
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              placeholder="Enter your full name"
-              className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c]"
-            />
-          </div>
-          
-          <div className="MessageAgentForm__screen-controls flex justify-between items-center mt-6 pt-4">
-            <button 
-              onClick={prevStep}
-              className="bg-white border border-[#eaeaea] rounded-md text-[#1e293b] px-6 py-3.5 md:min-w-[100px] font-bold transition-all duration-200 hover:border-[#ea580c] hover:text-[#ea580c] hover:shadow-sm"
-            >
-              Back
-            </button>
-            <button 
-              onClick={nextStep}
-              disabled={!formData.name.trim()}
-              className={`ml-auto bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors ${!formData.name.trim() ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#d24b09]'}`}
-            >
-              Continue
-            </button>
-          </div>
-        </div>
+         absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[70px] md:px-9 md:pt-[70px]`}>
+         <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-6 md:mb-10">
+          What's your name?
+         </div>
+         <p>Our recommendations are free. No strings attached.</p>
+         
+         <div className="mt-4 space-y-4">
+           <input
+             type="text"
+             value={formData.firstName}
+             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+             placeholder="Enter your first name"
+             className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c]"
+           />
+           <input
+             type="text"
+             value={formData.lastName}
+             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+             placeholder="Enter your last name"
+             className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c]"
+           />
+         </div>
+         
+         <div className="MessageAgentForm__screen-controls flex justify-between items-center mt-6 pt-4">
+           <button
+             onClick={prevStep}
+             className="bg-white border border-[#eaeaea] rounded-md text-[#1e293b] px-6 py-3.5 md:min-w-[100px] font-bold transition-all duration-200 hover:border-[#ea580c] hover:text-[#ea580c] hover:shadow-sm"
+           >
+             Back
+           </button>
+           <button
+             onClick={nextStep}
+             disabled={!formData.firstName.trim() || !formData.lastName.trim()}
+             className={`ml-auto bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors ${!formData.firstName.trim() || !formData.lastName.trim() ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#d24b09]'}`}
+           >
+             Continue
+           </button>
+         </div>
+       </div>
 
         {/* Step 5: Email */}
         <div className={`MessageAgentForm__screen ${currentStep === 5 ? 'block animate-fadeInRight' : 'hidden'}
@@ -837,7 +847,8 @@ export default function CompareAgentsPage() {
     location: '',
     budget: 300000,
     propertyType: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '+1', // Initialize with +1 for US
   });

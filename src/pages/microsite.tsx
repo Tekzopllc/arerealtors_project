@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, Search, Star, Users, Home as HomeIcon, Clock, ChevronRight, MapPin, Check, BookOpen, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import TestimonialsSlider from '../components/TestimonialsSlider';
 // import FAQAccordion from '../components/FAQAccordion';
 import AgentQuestionnaire, { QuestionnaireData } from '../components/AgentQuestionnaire';
 import styles from '../styles/Footer.module.css';
 
-export default function Microsite() {
+export default function Home() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -83,68 +82,82 @@ export default function Microsite() {
           // backgroundAttachment: isMobile ? 'scroll' : 'fixed' // Remove fixed background on mobile for better performance
         }}
       >
+        <div className="Header_Header__container__ZX38g py-4 max-w-[95rem] mx-auto">
+                    <div className="Header_Header__brand__sztra px-4 sm:px-6">
+                      <div className="flex justify-between items-center" style={{marginLeft: isMobile? '0rem':'1rem'}}>
+                        <div className="flex items-center gap-3">
+                          <Link to="/" className="block">
+                          <img
+                            src="/new_logo.png"
+                            alt="RealEstateAgents.com"
+                            className="w-[120px] md:w-[180px] h-auto mix-blend-screen brightness-200 contrast-200"
+                          />
+                          </Link>
+                          <img
+                            src="/Flag-United-States-of-America.webp"
+                            alt="USA Flag"
+                            className="w-[30px] md:w-[40px] h-auto object-contain"
+                          />
+                        </div>
+                        {/* <div className="Header_Header__phone__rT5_y flex flex-col md:flex-row items-end md:items-center gap-0.5 md:gap-2">
+                          <div className="text-white text-[10px] md:text-sm text-right">Questions? Call:</div>
+                          <a href="tel:+18556961455" className="text-white text-sm md:text-base font-medium hover:text-orange-500 transition-colors whitespace-nowrap">
+                            +1 (855) 696-1455
+                          </a>
+                        </div> */}
+                      </div>
+                    </div>
+                  </div>
         <div className="absolute inset-0  from-black/70 via-black/50 to-black/60" />
         <div className="relative flex flex-col min-h-screen">
-          <div className="flex flex-col md:flex-row justify-between items-center w-full mx-auto gap-4 md:gap-8 py-6 md:py-8 md:h-screen px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[95rem] mx-auto gap-4 md:gap-8 py-6 md:py-8 md:h-screen px-4 sm:px-6">
             
-            <motion.div 
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
+            <div 
               className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 md:mt-[-250px] space-y-4 md:space-y-8"
               style={{letterSpacing: '1px'}}
             >
-              <motion.h1
-                variants={fadeInUp}
+              <h1
                 className="text-2xl sm:text-4xl md:text-4 font-bold mb-4 md:mb-6 text-white"
                 style={{lineHeight: isMobile ? '2.5rem' : '5rem', fontSize: isMobile ? '2.5rem' : '5.5rem'}}
               >
                 Find the best listing agent
-              </motion.h1>
-              <motion.p
-                variants={fadeInUp} 
+              </h1>
+              <p
                 className="text-base sm:text-xl md:text-2xl mb-6 font-light"
               >
                 We negotiate so you don't have to - get the best realtor while paying less commissions
-              </motion.p>
-              <motion.div 
-                variants={staggerContainer}
+              </p>
+              <div 
                 className="flex flex-col items-start gap-3 mb-6"
               >
-                <motion.div 
-                  variants={scaleUp}
+                <div 
                   className="flex items-center gap-2 group"
                 >
                   <div className="bg-white p-2 rounded-full">
                     <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
                   <span className="text-sm sm:text-lg">100% free</span>
-                </motion.div>
-                <motion.div 
-                  variants={scaleUp}
+                </div>
+                <div 
                   className="flex items-center gap-2 group"
                 >
                   <div className="bg-white p-2 rounded-full">
                     <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
                   <span className="text-sm sm:text-lg">Takes just 1 minute</span>
-                </motion.div>
-                <motion.div 
-                  variants={scaleUp}
+                </div>
+                <div 
                   className="flex items-center gap-2 group"
                 >
                   <div className="bg-white p-2 rounded-full">
                     <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
                   <span className="text-sm sm:text-lg">No strings attached</span>
-               </motion.div>
-             </motion.div>
-            </motion.div>
+               </div>
+             </div>
+            </div>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
+            <div 
               className="w-[100%] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 h-[570px] sm:h-[calc(100vh-200px)] sm:max-h-[37rem] mb-[30px] sm:mb-[100px] border border-white/20"
             >
               <div className="h-full overflow-y-auto">
@@ -155,10 +168,7 @@ export default function Microsite() {
                   embedded={true}
                 />
               </div>
-              {/* <p className="text-xs text-white mt-8 text-left">
-                * No spam, your information is 100% safe with us
-              </p> */}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -166,19 +176,17 @@ export default function Microsite() {
       {/* How It Works - Mobile optimized */}
       <div className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.h2 
-            initial={{ opacity: 1, y: 0 }}
+          <h2 
             className="text-xl sm:text-3xl font-bold text-center text-secondary mb-6 sm:mb-10 relative inline-block mx-auto w-full"
           >
             <span className="relative inline-block" style={{fontSize: '2.5rem'}}>
               How It Works
               <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 sm:w-20 h-1 bg-primary rounded-full"></span>
             </span>
-          </motion.h2>
+          </h2>
           
           <div className="grid md:grid-cols-3 gap-4 sm:gap-8">
-            <motion.div 
-              initial={{ opacity: 1, y: 0 }}
+            <div 
               className="flex flex-col"
             >
               <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
@@ -190,10 +198,9 @@ export default function Microsite() {
                   <p className="text-sm text-gray-600">Answer a few simple questions about your home and selling goals to help us understand your needs</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
             
-            <motion.div 
-              initial={{ opacity: 1, y: 0 }}
+            <div 
               className="flex flex-col"
             >
               <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
@@ -205,10 +212,9 @@ export default function Microsite() {
                   <p className="text-sm text-gray-600">We match you with top-rated realtors in your area, tailored to your preferences and requirements</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
             
-            <motion.div 
-              initial={{ opacity: 1, y: 0 }}
+            <div 
               className="flex flex-col"
             >
               <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
@@ -220,28 +226,26 @@ export default function Microsite() {
                   <p className="text-sm text-gray-600">Choose a pre-vetted realtor with pre-negotiated commissions, so you get the best deal without the hassle</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
       {/* Testimonials */}
             <div id="reviews_section" className="py-16 sm:py-24 bg-white">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <motion.h2 
-                  initial={{ opacity: 1, y: 0 }}
+                <h2 
                   className="text-2xl sm:text-3xl font-bold text-center text-secondary mb-8 sm:mb-10 relative inline-block mx-auto w-full"
                 >
                   <span className="relative inline-block" style={{fontSize: '2.5rem'}}>
                     Homeowners Love Acerealtors
                     <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-primary rounded-full"></span>
                   </span>
-                </motion.h2>
+                </h2>
                 
-                <motion.div
-                  initial={{ opacity: 1 }}
+                <div
                 >
                   <TestimonialsSlider />
-                </motion.div>
+                </div>
               </div>
             </div>
       
@@ -249,8 +253,7 @@ export default function Microsite() {
             <div className="py-16 sm:py-24 bg-gradient-to-r from-white to-gray-50">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
-                  <motion.div
-                    initial={{ opacity: 1, x: 0 }}
+                  <div
                     className="order-2 md:order-1"
                   >
                     <h2 className="text-2xl sm:text-3xl font-bold text-secondary mb-4 sm:mb-6">
@@ -261,20 +264,17 @@ export default function Microsite() {
                     </p>
                     
                     <div className="mt-6 sm:mt-8">
-                      <motion.button
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
+                      <button
                         onClick={() => setIsQuestionnaireOpen(true)}
                         className="w-full bg-gradient-to-r from-primary to-primary/90 text-white px-6 py-3 sm:py-4 rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 font-medium text-sm sm:text-base"
                       >
                         Find an Agent
                         <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
-                      </motion.button>
+                      </button>
                     </div>
-                  </motion.div>
+                  </div>
                   
-                  <motion.div
-                    initial={{ opacity: 1, x: 0 }}
+                  <div
                     className="relative group order-1 md:order-2"
                   >
                     <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
@@ -282,9 +282,9 @@ export default function Microsite() {
                       <img
                         src="/usp1.jpg"
                         alt="Happy family in their new home"
-                        className="rounded-xl shadow-xl h-[250px] sm:h-[350px] md:h-auto w-full object-cover group-hover:shadow-2xl transition-all duration-500"
+                        className="rounded-xl shadow-xl h-[250px] sm:h-[350px] md:h-auto w-full object-cover"
                       />
-                      <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-3 sm:p-5 rounded-xl shadow-lg transform group-hover:translate-y-[-5px] transition-all duration-500">
+                      <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-3 sm:p-5 rounded-xl shadow-lg">
                         <div className="flex items-start gap-3 sm:gap-4">
                           <div className="bg-primary/10 w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-primary/20">
                             <span className="text-base sm:text-xl font-bold text-primary">MD</span>
@@ -301,7 +301,7 @@ export default function Microsite() {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -310,11 +310,7 @@ export default function Microsite() {
             <div className="py-16 sm:py-24 bg-gray-50">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                  <div
                     className="relative group"
                   >
                     <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
@@ -323,18 +319,14 @@ export default function Microsite() {
                         <img
                           src="/usp2.webp"
                           alt="Happy family enjoying their new home"
-                          className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-700"
+                          className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover transform "
                         />
                       </div>
                       
                     </div>
-                  </motion.div>
+                  </div>
                   
-                  <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                  <div
                     className="content-wrapper flex flex-col justify-center h-full"
                   >
                     <h2 className="text-2xl sm:text-3xl font-bold text-secondary mb-4 sm:mb-6">
@@ -343,7 +335,7 @@ export default function Microsite() {
                     <p className="text-base sm:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed">
                       At AceRealtors, we've already done the hard work—negotiating lower commission rates with top realtors in your area. That means you get the best agents without overpaying. More money in your pocket, less stress on your plate.
                     </p>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -352,59 +344,32 @@ export default function Microsite() {
       <div className="py-16 sm:py-20 bg-gradient-to-br from-primary to-primary/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
-            <motion.div
-              initial={{ opacity: 1, y: 0 }}
+            <div
               className="relative text-center px-6 sm:px-8 py-6 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10"
             >
               <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">800+</h3>
               <p className="text-lg sm:text-xl text-white/80">Top 1% Agents Across US</p>
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-2/3 bg-white/20 hidden sm:block md:hidden"></div>
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 1, y: 0 }}
+            <div
               className="relative text-center px-6 sm:px-8 py-6 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10"
             >
               <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">$13.2 M</h3>
               <p className="text-lg sm:text-xl text-white/80">Commissions Saved</p>
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-2/3 bg-white/20 hidden md:block"></div>
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 1, y: 0 }}
+            <div
               className="text-center px-6 sm:px-8 py-6 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10 sm:col-span-2 md:col-span-1"
             >
               <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">4500+</h3>
               <p className="text-lg sm:text-xl text-white/80">Happy Sellers</p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
 
-
-      <div className="py-12 sm:py-16 bg-gradient-to-r from-secondary to-secondary/90 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5"></div>
-        <motion.div
-          initial={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Ready to save big on commissions?
-          </h2>
-          <p className="text-base sm:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
-            Let our expert agents help you navigate the real estate market.
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setIsQuestionnaireOpen(true)}
-            className="bg-orange-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-lg font-semibold hover:bg-orange-600 transition-colors inline-flex items-center gap-2 shadow-xl hover:shadow-2xl shadow-black/10"
-          >
-            Find an Agent
-            <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 animate-pulse" />
-          </motion.button>
-        </motion.div>
-      </div>
 
       {/* Footer - Mobile optimized */}
       <footer className={`${styles.Footer} bg-[#12151a]`}>

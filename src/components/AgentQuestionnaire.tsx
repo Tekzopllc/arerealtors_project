@@ -811,11 +811,11 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
   return (
     <>
       <style>{animationStyles}</style>
-      <div className={embedded ? 'w-full h-full' : `fixed inset-0 modal-backdrop z-50 flex items-center justify-center ${isClosing ? 'animate-fadeOut' : 'animate-fadeIn'}`}>
-        <div className={embedded ? 'w-full h-full' : `modal-container max-w-[900px] w-full h-[650px] relative ${isClosing ? 'animate-slideOut' : 'animate-slideIn'}`}>
+      <div className={embedded ? 'w-full h-full' : `fixed inset-0 modal-backdrop z-50 flex items-center justify-center ${isClosing ? 'animate-fadeOut' : ''}`}>
+        <div className={embedded ? 'w-full h-full' : `modal-container max-w-[900px] w-full h-[650px] relative ${isClosing ? 'animate-slideOut' : ''}`}>
           {/* Success message overlay with higher z-index */}
           {showSuccess && (
-            <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] animate-fadeIn">
+            <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] ">
               <div className="text-center success-animation">
                 <div className="success-icon mb-6 flex justify-center">
                   <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -835,7 +835,7 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
           
           <div className="MessageAgentForm h-full flex flex-col text-[rgba(39,39,39,0.8)] text-sm md:text-base font-normal relative">
             {/* Progress header */}
-            <div className="relative z-[3] bg-[#f8f8f8] animate-fadeInDown border-b border-[rgba(234,88,12,0.1)]">
+            <div className="relative z-[3] bg-[#f8f8f8] border-b border-[rgba(234,88,12,0.1)]">
               <div className="px-6 py-4 flex items-center justify-between">
                 {/* <div className="flex items-center">
                   <span className="text-sm font-medium text-[#ea580c]">Step {currentStep} of {totalSteps}</span>
@@ -859,7 +859,7 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
             </div>
 
             {/* Step 1: Timeframe */}
-            <div className={`${currentStep === 1 ? 'block animate-fadeInRight' : 'hidden'}
+            <div className={`${currentStep === 1 ? 'block' : 'hidden'}
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}>
               <div className="heading-text text-xl md:text-2xl lg:text-3xl">
                 When would you like to sell your house?
