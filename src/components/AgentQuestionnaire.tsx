@@ -836,7 +836,7 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
           <div className="MessageAgentForm h-full flex flex-col text-[rgba(39,39,39,0.8)] text-sm md:text-base font-normal relative">
             {/* Progress header */}
             <div className="relative z-[3] bg-[#f8f8f8] border-b border-[rgba(234,88,12,0.1)]">
-              <div className="px-6 py-4 flex items-center justify-between">
+              <div className="px-6 flex items-center justify-between">
                 {/* <div className="flex items-center">
                   <span className="text-sm font-medium text-[#ea580c]">Step {currentStep} of {totalSteps}</span>
                 </div> */}
@@ -860,7 +860,7 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
 
             {/* Step 1: Timeframe */}
             <div className={`${currentStep === 1 ? 'block' : 'hidden'}
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 md:px-10 md:pt-10 overflow-hidden`}>
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 md:px-10 md:pt-10 overflow-hidden`} style={{paddingTop: '1.5rem'}}>
               <div className="heading-text text-xl md:text-2xl lg:text-3xl" style={{marginBottom: '2rem', marginTop: '-2rem'}}>
                 When would you like to sell your house?
               </div>
