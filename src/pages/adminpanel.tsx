@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
-import { 
+import { useNavigate } from 'react-router-dom';
+import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
@@ -13,10 +14,53 @@ const COLORS = ['#6366f1', '#8b5cf6', '#ec4899', '#f43f5e', '#f97316', '#eab308'
 const GRADIENT_STOPS = ['#4f46e5', '#7c3aed', '#d946ef', '#f97316', '#eab308'];
 
 const AdminPanel: React.FC = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState<SubmittedData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
+
+  // Check if user is logged in
+  useEffect(() => {
+    const username = localStorage.getItem('acerealtors_username');
+    const password = localStorage.getItem('acerealtors_pass');
+    
+    if (!username || !password) {
+      console.log('No credentials found, redirecting to login');
+      navigate('/adminlogin');
+      return;
+    }
+
+    // Verify credentials with Supabase
+    const verifyCredentials = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Admin_Profiles')
+          .select()
+          .eq('username', username)
+          .eq('password', password)
+          .single();
+
+        if (error || !data) {
+          console.log('Invalid credentials, redirecting to login');
+          localStorage.removeItem('acerealtors_username');
+          localStorage.removeItem('acerealtors_pass');
+          navigate('/adminlogin');
+        }
+      } catch (err) {
+        console.error('Error verifying credentials:', err);
+        navigate('/adminlogin');
+      }
+    };
+
+    verifyCredentials();
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('acerealtors_username');
+    localStorage.removeItem('acerealtors_pass');
+    navigate('/adminlogin');
+  };
   const [sortBy, setSortBy] = useState<keyof SubmittedData>('created_at');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [selectedProperty, setSelectedProperty] = useState<string | null>(null);
@@ -373,11 +417,22 @@ const AdminPanel: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-block">
-            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 mb-2">
-              Data Analytics Dashboard
-            </h1>
-            <div className="h-1 w-1/3 mx-auto bg-gradient-to-r from-indigo-500 to-pink-500 rounded-full" />
+          <div className="flex justify-between items-center w-full px-4">
+            <div className="inline-block">
+              <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 mb-2">
+                Data Analytics Dashboard
+              </h1>
+              <div className="h-1 w-1/3 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-full" />
+            </div>
+            <motion.button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-200 flex items-center space-x-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              
+              <span>Logout</span>
+            </motion.button>
           </div>
         </motion.div>
         

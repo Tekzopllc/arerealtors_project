@@ -97,7 +97,7 @@ export default function Home() {
                 Find the best listing agent
               </h1>
               <p
-                className="text-base sm:text-xl md:text-2xl mb-6 font-light"
+                className="text-base sm:text-xl md:text-2xl mb-6 font-light" style={{fontSize: isMobile ? '1rem' : '1.6rem'}}
               >
                 We negotiate so you don't have to - get the best realtor while paying less commissions
               </p>

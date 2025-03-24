@@ -109,69 +109,69 @@ export default function Home() {
                     </div>
                   </div>
         <div className="absolute inset-0  from-black/70 via-black/50 to-black/60" />
-        <div className="relative flex flex-col min-h-screen">
-          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[95rem] mx-auto gap-4 md:gap-8 py-6 md:py-8 md:h-screen px-4 sm:px-6">
-            
-            <div 
-              className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 md:mt-[-200px] space-y-4 md:space-y-8"
-              style={{letterSpacing: '1px', paddingLeft: isMobile ? '0' : '-1rem'}}
-            >
-              <h1
-                className="text-2xl sm:text-4xl md:text-4 font-bold mb-4 md:mb-6 text-white"
-                style={{lineHeight: isMobile ? '2.5rem' : '5rem', fontSize: isMobile ? '2.5rem' : '5.5rem'}}
-              >
-                Find the best listing agent
-              </h1>
-              <p
-                className="text-base sm:text-xl md:text-2xl mb-6 font-light"
-              >
-                We negotiate so you don't have to - get the best realtor while paying less commissions
-              </p>
-              <div 
-                className="flex flex-col items-start gap-3 mb-6"
-              >
-                <div 
-                  className="flex items-center gap-2 group"
-                >
-                  <div className="bg-white p-2 rounded-full">
-                    <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
+                <div className="relative flex flex-col min-h-screen">
+                  <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[95rem] mx-auto gap-4 md:gap-8 py-6 md:py-8 md:h-screen px-4 sm:px-6">
+                    
+                    <div 
+                      className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 md:mt-[-250px] space-y-4 md:space-y-8"
+                      style={{letterSpacing: '1px'}}
+                    >
+                      <h1
+                        className="text-2xl sm:text-4xl md:text-4 font-bold mb-4 md:mb-6 text-white"
+                        style={{lineHeight: isMobile ? '2.5rem' : '4.5rem', fontSize: isMobile ? '2.5rem' : '4.5rem'}}
+                      >
+                        Find the best listing agent
+                      </h1>
+                      <p
+                        className="text-base sm:text-xl md:text-2xl mb-6 font-light" style={{fontSize: isMobile ? '1rem' : '1.6rem'}}
+                      >
+                        We negotiate so you don't have to - get the best realtor while paying less commissions
+                      </p>
+                      <div 
+                        className="flex flex-col items-start gap-3 mb-6"
+                      >
+                        <div 
+                          className="flex items-center gap-2 group"
+                        >
+                          <div className="bg-white p-1 rounded-full">
+                            <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
+                          </div>
+                          <span className="text-sm sm:text-lg">100% free</span>
+                        </div>
+                        <div 
+                          className="flex items-center gap-2 group"
+                        >
+                          <div className="bg-white p-1 rounded-full">
+                            <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
+                          </div>
+                          <span className="text-sm sm:text-lg">Takes just 1 minute</span>
+                        </div>
+                        <div 
+                          className="flex items-center gap-2 group"
+                        >
+                          <div className="bg-white p-1 rounded-full">
+                            <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
+                          </div>
+                          <span className="text-sm sm:text-lg">No strings attached</span>
+                       </div>
+                     </div>
+                    </div>
+        
+                    <div 
+                      className="w-[100%] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 h-[570px] sm:h-[calc(100vh-200px)] sm:max-h-[37rem] mb-[30px] sm:mb-[100px] border border-white/20"
+                    >
+                      <div className="h-full overflow-y-auto">
+                        <AgentQuestionnaire
+                          isOpen={true}
+                          onClose={() => {}}
+                          onSubmit={handleQuestionnaireSubmit}
+                          embedded={true}
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-sm sm:text-lg">100% free</span>
                 </div>
-                <div 
-                  className="flex items-center gap-2 group"
-                >
-                  <div className="bg-white p-2 rounded-full">
-                    <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
-                  </div>
-                  <span className="text-sm sm:text-lg">Takes just 1 minute</span>
-                </div>
-                <div 
-                  className="flex items-center gap-2 group"
-                >
-                  <div className="bg-white p-2 rounded-full">
-                    <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
-                  </div>
-                  <span className="text-sm sm:text-lg">No strings attached</span>
-               </div>
-             </div>
-            </div>
-
-            <div 
-              className="w-[100%] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 h-[570px] sm:h-[calc(100vh-200px)] sm:max-h-[37rem] mb-[30px] sm:mb-[100px] border border-white/20"
-            >
-              <div className="h-full overflow-y-auto">
-                <AgentQuestionnaire
-                  isOpen={true}
-                  onClose={() => {}}
-                  onSubmit={handleQuestionnaireSubmit}
-                  embedded={true}
-                />
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* How It Works - Mobile optimized */}
       <div className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
