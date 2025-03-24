@@ -860,8 +860,8 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
 
             {/* Step 1: Timeframe */}
             <div className={`${currentStep === 1 ? 'block' : 'hidden'}
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}>
-              <div className="heading-text text-xl md:text-2xl lg:text-3xl">
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 md:px-10 md:pt-10 overflow-hidden`}>
+              <div className="heading-text text-xl md:text-2xl lg:text-3xl" style={{marginBottom: '2rem', marginTop: '-2rem'}}>
                 When would you like to sell your house?
               </div>
               
@@ -894,7 +894,7 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
             {/* Step 2: Location */}
             <div className={`${currentStep === 2 ? 'block animate-fadeInRight' : 'hidden'}
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}>
-              <div className="heading-text text-xl md:text-2xl lg:text-3xl mb-4">
+              <div className="heading-text text-xl md:text-2xl lg:text-3xl mb-4" style={{'fontSize': '1.55srem'}}>
                 What is the address of your property?
               </div>
               <p className="body-text mb-6">So we can recommend experts who have sold similar properties in your area.</p>

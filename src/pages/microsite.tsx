@@ -113,8 +113,8 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[95rem] mx-auto gap-4 md:gap-8 py-6 md:py-8 md:h-screen px-4 sm:px-6">
             
             <div 
-              className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 md:mt-[-250px] space-y-4 md:space-y-8"
-              style={{letterSpacing: '1px'}}
+              className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 md:mt-[-200px] space-y-4 md:space-y-8"
+              style={{letterSpacing: '1px', paddingLeft: isMobile ? '0' : '-1rem'}}
             >
               <h1
                 className="text-2xl sm:text-4xl md:text-4 font-bold mb-4 md:mb-6 text-white"

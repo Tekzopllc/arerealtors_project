@@ -92,7 +92,7 @@ export default function Home() {
             >
               <h1
                 className="text-2xl sm:text-4xl md:text-4 font-bold mb-4 md:mb-6 text-white"
-                style={{lineHeight: isMobile ? '2.5rem' : '5rem', fontSize: isMobile ? '2.5rem' : '5.5rem'}}
+                style={{lineHeight: isMobile ? '2.5rem' : '4.5rem', fontSize: isMobile ? '2.5rem' : '4.5rem'}}
               >
                 Find the best listing agent
               </h1>
@@ -107,7 +107,7 @@ export default function Home() {
                 <div 
                   className="flex items-center gap-2 group"
                 >
-                  <div className="bg-white p-2 rounded-full">
+                  <div className="bg-white p-1 rounded-full">
                     <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
                   <span className="text-sm sm:text-lg">100% free</span>
@@ -115,7 +115,7 @@ export default function Home() {
                 <div 
                   className="flex items-center gap-2 group"
                 >
-                  <div className="bg-white p-2 rounded-full">
+                  <div className="bg-white p-1 rounded-full">
                     <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
                   <span className="text-sm sm:text-lg">Takes just 1 minute</span>
@@ -123,7 +123,7 @@ export default function Home() {
                 <div 
                   className="flex items-center gap-2 group"
                 >
-                  <div className="bg-white p-2 rounded-full">
+                  <div className="bg-white p-1 rounded-full">
                     <Check className="h-4 w-4 sm:h-6 sm:w-6 text-black" />
                   </div>
                   <span className="text-sm sm:text-lg">No strings attached</span>
