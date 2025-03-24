@@ -85,7 +85,7 @@ export default function Home() {
       >
         <div className="absolute inset-0  from-black/70 via-black/50 to-black/60" />
         <div className="relative flex flex-col min-h-screen">
-          <div className="flex flex-col md:flex-row justify-between items-center w-full mx-auto gap-4 md:gap-8 py-6 md:py-8 md:h-screen px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[95rem] mx-auto gap-4 md:gap-8 py-6 md:py-8 md:h-screen px-4 sm:px-6">
             
             <motion.div 
               initial="hidden"
@@ -155,9 +155,6 @@ export default function Home() {
                   embedded={true}
                 />
               </div>
-              <p className="text-xs text-white mt-8 text-left">
-                * No spam, your information is 100% safe with us
-              </p>
             </motion.div>
           </div>
         </div>

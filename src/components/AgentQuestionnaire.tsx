@@ -861,11 +861,11 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
             {/* Step 1: Timeframe */}
             <div className={`${currentStep === 1 ? 'block animate-fadeInRight' : 'hidden'}
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}>
-              <div className="heading-text text-xl md:text-2xl lg:text-3xl mb-6">
+              <div className="heading-text text-xl md:text-2xl lg:text-3xl">
                 When would you like to sell your house?
               </div>
               
-              <div className="flex flex-col gap-4 mt-2">
+              <div className="flex flex-col gap-4 mt-2 mb-4">
                 {["ASAP", "1-3 months", "3-6 months", "6-12 months", "12+ months"].map((option) => (
                   <button
                     key={option}
@@ -884,7 +884,12 @@ export default function AgentQuestionnaire({ isOpen, onClose, onSubmit, embedded
                   </button>
                 ))}
               </div>
-            </div>
+              {currentStep === 1 && (
+                <p className="text-xs text-gray-500 mt-0 text-center">
+                  * No spam, your information is 100% safe with us
+                </p>
+              )}
+             </div>
 
             {/* Step 2: Location */}
             <div className={`${currentStep === 2 ? 'block animate-fadeInRight' : 'hidden'}
