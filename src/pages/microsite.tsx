@@ -155,9 +155,9 @@ export default function Microsite() {
                   embedded={true}
                 />
               </div>
-              <p className="text-xs text-white mt-8 text-left">
+              {/* <p className="text-xs text-white mt-8 text-left">
                 * No spam, your information is 100% safe with us
-              </p>
+              </p> */}
             </motion.div>
           </div>
         </div>
