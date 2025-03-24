@@ -20,7 +20,7 @@ import Microsite from './pages/microsite.tsx';
 
 function AppContent() {
   const location = useLocation();
-  const hideNavbar = location.pathname === '/adminlogin' || location.pathname === '/compare_agents' || location.pathname === '/microsite';
+  const hideNavbar = location.pathname === '/adminlogin' || location.pathname === '/compare_agents' || location.pathname === '/find-realtor';
   
   console.log('Current path:', location.pathname);
   console.log('Hide navbar:', hideNavbar);
