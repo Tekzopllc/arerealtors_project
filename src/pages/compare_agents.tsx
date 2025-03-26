@@ -7,6 +7,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
 import '../animations.css';
 import '../index.css';
+import '../styles/slider.css';
 import { getCityFromUrl } from '../utils/urlUtils';
 
 // Custom styles for phone input to match our theme
@@ -517,13 +518,14 @@ function AgentQuestionnaire({
   absolute top-0 left-0 w-full h-full flex flex-col px-5 pt-[30px] md:pt-[40px] md:px-9`}>
             {/* Heading - Hidden on mobile, visible on desktop */}
             <div className="hidden md:flex flex-col items-center mb-4">
-              <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-1 pt-6 md:pt-0">
+              <div className="MessageAgentForm__screen-heading text-lg md:text-[2.5rem] font-bold text-[#272727] mb-1 pt-6 md:pt-0"
+                style={{ marginBottom: '1rem' }}>
                 Find The Best Realtors
               </div>
-              <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-1">
+              <div className="MessageAgentForm__screen-heading text-lg md:text-[2.5rem] font-bold text-[#272727] mb-1">
               {cityName ? `In ${cityName}` : 'In Your City'}
               </div>
-              <p className="mb-2 mt-4">Instantly see a personalized list of great agents to choose from.</p>
+              <p className="mb-2 mt-4 text-base md:text-xl">Instantly see a personalized list of great agents to choose from.</p>
             </div>
             
           <div className="MessageAgentForm__screen-heading text-lg md:text-2xl font-bold text-[#272727] mb-3 md:mb-4 text-center" style={{
@@ -545,9 +547,9 @@ function AgentQuestionnaire({
                 step="1000" // Use a small step for smooth slider movement
                 value={formData.budget}
                 onChange={(e) => handleSliderChange(e, setFormData, formData)}
-                className="w-full h-2 bg-[#eaeaea] rounded-lg appearance-none cursor-pointer"
+                className="w-full cursor-pointer"
                 style={{
-                  background: `linear-gradient(to right, #ea580c 0%, #ea580c ${((formData.budget - 50000) / (2000000 - 50000)) * 100}%, #eaeaea ${((formData.budget - 50000) / (2000000 - 50000)) * 100}%, #eaeaea 100%)`,
+                  background: `linear-gradient(to right, #ea580c 0%, #ea580c ${((formData.budget - 50000) / (2000000 - 50000)) * 100}%, #eaeaea ${((formData.budget - 50000) / (2000000 - 50000)) * 100}%, #eaeaea 100%)`
                 }}
               />
             </div>

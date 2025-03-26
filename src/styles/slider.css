@@ -1,0 +1,42 @@
+input[type="range"] {
+  height: 16px;
+  background: #eaeaea;
+  border-radius: 8px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background-color: #ea580c;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transform: translateY(-4px);
+  margin-top: 0;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background-color: #ea580c;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transform: translateY(-4px);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 16px;
+  border-radius: 8px;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 16px;
+  border-radius: 8px;
+}
