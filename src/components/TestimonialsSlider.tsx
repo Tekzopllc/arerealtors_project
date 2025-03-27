@@ -23,7 +23,7 @@ const testimonials: Array<{
     name: 'James & Olivia W.',
     location: 'Miami, Florida',
     text: 'We had no idea where to start when selling our home, but AceRealtors took care of everything. They hooked us up with an amazing realtor in Miami and somehow got us a lower commission than the agent normally charges. It was super easy, and we saved a bunch!',
-    image: 'https://th.bing.com/th/id/OIP.1dvjD36rvYLE0eXkl80OdwHaHa?rs=1&pid=ImgDetMain',
+    image: 'public/WhatsApp Image 2025-03-27 at 22.35.58_a6188f81.jpg',
     role: null
   },
   {
@@ -37,7 +37,7 @@ const testimonials: Array<{
     name: 'David & Amanda L.',
     location: 'Los Angeles, California',
     text: "We wanted a solid realtor but didn't want to get ripped off on commission. AceRealtors came through big time! They connected us with one of the best agents in L.A., and we paid way less than we thought we would. Super happy with how everything worked out.",
-    image: 'https://img.freepik.com/free-photo/young-happy-couple-home_144627-26872.jpg',
+    image: 'public/WhatsApp Image 2025-03-27 at 22.35.39_5596e662.jpg',
     role: null
   },
   {
@@ -51,7 +51,7 @@ const testimonials: Array<{
     name: 'Mark & Emily S.',
     location: 'Atlanta, Georgia',
     text: "A friend told us about AceRealtors, and I'm so glad they did. The quiz was quick, and we got matched with a fantastic agent who made the whole selling process smooth. If you're looking for a stress-free way to find a realtor, this is it.",
-    image: 'https://i.pinimg.com/originals/9e/78/14/9e7814fe8050b3fbd0961c82a3ddf3d2.jpg',
+    image: 'public/WhatsApp Image 2025-03-27 at 22.32.38_1b1c7df0.jpg',
     role: null
   },
   {
