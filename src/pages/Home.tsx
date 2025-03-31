@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, Search, Star, Users, Home as HomeIcon, Clock, ChevronRight, MapPin, Check, BookOpen, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import TestimonialsSlider from '../components/TestimonialsSlider';
-// import FAQAccordion from '../components/FAQAccordion';
+import FAQAccordion from '../components/FAQAccordion';
 import AgentQuestionnaire, { QuestionnaireData } from '../components/AgentQuestionnaire';
 import styles from '../styles/Footer.module.css';
 
@@ -552,6 +552,16 @@ export default function Home() {
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
           </div>
+        </div>
+      </div>
+
+      {/* FAQ Section */}
+      <div className="py-12 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-secondary mb-10">
+            Frequently Asked Questions
+          </h2>
+          <FAQAccordion />
         </div>
       </div>
 
