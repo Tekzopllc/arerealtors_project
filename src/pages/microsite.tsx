@@ -12,7 +12,7 @@ import {
   BookOpen,
   Phone,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import FAQAccordion from "../components/FAQAccordion";
 import AgentQuestionnaire, {
   QuestionnaireData,
@@ -24,6 +24,8 @@ export default function Home() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [searchParams] = useSearchParams();
+  const city = searchParams.get("city");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -139,7 +141,7 @@ export default function Home() {
                   fontSize: isMobile ? "2.5rem" : "4.5rem",
                 }}
               >
-                Find the best listing agent
+                Find The Best Realtors {city ? `in ${city}` : "In Your City"}
               </h1>
               <p
                 className="mb-6 text-base font-light sm:text-xl md:text-2xl"
