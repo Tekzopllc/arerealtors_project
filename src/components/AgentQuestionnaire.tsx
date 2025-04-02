@@ -921,10 +921,7 @@ export default function AgentQuestionnaire({
                 flex flex-col px-6 md:px-10 md:pt-10 mt-10 lg:mt-0`}
               style={{ paddingTop: "1.5rem" }}
             >
-              <div
-                className="text-xl heading-text md:text-2xl lg:text-3xl"
-                style={{ marginBottom: "2rem", marginTop: "-2rem" }}
-              >
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
                 When would you like to sell your house?
               </div>
 

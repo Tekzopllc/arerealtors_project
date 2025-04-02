@@ -137,9 +137,9 @@ export default function Home() {
         </div>
         <div className="absolute inset-0 from-black/70 via-black/50 to-black/60" />
         <div className="relative flex flex-col min-h-screen">
-          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[95rem] mx-auto gap-4 md:gap-8 py-6 md:py-8 md:h-screen px-4 sm:px-6">
+          <div className="grid w-full gap-4 px-4 py-6 mx-auto grid-cols1 lg:grid-cols-2 md:flex-row max-w-7xl md:gap-8 md:py-8 md:h-screen sm:px-6">
             <div
-              className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 md:mt-[-250px] space-y-4 md:space-y-8"
+              className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 space-y-4 md:space-y-8"
               style={{ letterSpacing: "1px" }}
             >
               <h1
