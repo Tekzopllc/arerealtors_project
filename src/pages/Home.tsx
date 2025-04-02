@@ -117,13 +117,13 @@ export default function Home() {
       {/* How It Works - Mobile optimized */}
       <div className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <h2 className="relative inline-block w-full mx-auto mb-6 text-xl font-bold text-center sm:text-3xl text-secondary sm:mb-10">
+          <h2 className="relative inline-block w-full mx-auto mb-6 text-xl font-bold text-center sm:text-3xl text-secondary sm:mb-12 lg:mb-20">
             <span
               className="relative inline-block"
               style={{ fontSize: "2.5rem" }}
             >
               How It Works
-              <span className="absolute w-12 h-1 transform -translate-x-1/2 rounded-full -bottom-2 left-1/2 sm:w-20 bg-primary"></span>
+              <span className="absolute w-12 h-1 transform -translate-x-1/2 rounded-full -bottom-5 left-1/2 sm:w-20 bg-primary"></span>
             </span>
           </h2>
 
@@ -134,10 +134,10 @@ export default function Home() {
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-xl font-bold text-white rounded-full bg-primary sm:w-16 sm:h-16 sm:mb-6">
                     1
                   </div>
-                  <h3 className="mb-2 text-base font-semibold sm:text-xl sm:mb-4 text-secondary">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl">
                     Take a Quick Quiz
                   </h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-base text-gray-600">
                     Answer a few simple questions about your home and selling
                     goals to help us understand your needs
                   </p>
@@ -151,10 +151,10 @@ export default function Home() {
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-xl font-bold text-white rounded-full bg-primary sm:w-16 sm:h-16 sm:mb-6">
                     2
                   </div>
-                  <h3 className="mb-2 text-base font-semibold sm:text-xl sm:mb-4 text-secondary">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl">
                     Get a Personalized Agent List
                   </h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-base text-gray-600">
                     We match you with top-rated realtors in your area, tailored
                     to your preferences and requirements
                   </p>
@@ -168,10 +168,10 @@ export default function Home() {
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-xl font-bold text-white rounded-full bg-primary sm:w-16 sm:h-16 sm:mb-6">
                     3
                   </div>
-                  <h3 className="mb-2 text-base font-semibold sm:text-xl sm:mb-4 text-secondary">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl">
                     Connect & Save on Commission
                   </h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-base text-gray-600">
                     Choose a pre-vetted realtor with pre-negotiated commissions,
                     so you get the best deal without the hassle
                   </p>
@@ -184,10 +184,10 @@ export default function Home() {
       {/* Testimonials */}
       <div id="reviews_section" className="py-16 bg-white sm:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <h2 className="relative inline-block w-full mx-auto mb-8 text-2xl font-bold text-center sm:text-3xl text-secondary sm:mb-10">
+          <h2 className="relative inline-block w-full mx-auto mb-8 text-2xl font-bold text-center sm:text-3xl text-secondary sm:mb-10 lg:mb-20">
             <span className="relative inline-block text-[2.5rem] leading-[2.6rem]">
               Homeowners Love AceRealtors
-              <span className="absolute w-16 h-1 transform -translate-x-1/2 rounded-full -bottom-2 left-1/2 sm:w-20 bg-primary"></span>
+              <span className="absolute w-16 h-1 transform -translate-x-1/2 rounded-full -bottom-5 left-1/2 sm:w-20 bg-primary"></span>
             </span>
           </h2>
 
@@ -202,7 +202,7 @@ export default function Home() {
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="grid items-center gap-8 md:grid-cols-2 sm:gap-12">
             <div className="order-2 md:order-1">
-              <h2 className="mb-4 text-2xl font-bold sm:text-3xl text-secondary sm:mb-6">
+              <h2 className="mb-4 text-2xl font-bold sm:text-4xl text-secondary sm:mb-6">
                 The right realtor makes all the difference, we handpick one for
                 you.
               </h2>
@@ -215,7 +215,7 @@ export default function Home() {
               <div className="mt-6 sm:mt-8">
                 <button
                   onClick={() => setIsQuestionnaireOpen(true)}
-                  className="flex items-center justify-center w-full gap-2 px-6 py-3 text-sm font-medium text-white transition-all duration-300 rounded-lg bg-gradient-to-r from-primary to-primary/90 sm:py-4 hover:shadow-lg hover:shadow-primary/20 sm:text-base"
+                  className="flex items-center justify-center gap-2 px-8 py-3 text-sm font-medium text-white transition-all duration-300 rounded-lg w-fit bg-gradient-to-r from-primary to-primary/90 sm:py-4 hover:shadow-lg hover:shadow-primary/20 sm:text-base"
                 >
                   Find an Agent
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
@@ -283,7 +283,7 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col justify-center h-full content-wrapper">
-              <h2 className="mb-4 text-2xl font-bold sm:text-3xl text-secondary sm:mb-6">
+              <h2 className="mb-4 text-2xl font-bold sm:text-4xl text-secondary sm:mb-6">
                 When you save on commissions, we win.
               </h2>
               <p className="mb-6 text-base leading-relaxed text-gray-600 sm:text-xl sm:mb-8">
@@ -298,11 +298,11 @@ export default function Home() {
       </div>
 
       {/* Statistics Section */}
-      <div className="py-16 sm:py-20 bg-gradient-to-br from-primary to-primary/80">
+      <div className="py-16 sm:py-16 bg-gradient-to-br from-primary to-primary/80">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 sm:gap-8 md:gap-12">
-            <div className="relative px-6 py-6 text-center border sm:px-8 backdrop-blur-sm bg-white/5 rounded-xl border-white/10">
-              <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-5xl sm:mb-4">
+            <div className="relative px-6 py-6 text-center sm:px-8 backdrop-blur-sm rounded-xl">
+              <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-6xl sm:mb-4">
                 800+
               </h3>
               <p className="text-lg sm:text-xl text-white/80">
@@ -311,8 +311,8 @@ export default function Home() {
               <div className="absolute right-0 hidden w-px -translate-y-1/2 top-1/2 h-2/3 bg-white/20 sm:block md:hidden"></div>
             </div>
 
-            <div className="relative px-6 py-6 text-center border sm:px-8 backdrop-blur-sm bg-white/5 rounded-xl border-white/10">
-              <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-5xl sm:mb-4">
+            <div className="relative px-6 py-6 text-center sm:px-8 backdrop-blur-sm rounded-xl">
+              <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-6xl sm:mb-4">
                 $13.2 M
               </h3>
               <p className="text-lg sm:text-xl text-white/80">
@@ -321,8 +321,8 @@ export default function Home() {
               <div className="absolute right-0 hidden w-px -translate-y-1/2 top-1/2 h-2/3 bg-white/20 md:block"></div>
             </div>
 
-            <div className="px-6 py-6 text-center border sm:px-8 backdrop-blur-sm bg-white/5 rounded-xl border-white/10 sm:col-span-2 md:col-span-1">
-              <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-5xl sm:mb-4">
+            <div className="px-6 py-6 text-center sm:px-8 backdrop-blur-sm rounded-xl sm:col-span-2 md:col-span-1">
+              <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-6xl sm:mb-4">
                 4500+
               </h3>
               <p className="text-lg sm:text-xl text-white/80">Happy Sellers</p>
@@ -342,7 +342,7 @@ export default function Home() {
               More Resources
               <span className="absolute w-12 h-1 transform -translate-x-1/2 rounded-full -bottom-2 left-1/2 sm:w-16 bg-primary"></span>
             </h2>
-            <p className="max-w-2xl mx-auto mt-4 text-sm text-center text-gray-600 sm:text-base">
+            <p className="mx-auto mt-4 text-sm text-center text-gray-600 sm:text-xl">
               Explore our guides and insights to help you navigate the real
               estate market.
             </p>
@@ -575,13 +575,13 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative py-12 overflow-hidden sm:py-16 bg-gradient-to-r from-secondary to-secondary/90">
+      <div className="relative py-12 overflow-hidden sm:py-20 md:py-24 bg-[#374151]">
         <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5"></div>
-        <div className="relative max-w-4xl px-4 mx-auto text-center sm:px-6 lg:px-8">
-          <h2 className="mb-4 text-2xl font-bold text-white sm:text-3xl md:text-4xl sm:mb-6">
+        <div className="relative px-4 mx-auto text-center sm:px-6 lg:px-8">
+          <h2 className="mb-4 text-2xl font-bold text-white sm:text-3xl md:text-5xl sm:mb-6">
             Ready to save big on commissions?
           </h2>
-          <p className="max-w-2xl mx-auto mb-6 text-base sm:text-xl text-white/90 sm:mb-8">
+          <p className="max-w-2xl mx-auto mb-6 text-base text-gray-300 sm:text-xl sm:mb-8">
             Let our expert agents help you navigate the real estate market.
           </p>
           <button
