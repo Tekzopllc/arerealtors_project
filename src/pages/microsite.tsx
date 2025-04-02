@@ -27,7 +27,7 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const city = searchParams.get("city");
+  const city = searchParams.get("city")?.replace(/%20/g, " ");
   const country = searchParams.get("country");
 
   useEffect(() => {
