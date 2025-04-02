@@ -81,7 +81,7 @@ export default function Home() {
               className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 space-y-4 md:space-y-8"
               style={{ letterSpacing: "1px" }}
             >
-              <h1 className="mb-4 font-bold leading-tight text-white md:text-4 md:mb-6 text-7xl ">
+              <h1 className="mb-4 text-4xl font-bold leading-tight text-white md:mb-6 md:text-7xl ">
                 Find the best listing agent
               </h1>
               <p className="mb-6 text-base font-light sm:text-xl md:text-2xl">
