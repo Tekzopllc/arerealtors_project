@@ -22,12 +22,18 @@ export default function TestimonialsGrid() {
                     <Star key={i} className="w-4 h-4 fill-current" />
                   ))}
                 </div>
-                <div className="font-semibold">{testimonial.name}</div>
+                <div className="mt-2 text-xl font-bold text-gray-900">
+                  {testimonial.name}
+                </div>
+                <div className="text-sm text-gray-500">
+                  {testimonial.location}
+                </div>
                 <div className="text-sm text-gray-500">{testimonial.role}</div>
               </div>
             </div>
-            <p className="mb-4 text-gray-600">"{testimonial.text}"</p>
-            <div className="text-sm text-gray-500">{testimonial.location}</div>
+            <p className="text-base sm:text-[1.1rem] leading-relaxed text-gray-700">
+              "{testimonial.text}"
+            </p>
           </div>
         ))}
       </div>
