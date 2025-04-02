@@ -151,7 +151,9 @@ export default function Home() {
               >
                 Find The Best Realtors{" "}
                 {city
-                  ? `in ${city} ${country ? `, ${country.toUpperCase()}` : ""}`
+                  ? `in ${city.charAt(0).toUpperCase() + city.slice(1)}${
+                      country ? `, ${country.toUpperCase()}` : ""
+                    }`
                   : "In Your City"}
               </h1>
               <p
