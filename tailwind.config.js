@@ -1,29 +1,32 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        xxs: "425px",
+      },
       fontSize: {
-        'lg': ['1.5rem', '2rem'], // Modifying text-lg to be larger with adjusted line height
+        lg: ["1.5rem", "2rem"], // Modifying text-lg to be larger with adjusted line height
       },
       colors: {
-        'modalprimary': '#ea580c',
-        'modalprimary-dark': '#d24b09',
-        'modalsecondary': '#272727',
+        modalprimary: "#ea580c",
+        "modalprimary-dark": "#d24b09",
+        modalsecondary: "#272727",
         primary: {
-          DEFAULT: '#FF6B00',
-          dark: '#CC5500',
-          light: '#FF8533',
+          DEFAULT: "#FF6B00",
+          dark: "#CC5500",
+          light: "#FF8533",
         },
         secondary: {
-          'DEFAULT': '#1A1A1A',
-          'light': '#333333',
-        }
+          DEFAULT: "#1A1A1A",
+          light: "#333333",
+        },
       },
       fontFamily: {
-        'sans': ['Inter', 'sans-serif'],
-        'mulish': ['Mulish', 'sans-serif'],
-      }
+        sans: ["Inter", "sans-serif"],
+        mulish: ["Mulish", "sans-serif"],
+      },
     },
   },
   plugins: [],
