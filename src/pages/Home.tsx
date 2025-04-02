@@ -21,6 +21,12 @@ import AgentQuestionnaire, {
 import styles from "../styles/Footer.module.css";
 import { TestimonialsCard } from "../components";
 
+const features = [
+  { text: "100% free" },
+  { text: "Takes just 1 minute" },
+  { text: "No strings attached" },
+];
+
 export default function Home() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -47,46 +53,17 @@ export default function Home() {
     };
   }, []);
 
-  // Simplified animations for mobile
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: isMobile ? 0.1 : 0.2,
-      },
-    },
-  };
-
-  const scaleUp = {
-    hidden: { scale: 0.95, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: { duration: 0.4 },
-    },
-  };
-
   const handleQuestionnaireSubmit = (data: QuestionnaireData) => {
     console.log("Questionnaire submitted:", data);
   };
 
   return (
     <div className="min-h-screen" style={{ marginTop: "-64px" }}>
-      <AgentQuestionnaire
+      {/* <AgentQuestionnaire
         isOpen={isQuestionnaireOpen}
         onClose={() => setIsQuestionnaireOpen(false)}
         onSubmit={handleQuestionnaireSubmit}
-      />
+      /> */}
 
       {/* Hero Section - Optimized for mobile */}
       <div
@@ -99,61 +76,27 @@ export default function Home() {
       >
         <div className="absolute inset-0 from-black/70 via-black/50 to-black/60" />
         <div className="relative flex flex-col min-h-screen">
-          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[95rem] mx-auto gap-4 md:gap-8 py-6 md:py-8 md:h-screen px-4 sm:px-6">
+          <div className="grid w-full grid-cols-1 gap-4 px-4 py-6 mx-auto lg:grid-cols-2 md:flex-row max-w-7xl md:gap-8 md:py-8 md:h-screen sm:px-6">
             <div
-              className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 md:mt-[-250px] space-y-4 md:space-y-8"
+              className="text-white w-full max-w-[55rem] text-left px-0 sm:px-4 mt-2 space-y-4 md:space-y-8"
               style={{ letterSpacing: "1px" }}
             >
-              <h1
-                className="mb-4 text-2xl font-bold text-white sm:text-4xl md:text-4 md:mb-6"
-                style={{
-                  lineHeight: isMobile ? "2.5rem" : "4.5rem",
-                  fontSize: isMobile ? "2.5rem" : "4.5rem",
-                }}
-              >
+              <h1 className="mb-4 font-bold leading-tight text-white md:text-4 md:mb-6 text-7xl ">
                 Find the best listing agent
               </h1>
-              <p
-                className="mb-6 text-base font-light sm:text-xl md:text-xl"
-                // style={{ fontSize: isMobile ? "1rem" : "1.6rem" }}
-              >
+              <p className="mb-6 text-base font-light sm:text-xl md:text-2xl">
                 We negotiate so you don't have to - get the best realtor while
                 paying less commissions.
               </p>
               <div className="flex flex-col items-start gap-3 mb-6">
-                <div className="flex items-center gap-2 group">
-                  <div className="p-1 bg-white rounded-full">
-                    <Check className="w-4 h-4 text-black sm:h-6 sm:w-6" />
+                {features.map((feature, index) => (
+                  <div key={index} className="flex items-center gap-2 group">
+                    <div className="p-1 bg-white rounded-full">
+                      <Check className="w-4 h-4 text-black sm:h-6 sm:w-6" />
+                    </div>
+                    <span className="text-sm sm:text-xl">{feature.text}</span>
                   </div>
-                  <span
-                    className="text-sm sm:text-lg"
-                    style={{ fontSize: "1.2rem" }}
-                  >
-                    100% free
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 group">
-                  <div className="p-1 bg-white rounded-full">
-                    <Check className="w-4 h-4 text-black sm:h-6 sm:w-6" />
-                  </div>
-                  <span
-                    className="text-sm sm:text-lg"
-                    style={{ fontSize: "1.2rem" }}
-                  >
-                    Takes just 1 minute
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 group">
-                  <div className="p-1 bg-white rounded-full">
-                    <Check className="w-4 h-4 text-black sm:h-6 sm:w-6" />
-                  </div>
-                  <span
-                    className="text-sm sm:text-lg"
-                    style={{ fontSize: "1.2rem" }}
-                  >
-                    No strings attached
-                  </span>
-                </div>
+                ))}
               </div>
             </div>
 

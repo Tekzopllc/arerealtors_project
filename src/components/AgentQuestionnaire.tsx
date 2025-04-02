@@ -918,7 +918,7 @@ export default function AgentQuestionnaire({
             {/* Step 1: Timeframe */}
             <div
               className={`${currentStep === 1 ? "block" : "hidden"}
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 md:px-10 md:pt-10 overflow-hidden`}
+                flex flex-col px-6 md:px-10 md:pt-10 mt-10 lg:mt-0`}
               style={{ paddingTop: "1.5rem" }}
             >
               <div
@@ -965,10 +965,7 @@ export default function AgentQuestionnaire({
                 ))}
               </div>
               {currentStep === 1 && (
-                <p
-                  className="py-2 mt-auto text-base text-center text-gray-500"
-                  style={{ marginBottom: "2rem" }}
-                >
+                <p className="py-2 mt-auto text-sm text-center text-gray-500 sm:mb-[2rem]">
                   * No spam, your information is 100% safe with us
                 </p>
               )}
