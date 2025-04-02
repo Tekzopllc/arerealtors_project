@@ -28,3 +28,4 @@ temp
 # Dependencies
 node_modules/
 
+.vercel
