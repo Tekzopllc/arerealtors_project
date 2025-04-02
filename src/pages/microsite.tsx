@@ -272,10 +272,7 @@ export default function Home() {
       <div id="reviews_section" className="py-16 bg-white sm:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <h2 className="relative inline-block w-full mx-auto mb-8 text-2xl font-bold text-center sm:text-3xl text-secondary sm:mb-10">
-            <span
-              className="relative inline-block"
-              style={{ fontSize: "2.5rem" }}
-            >
+            <span className="relative inline-block text-[2.5rem] leading-[2.6rem]">
               Homeowners Love Acerealtors
               <span className="absolute w-16 h-1 transform -translate-x-1/2 rounded-full -bottom-2 left-1/2 sm:w-20 bg-primary"></span>
             </span>
@@ -288,7 +285,7 @@ export default function Home() {
       </div>
 
       {/* Find Local Agents */}
-      <div className="py-16 sm:py-24 bg-gradient-to-r from-white to-gray-50">
+      <div className="py-5 xxs:py-10 sm:py-24 bg-gradient-to-r from-white to-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="grid items-center gap-8 md:grid-cols-2 sm:gap-12">
             <div className="order-2 md:order-1">
@@ -356,7 +353,7 @@ export default function Home() {
       </div>
 
       {/* Additional Testimonial */}
-      <div className="py-16 sm:py-24 bg-gray-50">
+      <div className="py-5 xxs:py-10 sm:py-24 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="grid items-start gap-8 md:grid-cols-2 lg:gap-12">
             <div className="relative group">
