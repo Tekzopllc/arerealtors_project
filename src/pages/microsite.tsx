@@ -27,15 +27,10 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const city = searchParams.get("city")?.replace(/%20/g, " ");
-  const country = searchParams.get("country");
+  const city = searchParams.get("utm_city")?.replace(/%20/g, " ");
+  const country = searchParams.get("utm_country");
 
   useEffect(() => {
-    if (city && !states.includes(city.toLowerCase())) {
-      navigate("/");
-      return;
-    }
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
