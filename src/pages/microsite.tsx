@@ -12,23 +12,30 @@ import {
   BookOpen,
   Phone,
 } from "lucide-react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import FAQAccordion from "../components/FAQAccordion";
 import AgentQuestionnaire, {
   QuestionnaireData,
 } from "../components/AgentQuestionnaire";
 import styles from "../styles/Footer.module.css";
 import { TestimonialsCard } from "../components";
+import { states } from "../constant";
 
 export default function Home() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const city = searchParams.get("city");
   const country = searchParams.get("country");
 
   useEffect(() => {
+    if (city && !states.includes(city.toLowerCase())) {
+      navigate("/");
+      return;
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -47,7 +54,7 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [city, navigate]);
 
   // Simplified animations for mobile
   const fadeInUp = {
