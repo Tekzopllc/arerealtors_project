@@ -20,6 +20,7 @@ import AgentQuestionnaire, {
 import styles from "../styles/Footer.module.css";
 import { TestimonialsCard } from "../components";
 import { states } from "../constant";
+import { getCityFromUrl } from "../utils/urlUtils";
 
 export default function Home() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
@@ -29,6 +30,15 @@ export default function Home() {
   const navigate = useNavigate();
   const city = searchParams.get("utm_city")?.replace(/%20/g, " ");
   const country = searchParams.get("utm_country");
+  const [cityFromUrl, setCityFromUrl] = useState<string>("");
+
+  useEffect(() => {
+    const getCity = async () => {
+      const city = await getCityFromUrl();
+      setCityFromUrl(city);
+    };
+    getCity();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,35 +60,6 @@ export default function Home() {
       window.removeEventListener("resize", handleResize);
     };
   }, [city, navigate]);
-
-  // Simplified animations for mobile
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: isMobile ? 0.1 : 0.2,
-      },
-    },
-  };
-
-  const scaleUp = {
-    hidden: { scale: 0.95, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: { duration: 0.4 },
-    },
-  };
 
   const handleQuestionnaireSubmit = (data: QuestionnaireData) => {
     console.log("Questionnaire submitted:", data);
@@ -145,11 +126,7 @@ export default function Home() {
                 }}
               >
                 Find The Best Realtors{" "}
-                {city
-                  ? `in ${city.charAt(0).toUpperCase() + city.slice(1)}${
-                      country ? `, ${country.toUpperCase()}` : ""
-                    }`
-                  : "In Your City"}
+                {cityFromUrl ? `in ${cityFromUrl}` : "In Your City"}
               </h1>
               <p
                 className="mb-6 text-base font-light sm:text-xl md:text-2xl"
