@@ -393,7 +393,7 @@ export default function Home() {
       </div>
 
       {/* FAQ Section */}
-      <div className="py-12 bg-gray-50">
+      <div className="py-12 sm:py-20 md:py-28 bg-gray-50">
         <div className="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
           <h2 className="mb-10 text-3xl font-bold text-center text-secondary">
             Frequently Asked Questions
