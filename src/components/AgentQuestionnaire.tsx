@@ -559,6 +559,7 @@ interface QuestionnaireProps {
 }
 
 export interface QuestionnaireData {
+  transactionType: string;
   timeframe: string;
   location: string;
   budget: number;
@@ -576,6 +577,7 @@ export default function AgentQuestionnaire({
   embedded = false,
 }: QuestionnaireProps & { embedded?: boolean }) {
   const [formData, setFormData] = useState<QuestionnaireData>({
+    transactionType: "",
     timeframe: "",
     location: "",
     budget: 500000, // Default value for the slider
@@ -596,7 +598,7 @@ export default function AgentQuestionnaire({
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isPopupClosing, setIsPopupClosing] = useState(false);
   const [otherPropertyType, setOtherPropertyType] = useState("");
-  const totalSteps = 7; // Each input is now a separate page
+  const totalSteps = 8; // Updated from 7 to 8 since we added a new step
 
   // Reference to store and clear timeouts
   const closeTimeoutRef = useRef<number | null>(null);
@@ -645,6 +647,7 @@ export default function AgentQuestionnaire({
 
       setCurrentStep(1);
       setFormData({
+        transactionType: "",
         timeframe: "",
         location: "",
         budget: 500000,
@@ -724,6 +727,7 @@ export default function AgentQuestionnaire({
         closeTimeoutRef.current = window.setTimeout(() => {
           // Reset form data and states
           setFormData({
+            transactionType: "",
             timeframe: "",
             location: "",
             budget: 500000,
@@ -915,9 +919,190 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 1: Timeframe */}
+            {/* Step 1: Transaction Type */}
             <div
               className={`${currentStep === 1 ? "block" : "hidden"}
+                flex flex-col px-6 md:px-10 h-full overflow-hidden`}
+            >
+              <div className="mt-8 mb-6 text-2xl heading-text md:text-3xl lg:text-4xl">
+                Are you buying or selling?
+              </div>
+
+              <div className="flex flex-col justify-center flex-grow gap-6 mb-8">
+                <button
+                  onClick={() => {
+                    setFormData({ ...formData, transactionType: "buying" });
+                    nextStep();
+                  }}
+                  className={`option-button min-h-[120px] group ${
+                    formData.transactionType === "buying"
+                      ? "selected-option"
+                      : ""
+                  }`}
+                >
+                  <div className="flex items-center w-full gap-4">
+                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                      </svg>
+                    </div>
+                    <div className="flex flex-col items-start flex-grow">
+                      <span className="mb-1 text-xl font-semibold">
+                        I'm Buying
+                      </span>
+                      <span className="text-sm font-normal opacity-90">
+                        Find the best real estate agent to represent you
+                      </span>
+                    </div>
+                    {formData.transactionType === "buying" && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="flex-shrink-0"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setFormData({ ...formData, transactionType: "selling" });
+                    nextStep();
+                  }}
+                  className={`option-button min-h-[120px] group ${
+                    formData.transactionType === "selling"
+                      ? "selected-option"
+                      : ""
+                  }`}
+                >
+                  <div className="flex items-center w-full gap-4">
+                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M3 3v18h18"></path>
+                        <path d="m19 9-5 5-4-4-3 3"></path>
+                      </svg>
+                    </div>
+                    <div className="flex flex-col items-start flex-grow">
+                      <span className="mb-1 text-xl font-semibold">
+                        I'm Selling
+                      </span>
+                      <span className="text-sm font-normal opacity-90">
+                        A top REALTOR® will sell your home fast
+                      </span>
+                    </div>
+                    {formData.transactionType === "selling" && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="flex-shrink-0"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setFormData({ ...formData, transactionType: "both" });
+                    nextStep();
+                  }}
+                  className={`option-button min-h-[120px] group ${
+                    formData.transactionType === "both" ? "selected-option" : ""
+                  }`}
+                >
+                  <div className="flex items-center w-full gap-4">
+                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
+                    </div>
+                    <div className="flex flex-col items-start flex-grow">
+                      <span className="mb-1 text-xl font-semibold">
+                        I'm Buying & Selling
+                      </span>
+                      <span className="text-sm font-normal opacity-90">
+                        The top rated real estate agent can support your entire
+                        journey
+                      </span>
+                    </div>
+                    {formData.transactionType === "both" && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="flex-shrink-0"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </button>
+              </div>
+
+              <p className="mb-6 text-sm text-center text-gray-500">
+                * No spam, your information is 100% safe with us
+              </p>
+            </div>
+
+            {/* Step 2: Timeframe */}
+            <div
+              className={`${
+                currentStep === 2 ? "block animate-fadeInRight" : "hidden"
+              }
                 flex flex-col px-6 md:px-10 md:pt-10 mt-10 lg:mt-0`}
               style={{ paddingTop: "1.5rem" }}
             >
@@ -961,17 +1146,17 @@ export default function AgentQuestionnaire({
                   </button>
                 ))}
               </div>
-              {currentStep === 1 && (
+              {currentStep === 2 && (
                 <p className="py-2 mt-auto text-sm text-center text-gray-500 sm:mb-[2rem]">
                   * No spam, your information is 100% safe with us
                 </p>
               )}
             </div>
 
-            {/* Step 2: Location */}
+            {/* Step 3: Location */}
             <div
               className={`${
-                currentStep === 2 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 3 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1063,27 +1248,12 @@ export default function AgentQuestionnaire({
                   Continue
                 </button>
               </div>
-
-              {/* <div className="flex flex-col gap-2 px-4 pb-4 mt-2 mt-auto bg-white md:px-9 md:pb-6">
-                <p className="flex items-start text-sm text-gray-500">
-                  <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="flex-shrink-0 w-4 h-4 mt-1 mr-2"/>
-                  <span>We've worked with over 10K happy home buyers & sellers across the U.S.</span>
-                </p>
-                <p className="flex items-start text-sm text-gray-500">
-                  <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="flex-shrink-0 w-4 h-4 mt-1 mr-2"/>
-                  <span>We hand select the top agents from your area</span>
-                </p>
-                <p className="flex items-start text-sm text-gray-500">
-                  <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="flex-shrink-0 w-4 h-4 mt-1 mr-2"/>
-                  <span>Get a free custom list of top agents and get connected within 2 minutes.</span>
-                </p>
-              </div> */}
             </div>
 
-            {/* Step 3: Budget (Slider) */}
+            {/* Step 4: Budget (Slider) */}
             <div
               className={`${
-                currentStep === 3 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 4 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1133,10 +1303,10 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 4: Property Type */}
+            {/* Step 5: Property Type */}
             <div
               className={`${
-                currentStep === 4 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 5 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1257,10 +1427,10 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 5: Full Name */}
+            {/* Step 6: Full Name */}
             <div
               className={`${
-                currentStep === 5 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 6 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1352,10 +1522,10 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 6: Email */}
+            {/* Step 7: Email */}
             <div
               className={`${
-                currentStep === 6 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 7 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1432,10 +1602,10 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 7: Phone */}
+            {/* Step 8: Phone */}
             <div
               className={`${
-                currentStep === 7 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 8 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
