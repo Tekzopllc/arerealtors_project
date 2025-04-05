@@ -568,24 +568,28 @@ export interface QuestionnaireData {
   lastName: string;
   email: string;
   phone: string;
+  hasAgent: string;
+  wantsToSell: string;
 }
 
-export default function AgentQuestionnaire({
+const AgentQuestionnaire = ({
   isOpen,
   onClose,
   onSubmit,
   embedded = false,
-}: QuestionnaireProps & { embedded?: boolean }) {
+}: QuestionnaireProps & { embedded?: boolean }) => {
   const [formData, setFormData] = useState<QuestionnaireData>({
     transactionType: "",
     timeframe: "",
     location: "",
-    budget: 500000, // Default value for the slider
+    budget: 500000,
     propertyType: "",
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
+    hasAgent: "",
+    wantsToSell: "",
   });
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -595,10 +599,28 @@ export default function AgentQuestionnaire({
   const [isClosing, setIsClosing] = useState(false);
   const [showOtherPropertyTypePopup, setShowOtherPropertyTypePopup] =
     useState(false);
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isPopupClosing, setIsPopupClosing] = useState(false);
   const [otherPropertyType, setOtherPropertyType] = useState("");
-  const totalSteps = 8; // Updated from 7 to 8 since we added a new step
+
+  // Get total steps based on transaction type
+  const getTotalSteps = (type: string) => {
+    switch (type) {
+      case "buying":
+        return 9; // Total steps for buying flow
+      case "selling":
+      case "both":
+        return 9; // Total steps for selling/both flow
+      default:
+        return 9;
+    }
+  };
+
+  // Calculate progress percentage based on current step and transaction type
+  const getProgressWidth = () => {
+    const totalSteps = getTotalSteps(formData.transactionType);
+    const adjustedStep = currentStep;
+    return `${(adjustedStep / totalSteps) * 100}%`;
+  };
 
   // Reference to store and clear timeouts
   const closeTimeoutRef = useRef<number | null>(null);
@@ -606,7 +628,7 @@ export default function AgentQuestionnaire({
   // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = () => {
-      setIsDropdownVisible(false);
+      // Remove this effect since we don't need it anymore
     };
 
     document.addEventListener("click", handleClickOutside);
@@ -656,6 +678,8 @@ export default function AgentQuestionnaire({
         lastName: "",
         email: "",
         phone: "",
+        hasAgent: "",
+        wantsToSell: "",
       });
       setSubmitError(null);
       setShowSuccess(false);
@@ -736,6 +760,8 @@ export default function AgentQuestionnaire({
             lastName: "",
             email: "",
             phone: "",
+            hasAgent: "",
+            wantsToSell: "",
           });
           setCurrentStep(1);
           setShowSuccess(false);
@@ -761,22 +787,119 @@ export default function AgentQuestionnaire({
     }, 500);
   };
 
+  // Function to determine next step based on transaction type
+  const getNextStep = (currentStep: number, transactionType: string) => {
+    switch (transactionType) {
+      case "buying":
+        switch (currentStep) {
+          case 1:
+            return 3; // Skip timeframe, go to Location
+          case 3:
+            return 4; // Budget
+          case 4:
+            return 5; // Agent Question
+          case 5:
+            return 6; // Selling Question
+          case 6:
+            return 7; // Name
+          case 7:
+            return 8; // Email
+          case 8:
+            return 9; // Phone
+          default:
+            return currentStep + 1;
+        }
+      case "selling":
+      case "both":
+        switch (currentStep) {
+          case 1:
+            return 2; // Timeframe
+          case 2:
+            return 3; // Location
+          case 3:
+            return 4; // Budget
+          case 4:
+            return 5; // Property Type
+          case 5:
+            return 6; // Agent Question
+          case 6:
+            return 7; // Name
+          case 7:
+            return 8; // Email
+          case 8:
+            return 9; // Phone
+          default:
+            return currentStep + 1;
+        }
+      default:
+        return currentStep + 1;
+    }
+  };
+
+  // Function to determine previous step based on transaction type
+  const getPrevStep = (currentStep: number, transactionType: string) => {
+    switch (transactionType) {
+      case "buying":
+        switch (currentStep) {
+          case 3:
+            return 1; // Location to Transaction Type
+          case 4:
+            return 3; // Budget to Location
+          case 5:
+            return 4; // Agent to Budget
+          case 6:
+            return 5; // Selling to Agent
+          case 7:
+            return 6; // Name to Selling
+          case 8:
+            return 7; // Email to Name
+          case 9:
+            return 8; // Phone to Email
+          default:
+            return currentStep - 1;
+        }
+      case "selling":
+      case "both":
+        switch (currentStep) {
+          case 2:
+            return 1; // Timeframe to Transaction Type
+          case 3:
+            return 2; // Location to Timeframe
+          case 4:
+            return 3; // Budget to Location
+          case 5:
+            return 4; // Property Type to Budget
+          case 6:
+            return 5; // Agent to Property Type
+          case 7:
+            return 6; // Name to Agent
+          case 8:
+            return 7; // Email to Name
+          case 9:
+            return 8; // Phone to Email
+          default:
+            return currentStep - 1;
+        }
+      default:
+        return currentStep - 1;
+    }
+  };
+
   const nextStep = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
+    const next = getNextStep(currentStep, formData.transactionType);
+    const totalSteps = getTotalSteps(formData.transactionType);
+    if (next <= totalSteps) {
+      setCurrentStep(next);
     } else {
       handleSubmit();
     }
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+    const prev = getPrevStep(currentStep, formData.transactionType);
+    if (prev >= 1) {
+      setCurrentStep(prev);
     }
-  };
-
-  const getProgressWidth = () => {
-    return `${(currentStep / totalSteps) * 100}%`;
   };
 
   const formatCurrency = (value: number): string => {
@@ -821,6 +944,16 @@ export default function AgentQuestionnaire({
     }
 
     return `${formatCurrency(value)} - ${formatCurrency(upperValue)}`;
+  };
+
+  const handleTransactionTypeSelect = (type: string) => {
+    setFormData({ ...formData, transactionType: type });
+    // Skip timeframe step for buying
+    if (type === "buying") {
+      setCurrentStep(3); // Go directly to location step
+    } else {
+      setCurrentStep(2); // Go to timeframe step for selling and both
+    }
   };
 
   if (!isOpen) return null;
@@ -895,9 +1028,6 @@ export default function AgentQuestionnaire({
             {/* Progress header */}
             <div className="relative z-[3] bg-[#f8f8f8] border-b border-[rgba(234,88,12,0.1)]">
               <div className="flex items-center justify-between px-6">
-                {/* <div className="flex items-center">
-                  <span className="text-sm font-medium text-[#ea580c]">Step {currentStep} of {totalSteps}</span>
-                </div> */}
                 {!embedded && (
                   <button
                     onClick={handleCloseModal}
@@ -930,10 +1060,7 @@ export default function AgentQuestionnaire({
 
               <div className="flex flex-col justify-center flex-grow gap-6 mb-8">
                 <button
-                  onClick={() => {
-                    setFormData({ ...formData, transactionType: "buying" });
-                    nextStep();
-                  }}
+                  onClick={() => handleTransactionTypeSelect("buying")}
                   className={`option-button min-h-[120px] group ${
                     formData.transactionType === "buying"
                       ? "selected-option"
@@ -984,10 +1111,7 @@ export default function AgentQuestionnaire({
                 </button>
 
                 <button
-                  onClick={() => {
-                    setFormData({ ...formData, transactionType: "selling" });
-                    nextStep();
-                  }}
+                  onClick={() => handleTransactionTypeSelect("selling")}
                   className={`option-button min-h-[120px] group ${
                     formData.transactionType === "selling"
                       ? "selected-option"
@@ -1038,10 +1162,7 @@ export default function AgentQuestionnaire({
                 </button>
 
                 <button
-                  onClick={() => {
-                    setFormData({ ...formData, transactionType: "both" });
-                    nextStep();
-                  }}
+                  onClick={() => handleTransactionTypeSelect("both")}
                   className={`option-button min-h-[120px] group ${
                     formData.transactionType === "both" ? "selected-option" : ""
                   }`}
@@ -1098,10 +1219,12 @@ export default function AgentQuestionnaire({
               </p>
             </div>
 
-            {/* Step 2: Timeframe */}
+            {/* Step 2: Timeframe (Only for selling and both) */}
             <div
               className={`${
-                currentStep === 2 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 2 && formData.transactionType !== "buying"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
               }
                 flex flex-col px-6 md:px-10 md:pt-10 mt-10 lg:mt-0`}
               style={{ paddingTop: "1.5rem" }}
@@ -1146,8 +1269,13 @@ export default function AgentQuestionnaire({
                   </button>
                 ))}
               </div>
+              <div className="flex items-center justify-between pb-6 mt-auto">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+              </div>
               {currentStep === 2 && (
-                <p className="py-2 mt-auto text-sm text-center text-gray-500 sm:mb-[2rem]">
+                <p className="text-sm text-center text-gray-500">
                   * No spam, your information is 100% safe with us
                 </p>
               )}
@@ -1164,11 +1292,16 @@ export default function AgentQuestionnaire({
                 className="mb-4 text-xl heading-text md:text-2xl lg:text-3xl"
                 style={{ fontSize: "1.55srem" }}
               >
-                What is the address of your property?
+                {formData.transactionType === "buying"
+                  ? "Where are you looking to buy?"
+                  : formData.transactionType === "both"
+                  ? "What is the address of your current home?"
+                  : "What is the address of your property?"}
               </div>
               <p className="mb-6 body-text">
-                So we can recommend experts who have sold similar properties in
-                your area.
+                {formData.transactionType === "buying"
+                  ? "We'll connect you with an agent who knows the area inside and out."
+                  : "So we can recommend experts who have sold similar properties in your area."}
               </p>
 
               <div className="relative mt-4">
@@ -1258,7 +1391,9 @@ export default function AgentQuestionnaire({
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
               <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
-                What price are you hoping to sell at?
+                {formData.transactionType === "buying"
+                  ? "What's your budget for buying a home?"
+                  : "What price are you hoping to sell at?"}
               </div>
 
               <div className="mt-6">
@@ -1303,10 +1438,12 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 5: Property Type */}
+            {/* Step 5: Property Type (Only for selling and both) */}
             <div
               className={`${
-                currentStep === 5 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 5 && formData.transactionType !== "buying"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1430,7 +1567,7 @@ export default function AgentQuestionnaire({
             {/* Step 6: Full Name */}
             <div
               className={`${
-                currentStep === 6 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 7 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1525,7 +1662,7 @@ export default function AgentQuestionnaire({
             {/* Step 7: Email */}
             <div
               className={`${
-                currentStep === 7 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 8 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1605,7 +1742,7 @@ export default function AgentQuestionnaire({
             {/* Step 8: Phone */}
             <div
               className={`${
-                currentStep === 8 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 9 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1717,9 +1854,114 @@ export default function AgentQuestionnaire({
                 </button>
               </div>
             </div>
+
+            {/* Step: Agent Question */}
+            <div
+              className={`${
+                (currentStep === 5 && formData.transactionType === "buying") ||
+                (currentStep === 6 && formData.transactionType !== "buying")
+                  ? "block animate-fadeInRight"
+                  : "hidden"
+              }
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+            >
+              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
+                Have you already hired a real estate agent?
+              </div>
+
+              <div className="flex flex-col gap-4 mt-2">
+                {["Yes", "No"].map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => {
+                      setFormData({ ...formData, hasAgent: option });
+                      nextStep();
+                    }}
+                    className={`option-button ${
+                      formData.hasAgent === option ? "selected-option" : ""
+                    }`}
+                  >
+                    <span>{option}</span>
+                    {formData.hasAgent === option && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between pb-6 mt-auto">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+              </div>
+            </div>
+
+            {/* Step: Selling Question (Only for Buying) */}
+            <div
+              className={`${
+                currentStep === 6 && formData.transactionType === "buying"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
+              }
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+            >
+              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
+                Are you also looking to sell a home?
+              </div>
+
+              <div className="flex flex-col gap-4 mt-2">
+                {["Yes", "No"].map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => {
+                      setFormData({ ...formData, wantsToSell: option });
+                      nextStep();
+                    }}
+                    className={`option-button ${
+                      formData.wantsToSell === option ? "selected-option" : ""
+                    }`}
+                  >
+                    <span>{option}</span>
+                    {formData.wantsToSell === option && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between pb-6 mt-auto">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default AgentQuestionnaire;
