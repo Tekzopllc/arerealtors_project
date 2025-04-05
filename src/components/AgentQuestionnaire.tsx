@@ -487,6 +487,54 @@ const animationStyles = `
   }
 `;
 
+// Add this custom style block after the phoneInputCustomStyles
+const cityDropdownStyles = `
+  .city-autocomplete-container {
+    font-family: 'Inter', sans-serif;
+  }
+  .pac-container {
+    margin-top: 4px !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(234, 88, 12, 0.2) !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05) !important;
+    padding: 8px !important;
+    font-family: 'Inter', sans-serif !important;
+  }
+  .pac-container:after {
+    display: none !important;  /* Removes "Powered by Google" */
+  }
+  .pac-item {
+    padding: 10px 12px !important;
+    cursor: pointer !important;
+    font-family: 'Inter', sans-serif !important;
+    border-radius: 8px !important;
+    border: none !important;
+    transition: all 0.2s ease !important;
+  }
+  .pac-item:hover {
+    background-color: rgba(234, 88, 12, 0.1) !important;
+  }
+  .pac-item-selected {
+    background-color: rgba(234, 88, 12, 0.15) !important;
+  }
+  .pac-icon {
+    display: none !important;
+  }
+  .pac-item-query {
+    font-size: 14px !important;
+    padding-right: 8px !important;
+    color: #272727 !important;
+  }
+  .pac-matched {
+    font-weight: 600 !important;
+    color: #ea580c !important;
+  }
+  .pac-item span:not(.pac-item-query) {
+    font-size: 13px !important;
+    color: #6b7280 !important;
+  }
+`;
+
 // Email validation functions
 const validateEmail = (email: string): boolean => {
   // Regular expression for email validation
@@ -1288,24 +1336,25 @@ const AgentQuestionnaire = ({
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
+              <style>{cityDropdownStyles}</style>
               <div
                 className="mb-4 text-xl heading-text md:text-2xl lg:text-3xl"
-                style={{ fontSize: "1.55srem" }}
+                style={{ fontSize: "1.55rem" }}
               >
                 {formData.transactionType === "buying"
-                  ? "Where are you looking to buy?"
+                  ? "Which city are you looking to buy in?"
                   : formData.transactionType === "both"
                   ? "What is the address of your current home?"
                   : "What is the address of your property?"}
               </div>
               <p className="mb-6 body-text">
                 {formData.transactionType === "buying"
-                  ? "We'll connect you with an agent who knows the area inside and out."
+                  ? "We'll connect you with an agent who knows the city inside and out."
                   : "So we can recommend experts who have sold similar properties in your area."}
               </p>
 
               <div className="relative mt-4">
-                <div className="relative group">
+                <div className="relative group city-autocomplete-container">
                   <div className="input-icon-wrapper">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1329,7 +1378,11 @@ const AgentQuestionnaire = ({
                     onChange={(e) =>
                       setFormData({ ...formData, location: e.target.value })
                     }
-                    placeholder="Enter your property address..."
+                    placeholder={
+                      formData.transactionType === "buying"
+                        ? "Enter city name..."
+                        : "Enter your property address..."
+                    }
                     className="premium-input"
                     ref={(input) => {
                       if (
@@ -1343,17 +1396,55 @@ const AgentQuestionnaire = ({
                         ) {
                           const autocomplete =
                             new window.google.maps.places.Autocomplete(input, {
-                              types: ["address"],
+                              types:
+                                formData.transactionType === "buying"
+                                  ? ["(cities)"]
+                                  : ["address"],
                               componentRestrictions: { country: "us" },
+                              fields: [
+                                "name",
+                                "formatted_address",
+                                "address_components",
+                              ],
                             });
+
+                          autocomplete.setFields([
+                            "address_components",
+                            "formatted_address",
+                            "name",
+                          ]);
 
                           autocomplete.addListener("place_changed", () => {
                             const place = autocomplete.getPlace();
-                            if (place.formatted_address) {
-                              setFormData({
-                                ...formData,
-                                location: place.formatted_address,
-                              });
+                            if (place.address_components) {
+                              // Only format as city for pure "buying" mode (not "both")
+                              if (formData.transactionType === "buying") {
+                                // Find the city name from address components
+                                const cityComponent =
+                                  place.address_components.find((component) =>
+                                    component.types.includes("locality")
+                                  );
+                                const stateComponent =
+                                  place.address_components.find((component) =>
+                                    component.types.includes(
+                                      "administrative_area_level_1"
+                                    )
+                                  );
+
+                                if (cityComponent && stateComponent) {
+                                  const cityName = `${cityComponent.long_name}, ${stateComponent.short_name}`;
+                                  setFormData({
+                                    ...formData,
+                                    location: cityName,
+                                  });
+                                }
+                              } else {
+                                // For "selling" and "both", use full address
+                                setFormData({
+                                  ...formData,
+                                  location: place.formatted_address || "",
+                                });
+                              }
                             }
                           });
 
