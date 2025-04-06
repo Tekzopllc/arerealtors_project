@@ -3,6 +3,8 @@ import { X } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { geocodeByAddress } from "react-google-places-autocomplete";
 
 // Google Maps type declarations
 declare global {
@@ -1372,85 +1374,126 @@ const AgentQuestionnaire = ({
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                   </div>
-                  <input
-                    type="text"
-                    value={formData.location}
-                    onChange={(e) =>
-                      setFormData({ ...formData, location: e.target.value })
-                    }
-                    placeholder={
-                      formData.transactionType === "buying"
-                        ? "Enter city name..."
-                        : "Enter your property address..."
-                    }
-                    className="premium-input"
-                    ref={(input) => {
-                      if (
-                        input &&
-                        !input.getAttribute("data-places-initialized")
-                      ) {
-                        if (
-                          window.google &&
-                          window.google.maps &&
-                          window.google.maps.places
-                        ) {
-                          const autocomplete =
-                            new window.google.maps.places.Autocomplete(input, {
-                              types:
-                                formData.transactionType === "buying"
-                                  ? ["(cities)"]
-                                  : ["address"],
-                              componentRestrictions: { country: "us" },
-                              fields: [
-                                "name",
-                                "formatted_address",
-                                "address_components",
-                              ],
-                            });
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      placeholder:
+                        formData.transactionType === "buying"
+                          ? "Enter city name..."
+                          : "Enter your property address...",
+                      value: formData.location
+                        ? { label: formData.location, value: formData.location }
+                        : null,
+                      onChange: async (place) => {
+                        if (place) {
+                          if (formData.transactionType === "buying") {
+                            // For buying, we only want the city name
+                            const results = await geocodeByAddress(place.label);
+                            const cityComponent =
+                              results[0].address_components.find((component) =>
+                                component.types.includes("locality")
+                              );
 
-                          autocomplete.setFields([
-                            "address_components",
-                            "formatted_address",
-                            "name",
-                          ]);
-
-                          autocomplete.addListener("place_changed", () => {
-                            const place = autocomplete.getPlace();
-                            if (place.address_components) {
-                              // Only format as city for pure "buying" mode (not "both")
-                              if (formData.transactionType === "buying") {
-                                // Find the city name from address components
-                                const cityComponent =
-                                  place.address_components.find((component) =>
-                                    component.types.includes("locality")
-                                  );
-                                const stateComponent =
-                                  place.address_components.find((component) =>
-                                    component.types.includes(
-                                      "administrative_area_level_1"
-                                    )
-                                  );
-
-                                if (cityComponent && stateComponent) {
-                                  const cityName = `${cityComponent.long_name}, ${stateComponent.short_name}`;
-                                  setFormData({
-                                    ...formData,
-                                    location: cityName,
-                                  });
-                                }
-                              } else {
-                                // For "selling" and "both", use full address
-                                setFormData({
-                                  ...formData,
-                                  location: place.formatted_address || "",
-                                });
-                              }
+                            if (cityComponent) {
+                              const cityName = `${cityComponent.long_name}, USA`;
+                              setFormData({
+                                ...formData,
+                                location: cityName,
+                              });
                             }
-                          });
-
-                          input.setAttribute("data-places-initialized", "true");
+                          } else {
+                            // For selling, use the full address
+                            setFormData({
+                              ...formData,
+                              location: place.label,
+                            });
+                          }
                         }
-                      }
+                      },
+                      components: {
+                        DropdownIndicator: () => null,
+                        IndicatorSeparator: () => null,
+                      },
+                      openMenuOnClick: false,
+                      openMenuOnFocus: false,
+                      filterOption: (option, inputValue) => {
+                        if (formData.transactionType === "buying") {
+                          // For buying, only show city results
+                          return (
+                            option.label
+                              .toLowerCase()
+                              .includes(inputValue.toLowerCase()) &&
+                            !option.label.match(/\d/) && // Exclude results with numbers
+                            option.label.includes(", USA")
+                          ); // Only show USA cities
+                        }
+                        return true;
+                      },
+                      noOptionsMessage: ({ inputValue }) =>
+                        inputValue ? "No cities found" : null,
+                      styles: {
+                        control: (provided) => ({
+                          ...provided,
+                          border: "1.5px solid rgba(234, 88, 12, 0.2)",
+                          borderRadius: "12px",
+                          padding: "14px 16px",
+                          paddingLeft: "48px",
+                          fontSize: "16px",
+                          minHeight: "unset",
+                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.02)",
+                          cursor: "text",
+                          "&:hover": {
+                            borderColor: "rgba(234, 88, 12, 0.4)",
+                            boxShadow: "0 3px 6px rgba(0, 0, 0, 0.05)",
+                          },
+                          "&:focus-within": {
+                            borderColor: "#ea580c",
+                            boxShadow: "0 0 0 3px rgba(234, 88, 12, 0.15)",
+                          },
+                        }),
+                        menu: (provided) => ({
+                          ...provided,
+                          borderRadius: "12px",
+                          border: "1px solid rgba(234, 88, 12, 0.2)",
+                          boxShadow:
+                            "0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05)",
+                          marginTop: "4px",
+                          padding: "8px",
+                        }),
+                        option: (provided, state) => ({
+                          ...provided,
+                          padding: "12px",
+                          cursor: "pointer",
+                          borderRadius: "8px",
+                          backgroundColor: state.isFocused
+                            ? "rgba(234, 88, 12, 0.1)"
+                            : "transparent",
+                          color: "#272727",
+                          fontSize: "14px",
+                          "&:hover": {
+                            backgroundColor: "rgba(234, 88, 12, 0.1)",
+                          },
+                          "&:active": {
+                            backgroundColor: "rgba(234, 88, 12, 0.15)",
+                          },
+                        }),
+                        input: (provided) => ({
+                          ...provided,
+                          margin: "0",
+                          padding: "0",
+                        }),
+                        valueContainer: (provided) => ({
+                          ...provided,
+                          padding: "0",
+                        }),
+                      },
+                    }}
+                    apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+                    autocompletionRequest={{
+                      types:
+                        formData.transactionType === "buying"
+                          ? ["(cities)"]
+                          : ["address"],
+                      componentRestrictions: { country: "us" },
                     }}
                   />
                 </div>
