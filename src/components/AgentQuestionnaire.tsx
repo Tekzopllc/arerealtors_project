@@ -1190,7 +1190,7 @@ const AgentQuestionnaire = ({
                         I'm Selling
                       </span>
                       <span className="text-sm font-normal opacity-90">
-                        A top REALTOR® will sell your home fast
+                        A top REALTOR will sell your home fast
                       </span>
                     </div>
                     {formData.transactionType === "selling" && (
@@ -1241,8 +1241,7 @@ const AgentQuestionnaire = ({
                         I'm Buying & Selling
                       </span>
                       <span className="text-sm font-normal opacity-90">
-                        The top rated real estate agent can support your entire
-                        journey
+                        Top rated realtor can support your journey
                       </span>
                     </div>
                     {formData.transactionType === "both" && (
