@@ -3,6 +3,8 @@ import { X } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { geocodeByAddress } from "react-google-places-autocomplete";
 
 // Google Maps type declarations
 declare global {
@@ -487,6 +489,54 @@ const animationStyles = `
   }
 `;
 
+// Add this custom style block after the phoneInputCustomStyles
+const cityDropdownStyles = `
+  .city-autocomplete-container {
+    font-family: 'Inter', sans-serif;
+  }
+  .pac-container {
+    margin-top: 4px !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(234, 88, 12, 0.2) !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05) !important;
+    padding: 8px !important;
+    font-family: 'Inter', sans-serif !important;
+  }
+  .pac-container:after {
+    display: none !important;  /* Removes "Powered by Google" */
+  }
+  .pac-item {
+    padding: 10px 12px !important;
+    cursor: pointer !important;
+    font-family: 'Inter', sans-serif !important;
+    border-radius: 8px !important;
+    border: none !important;
+    transition: all 0.2s ease !important;
+  }
+  .pac-item:hover {
+    background-color: rgba(234, 88, 12, 0.1) !important;
+  }
+  .pac-item-selected {
+    background-color: rgba(234, 88, 12, 0.15) !important;
+  }
+  .pac-icon {
+    display: none !important;
+  }
+  .pac-item-query {
+    font-size: 14px !important;
+    padding-right: 8px !important;
+    color: #272727 !important;
+  }
+  .pac-matched {
+    font-weight: 600 !important;
+    color: #ea580c !important;
+  }
+  .pac-item span:not(.pac-item-query) {
+    font-size: 13px !important;
+    color: #6b7280 !important;
+  }
+`;
+
 // Email validation functions
 const validateEmail = (email: string): boolean => {
   // Regular expression for email validation
@@ -559,6 +609,7 @@ interface QuestionnaireProps {
 }
 
 export interface QuestionnaireData {
+  transactionType: string;
   timeframe: string;
   location: string;
   budget: number;
@@ -567,23 +618,28 @@ export interface QuestionnaireData {
   lastName: string;
   email: string;
   phone: string;
+  hasAgent: string;
+  wantsToSell: string;
 }
 
-export default function AgentQuestionnaire({
+const AgentQuestionnaire = ({
   isOpen,
   onClose,
   onSubmit,
   embedded = false,
-}: QuestionnaireProps & { embedded?: boolean }) {
+}: QuestionnaireProps & { embedded?: boolean }) => {
   const [formData, setFormData] = useState<QuestionnaireData>({
+    transactionType: "",
     timeframe: "",
     location: "",
-    budget: 500000, // Default value for the slider
+    budget: 500000,
     propertyType: "",
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
+    hasAgent: "",
+    wantsToSell: "",
   });
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -593,10 +649,28 @@ export default function AgentQuestionnaire({
   const [isClosing, setIsClosing] = useState(false);
   const [showOtherPropertyTypePopup, setShowOtherPropertyTypePopup] =
     useState(false);
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isPopupClosing, setIsPopupClosing] = useState(false);
   const [otherPropertyType, setOtherPropertyType] = useState("");
-  const totalSteps = 7; // Each input is now a separate page
+
+  // Get total steps based on transaction type
+  const getTotalSteps = (type: string) => {
+    switch (type) {
+      case "buying":
+        return 9; // Total steps for buying flow
+      case "selling":
+      case "both":
+        return 9; // Total steps for selling/both flow
+      default:
+        return 9;
+    }
+  };
+
+  // Calculate progress percentage based on current step and transaction type
+  const getProgressWidth = () => {
+    const totalSteps = getTotalSteps(formData.transactionType);
+    const adjustedStep = currentStep;
+    return `${(adjustedStep / totalSteps) * 100}%`;
+  };
 
   // Reference to store and clear timeouts
   const closeTimeoutRef = useRef<number | null>(null);
@@ -604,7 +678,7 @@ export default function AgentQuestionnaire({
   // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = () => {
-      setIsDropdownVisible(false);
+      // Remove this effect since we don't need it anymore
     };
 
     document.addEventListener("click", handleClickOutside);
@@ -645,6 +719,7 @@ export default function AgentQuestionnaire({
 
       setCurrentStep(1);
       setFormData({
+        transactionType: "",
         timeframe: "",
         location: "",
         budget: 500000,
@@ -653,6 +728,8 @@ export default function AgentQuestionnaire({
         lastName: "",
         email: "",
         phone: "",
+        hasAgent: "",
+        wantsToSell: "",
       });
       setSubmitError(null);
       setShowSuccess(false);
@@ -724,6 +801,7 @@ export default function AgentQuestionnaire({
         closeTimeoutRef.current = window.setTimeout(() => {
           // Reset form data and states
           setFormData({
+            transactionType: "",
             timeframe: "",
             location: "",
             budget: 500000,
@@ -732,6 +810,8 @@ export default function AgentQuestionnaire({
             lastName: "",
             email: "",
             phone: "",
+            hasAgent: "",
+            wantsToSell: "",
           });
           setCurrentStep(1);
           setShowSuccess(false);
@@ -757,22 +837,119 @@ export default function AgentQuestionnaire({
     }, 500);
   };
 
+  // Function to determine next step based on transaction type
+  const getNextStep = (currentStep: number, transactionType: string) => {
+    switch (transactionType) {
+      case "buying":
+        switch (currentStep) {
+          case 1:
+            return 3; // Skip timeframe, go to Location
+          case 3:
+            return 4; // Budget
+          case 4:
+            return 5; // Agent Question
+          case 5:
+            return 6; // Selling Question
+          case 6:
+            return 7; // Name
+          case 7:
+            return 8; // Email
+          case 8:
+            return 9; // Phone
+          default:
+            return currentStep + 1;
+        }
+      case "selling":
+      case "both":
+        switch (currentStep) {
+          case 1:
+            return 2; // Timeframe
+          case 2:
+            return 3; // Location
+          case 3:
+            return 4; // Budget
+          case 4:
+            return 5; // Property Type
+          case 5:
+            return 6; // Agent Question
+          case 6:
+            return 7; // Name
+          case 7:
+            return 8; // Email
+          case 8:
+            return 9; // Phone
+          default:
+            return currentStep + 1;
+        }
+      default:
+        return currentStep + 1;
+    }
+  };
+
+  // Function to determine previous step based on transaction type
+  const getPrevStep = (currentStep: number, transactionType: string) => {
+    switch (transactionType) {
+      case "buying":
+        switch (currentStep) {
+          case 3:
+            return 1; // Location to Transaction Type
+          case 4:
+            return 3; // Budget to Location
+          case 5:
+            return 4; // Agent to Budget
+          case 6:
+            return 5; // Selling to Agent
+          case 7:
+            return 6; // Name to Selling
+          case 8:
+            return 7; // Email to Name
+          case 9:
+            return 8; // Phone to Email
+          default:
+            return currentStep - 1;
+        }
+      case "selling":
+      case "both":
+        switch (currentStep) {
+          case 2:
+            return 1; // Timeframe to Transaction Type
+          case 3:
+            return 2; // Location to Timeframe
+          case 4:
+            return 3; // Budget to Location
+          case 5:
+            return 4; // Property Type to Budget
+          case 6:
+            return 5; // Agent to Property Type
+          case 7:
+            return 6; // Name to Agent
+          case 8:
+            return 7; // Email to Name
+          case 9:
+            return 8; // Phone to Email
+          default:
+            return currentStep - 1;
+        }
+      default:
+        return currentStep - 1;
+    }
+  };
+
   const nextStep = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
+    const next = getNextStep(currentStep, formData.transactionType);
+    const totalSteps = getTotalSteps(formData.transactionType);
+    if (next <= totalSteps) {
+      setCurrentStep(next);
     } else {
       handleSubmit();
     }
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+    const prev = getPrevStep(currentStep, formData.transactionType);
+    if (prev >= 1) {
+      setCurrentStep(prev);
     }
-  };
-
-  const getProgressWidth = () => {
-    return `${(currentStep / totalSteps) * 100}%`;
   };
 
   const formatCurrency = (value: number): string => {
@@ -817,6 +994,16 @@ export default function AgentQuestionnaire({
     }
 
     return `${formatCurrency(value)} - ${formatCurrency(upperValue)}`;
+  };
+
+  const handleTransactionTypeSelect = (type: string) => {
+    setFormData({ ...formData, transactionType: type });
+    // Skip timeframe step for buying
+    if (type === "buying") {
+      setCurrentStep(3); // Go directly to location step
+    } else {
+      setCurrentStep(2); // Go to timeframe step for selling and both
+    }
   };
 
   if (!isOpen) return null;
@@ -891,9 +1078,6 @@ export default function AgentQuestionnaire({
             {/* Progress header */}
             <div className="relative z-[3] bg-[#f8f8f8] border-b border-[rgba(234,88,12,0.1)]">
               <div className="flex items-center justify-between px-6">
-                {/* <div className="flex items-center">
-                  <span className="text-sm font-medium text-[#ea580c]">Step {currentStep} of {totalSteps}</span>
-                </div> */}
                 {!embedded && (
                   <button
                     onClick={handleCloseModal}
@@ -915,9 +1099,183 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 1: Timeframe */}
+            {/* Step 1: Transaction Type */}
             <div
               className={`${currentStep === 1 ? "block" : "hidden"}
+                flex flex-col px-6 md:px-10 h-full overflow-hidden`}
+            >
+              <div className="mt-8 mb-6 text-2xl heading-text md:text-3xl lg:text-4xl">
+                Are you buying or selling?
+              </div>
+
+              <div className="flex flex-col justify-center flex-grow gap-6 mb-8">
+                <button
+                  onClick={() => handleTransactionTypeSelect("buying")}
+                  className={`option-button min-h-[120px] group ${
+                    formData.transactionType === "buying"
+                      ? "selected-option"
+                      : ""
+                  }`}
+                >
+                  <div className="flex items-center w-full gap-4">
+                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                      </svg>
+                    </div>
+                    <div className="flex flex-col items-start flex-grow">
+                      <span className="mb-1 text-xl font-semibold">
+                        I'm Buying
+                      </span>
+                      <span className="text-sm font-normal opacity-90">
+                        Find the best real estate agent to represent you
+                      </span>
+                    </div>
+                    {formData.transactionType === "buying" && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="flex-shrink-0"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => handleTransactionTypeSelect("selling")}
+                  className={`option-button min-h-[120px] group ${
+                    formData.transactionType === "selling"
+                      ? "selected-option"
+                      : ""
+                  }`}
+                >
+                  <div className="flex items-center w-full gap-4">
+                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M3 3v18h18"></path>
+                        <path d="m19 9-5 5-4-4-3 3"></path>
+                      </svg>
+                    </div>
+                    <div className="flex flex-col items-start flex-grow">
+                      <span className="mb-1 text-xl font-semibold">
+                        I'm Selling
+                      </span>
+                      <span className="text-sm font-normal opacity-90">
+                        A top REALTOR® will sell your home fast
+                      </span>
+                    </div>
+                    {formData.transactionType === "selling" && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="flex-shrink-0"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => handleTransactionTypeSelect("both")}
+                  className={`option-button min-h-[120px] group ${
+                    formData.transactionType === "both" ? "selected-option" : ""
+                  }`}
+                >
+                  <div className="flex items-center w-full gap-4">
+                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
+                    </div>
+                    <div className="flex flex-col items-start flex-grow">
+                      <span className="mb-1 text-xl font-semibold">
+                        I'm Buying & Selling
+                      </span>
+                      <span className="text-sm font-normal opacity-90">
+                        The top rated real estate agent can support your entire
+                        journey
+                      </span>
+                    </div>
+                    {formData.transactionType === "both" && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="flex-shrink-0"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </button>
+              </div>
+
+              <p className="mb-6 text-sm text-center text-gray-500">
+                * No spam, your information is 100% safe with us
+              </p>
+            </div>
+
+            {/* Step 2: Timeframe (Only for selling and both) */}
+            <div
+              className={`${
+                currentStep === 2 && formData.transactionType !== "buying"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
+              }
                 flex flex-col px-6 md:px-10 md:pt-10 mt-10 lg:mt-0`}
               style={{ paddingTop: "1.5rem" }}
             >
@@ -961,33 +1319,44 @@ export default function AgentQuestionnaire({
                   </button>
                 ))}
               </div>
-              {currentStep === 1 && (
-                <p className="py-2 mt-auto text-sm text-center text-gray-500 sm:mb-[2rem]">
+              <div className="flex items-center justify-between pb-6 mt-auto">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+              </div>
+              {currentStep === 2 && (
+                <p className="text-sm text-center text-gray-500">
                   * No spam, your information is 100% safe with us
                 </p>
               )}
             </div>
 
-            {/* Step 2: Location */}
+            {/* Step 3: Location */}
             <div
               className={`${
-                currentStep === 2 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 3 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
+              <style>{cityDropdownStyles}</style>
               <div
                 className="mb-4 text-xl heading-text md:text-2xl lg:text-3xl"
-                style={{ fontSize: "1.55srem" }}
+                style={{ fontSize: "1.55rem" }}
               >
-                What is the address of your property?
+                {formData.transactionType === "buying"
+                  ? "Which city are you looking to buy in?"
+                  : formData.transactionType === "both"
+                  ? "What is the address of your current home?"
+                  : "What is the address of your property?"}
               </div>
               <p className="mb-6 body-text">
-                So we can recommend experts who have sold similar properties in
-                your area.
+                {formData.transactionType === "buying"
+                  ? "We'll connect you with an agent who knows the city inside and out."
+                  : "So we can recommend experts who have sold similar properties in your area."}
               </p>
 
               <div className="relative mt-4">
-                <div className="relative group">
+                <div className="relative group city-autocomplete-container">
                   <div className="input-icon-wrapper">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1005,43 +1374,126 @@ export default function AgentQuestionnaire({
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                   </div>
-                  <input
-                    type="text"
-                    value={formData.location}
-                    onChange={(e) =>
-                      setFormData({ ...formData, location: e.target.value })
-                    }
-                    placeholder="Enter your property address..."
-                    className="premium-input"
-                    ref={(input) => {
-                      if (
-                        input &&
-                        !input.getAttribute("data-places-initialized")
-                      ) {
-                        if (
-                          window.google &&
-                          window.google.maps &&
-                          window.google.maps.places
-                        ) {
-                          const autocomplete =
-                            new window.google.maps.places.Autocomplete(input, {
-                              types: ["address"],
-                              componentRestrictions: { country: "us" },
-                            });
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      placeholder:
+                        formData.transactionType === "buying"
+                          ? "Enter city name..."
+                          : "Enter your property address...",
+                      value: formData.location
+                        ? { label: formData.location, value: formData.location }
+                        : null,
+                      onChange: async (place) => {
+                        if (place) {
+                          if (formData.transactionType === "buying") {
+                            // For buying, we only want the city name
+                            const results = await geocodeByAddress(place.label);
+                            const cityComponent =
+                              results[0].address_components.find((component) =>
+                                component.types.includes("locality")
+                              );
 
-                          autocomplete.addListener("place_changed", () => {
-                            const place = autocomplete.getPlace();
-                            if (place.formatted_address) {
+                            if (cityComponent) {
+                              const cityName = `${cityComponent.long_name}, USA`;
                               setFormData({
                                 ...formData,
-                                location: place.formatted_address,
+                                location: cityName,
                               });
                             }
-                          });
-
-                          input.setAttribute("data-places-initialized", "true");
+                          } else {
+                            // For selling, use the full address
+                            setFormData({
+                              ...formData,
+                              location: place.label,
+                            });
+                          }
                         }
-                      }
+                      },
+                      components: {
+                        DropdownIndicator: () => null,
+                        IndicatorSeparator: () => null,
+                      },
+                      openMenuOnClick: false,
+                      openMenuOnFocus: false,
+                      filterOption: (option, inputValue) => {
+                        if (formData.transactionType === "buying") {
+                          // For buying, only show city results
+                          return (
+                            option.label
+                              .toLowerCase()
+                              .includes(inputValue.toLowerCase()) &&
+                            !option.label.match(/\d/) && // Exclude results with numbers
+                            option.label.includes(", USA")
+                          ); // Only show USA cities
+                        }
+                        return true;
+                      },
+                      noOptionsMessage: ({ inputValue }) =>
+                        inputValue ? "No cities found" : null,
+                      styles: {
+                        control: (provided) => ({
+                          ...provided,
+                          border: "1.5px solid rgba(234, 88, 12, 0.2)",
+                          borderRadius: "12px",
+                          padding: "14px 16px",
+                          paddingLeft: "48px",
+                          fontSize: "16px",
+                          minHeight: "unset",
+                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.02)",
+                          cursor: "text",
+                          "&:hover": {
+                            borderColor: "rgba(234, 88, 12, 0.4)",
+                            boxShadow: "0 3px 6px rgba(0, 0, 0, 0.05)",
+                          },
+                          "&:focus-within": {
+                            borderColor: "#ea580c",
+                            boxShadow: "0 0 0 3px rgba(234, 88, 12, 0.15)",
+                          },
+                        }),
+                        menu: (provided) => ({
+                          ...provided,
+                          borderRadius: "12px",
+                          border: "1px solid rgba(234, 88, 12, 0.2)",
+                          boxShadow:
+                            "0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05)",
+                          marginTop: "4px",
+                          padding: "8px",
+                        }),
+                        option: (provided, state) => ({
+                          ...provided,
+                          padding: "12px",
+                          cursor: "pointer",
+                          borderRadius: "8px",
+                          backgroundColor: state.isFocused
+                            ? "rgba(234, 88, 12, 0.1)"
+                            : "transparent",
+                          color: "#272727",
+                          fontSize: "14px",
+                          "&:hover": {
+                            backgroundColor: "rgba(234, 88, 12, 0.1)",
+                          },
+                          "&:active": {
+                            backgroundColor: "rgba(234, 88, 12, 0.15)",
+                          },
+                        }),
+                        input: (provided) => ({
+                          ...provided,
+                          margin: "0",
+                          padding: "0",
+                        }),
+                        valueContainer: (provided) => ({
+                          ...provided,
+                          padding: "0",
+                        }),
+                      },
+                    }}
+                    apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+                    autocompletionRequest={{
+                      types:
+                        formData.transactionType === "buying"
+                          ? ["(cities)"]
+                          : ["address"],
+                      componentRestrictions: { country: "us" },
                     }}
                   />
                 </div>
@@ -1063,32 +1515,19 @@ export default function AgentQuestionnaire({
                   Continue
                 </button>
               </div>
-
-              {/* <div className="flex flex-col gap-2 px-4 pb-4 mt-2 mt-auto bg-white md:px-9 md:pb-6">
-                <p className="flex items-start text-sm text-gray-500">
-                  <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="flex-shrink-0 w-4 h-4 mt-1 mr-2"/>
-                  <span>We've worked with over 10K happy home buyers & sellers across the U.S.</span>
-                </p>
-                <p className="flex items-start text-sm text-gray-500">
-                  <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="flex-shrink-0 w-4 h-4 mt-1 mr-2"/>
-                  <span>We hand select the top agents from your area</span>
-                </p>
-                <p className="flex items-start text-sm text-gray-500">
-                  <img src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg" alt="checkmark" className="flex-shrink-0 w-4 h-4 mt-1 mr-2"/>
-                  <span>Get a free custom list of top agents and get connected within 2 minutes.</span>
-                </p>
-              </div> */}
             </div>
 
-            {/* Step 3: Budget (Slider) */}
+            {/* Step 4: Budget (Slider) */}
             <div
               className={`${
-                currentStep === 3 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 4 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
               <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
-                What price are you hoping to sell at?
+                {formData.transactionType === "buying"
+                  ? "What's your budget for buying a home?"
+                  : "What price are you hoping to sell at?"}
               </div>
 
               <div className="mt-6">
@@ -1133,10 +1572,12 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 4: Property Type */}
+            {/* Step 5: Property Type (Only for selling and both) */}
             <div
               className={`${
-                currentStep === 4 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 5 && formData.transactionType !== "buying"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1257,10 +1698,10 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 5: Full Name */}
+            {/* Step 6: Full Name */}
             <div
               className={`${
-                currentStep === 5 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 7 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1352,10 +1793,10 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 6: Email */}
+            {/* Step 7: Email */}
             <div
               className={`${
-                currentStep === 6 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 8 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1432,10 +1873,10 @@ export default function AgentQuestionnaire({
               </div>
             </div>
 
-            {/* Step 7: Phone */}
+            {/* Step 8: Phone */}
             <div
               className={`${
-                currentStep === 7 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 9 ? "block animate-fadeInRight" : "hidden"
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
             >
@@ -1547,9 +1988,114 @@ export default function AgentQuestionnaire({
                 </button>
               </div>
             </div>
+
+            {/* Step: Agent Question */}
+            <div
+              className={`${
+                (currentStep === 5 && formData.transactionType === "buying") ||
+                (currentStep === 6 && formData.transactionType !== "buying")
+                  ? "block animate-fadeInRight"
+                  : "hidden"
+              }
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+            >
+              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
+                Have you already hired a real estate agent?
+              </div>
+
+              <div className="flex flex-col gap-4 mt-2">
+                {["Yes", "No"].map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => {
+                      setFormData({ ...formData, hasAgent: option });
+                      nextStep();
+                    }}
+                    className={`option-button ${
+                      formData.hasAgent === option ? "selected-option" : ""
+                    }`}
+                  >
+                    <span>{option}</span>
+                    {formData.hasAgent === option && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between pb-6 mt-auto">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+              </div>
+            </div>
+
+            {/* Step: Selling Question (Only for Buying) */}
+            <div
+              className={`${
+                currentStep === 6 && formData.transactionType === "buying"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
+              }
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+            >
+              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
+                Are you also looking to sell a home?
+              </div>
+
+              <div className="flex flex-col gap-4 mt-2">
+                {["Yes", "No"].map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => {
+                      setFormData({ ...formData, wantsToSell: option });
+                      nextStep();
+                    }}
+                    className={`option-button ${
+                      formData.wantsToSell === option ? "selected-option" : ""
+                    }`}
+                  >
+                    <span>{option}</span>
+                    {formData.wantsToSell === option && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between pb-6 mt-auto">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default AgentQuestionnaire;
