@@ -1159,7 +1159,7 @@ const AgentQuestionnaire = ({
                         <path d="m19 9-5 5-4-4-3 3"></path>
                       </svg>
                     </div>
-                    <div className="flex flex-col items-start flex-grow">
+                    <div className="flex flex-col items-center flex-grow text-center sm:items-start sm:text-left">
                       <span className="mb-1 text-xl font-semibold">
                         I'm Selling
                       </span>
@@ -1210,7 +1210,7 @@ const AgentQuestionnaire = ({
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                       </svg>
                     </div>
-                    <div className="flex flex-col items-start flex-grow">
+                    <div className="flex flex-col items-center flex-grow text-center sm:items-start sm:text-left">
                       <span className="mb-1 text-xl font-semibold">
                         I'm Buying & Selling
                       </span>
