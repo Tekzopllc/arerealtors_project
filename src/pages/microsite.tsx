@@ -161,7 +161,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="w-[100%] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 h-[900px] sm:h-[640px] md:h-[640px] mb-[30px] sm:mb-[100px] border border-white/20">
+            <div className="w-[100%] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 h-auto min-h-[500px] sm:h-[640px] md:h-[640px] mb-[30px] sm:mb-[100px] border border-white/20">
               <div className="h-full overflow-y-auto">
                 <AgentQuestionnaire
                   isOpen={true}
