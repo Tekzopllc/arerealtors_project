@@ -19,8 +19,90 @@ declare global {
   }
 }
 
-// Custom styles for phone input to match our premium theme
-const phoneInputCustomStyles = `
+// Animation styles
+const animationStyles = `
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes slideOut {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(20px); opacity: 0; }
+  }
+
+  @keyframes fadeInDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes fadeInRight {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes fadeInLeft {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -100% 0; }
+    100% { background-position: 100% 0; }
+  }
+
+  .animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
+  .animate-fadeOut { animation: fadeOut 0.4s ease-out forwards; }
+  .animate-slideIn { animation: slideIn 0.5s ease-out forwards; }
+  .animate-slideOut { animation: slideOut 0.5s ease-out forwards; }
+  .animate-fadeInDown { animation: fadeInDown 0.5s ease-out forwards; }
+  .animate-fadeInRight { animation: fadeInRight 0.4s ease-out forwards; }
+  .animate-fadeInLeft { animation: fadeInLeft 0.4s ease-out forwards; }
+  .animate-pulse { animation: pulse 2s infinite; }
+
+  .hover-scale {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hover-scale:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .shimmer-bg {
+    background: linear-gradient(90deg, 
+      rgba(255, 255, 255, 0) 0%, 
+      rgba(255, 255, 255, 0.8) 50%, 
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  /* Phone input styles */
   .phone-input-container {
     font-family: 'Inter', sans-serif;
   }
@@ -114,91 +196,7 @@ const phoneInputCustomStyles = `
     font-size: 16px !important;
     letter-spacing: 0.01em !important;
     transition: all 0.3s ease !important;
-    border: none !important; /* Removed the border as requested */
-  }
-`;
-
-// Animation styles
-const animationStyles = `
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-
-  @keyframes slideIn {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-
-  @keyframes slideOut {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(20px); opacity: 0; }
-  }
-
-  @keyframes fadeInDown {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-
-  @keyframes fadeInRight {
-    from { transform: translateX(20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-  }
-
-  @keyframes fadeInLeft {
-    from { transform: translateX(-20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-  }
-
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
-
-  @keyframes shimmer {
-    0% { background-position: -100% 0; }
-    100% { background-position: 100% 0; }
-  }
-
-  .animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
-  .animate-fadeOut { animation: fadeOut 0.4s ease-out forwards; }
-  .animate-slideIn { animation: slideIn 0.5s ease-out forwards; }
-  .animate-slideOut { animation: slideOut 0.5s ease-out forwards; }
-  .animate-fadeInDown { animation: fadeInDown 0.5s ease-out forwards; }
-  .animate-fadeInRight { animation: fadeInRight 0.4s ease-out forwards; }
-  .animate-fadeInLeft { animation: fadeInLeft 0.4s ease-out forwards; }
-  .animate-pulse { animation: pulse 2s infinite; }
-
-  .hover-scale {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .hover-scale:hover {
-    transform: scale(1.02);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-
-  .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .hover-lift:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-
-  .shimmer-bg {
-    background: linear-gradient(90deg, 
-      rgba(255, 255, 255, 0) 0%, 
-      rgba(255, 255, 255, 0.8) 50%, 
-      rgba(255, 255, 255, 0) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
+    border: none !important;
   }
 
   /* Custom form elements */
@@ -489,54 +487,6 @@ const animationStyles = `
   }
 `;
 
-// Add this custom style block after the phoneInputCustomStyles
-const cityDropdownStyles = `
-  .city-autocomplete-container {
-    font-family: 'Inter', sans-serif;
-  }
-  .pac-container {
-    margin-top: 4px !important;
-    border-radius: 12px !important;
-    border: 1px solid rgba(234, 88, 12, 0.2) !important;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05) !important;
-    padding: 8px !important;
-    font-family: 'Inter', sans-serif !important;
-  }
-  .pac-container:after {
-    display: none !important;  /* Removes "Powered by Google" */
-  }
-  .pac-item {
-    padding: 10px 12px !important;
-    cursor: pointer !important;
-    font-family: 'Inter', sans-serif !important;
-    border-radius: 8px !important;
-    border: none !important;
-    transition: all 0.2s ease !important;
-  }
-  .pac-item:hover {
-    background-color: rgba(234, 88, 12, 0.1) !important;
-  }
-  .pac-item-selected {
-    background-color: rgba(234, 88, 12, 0.15) !important;
-  }
-  .pac-icon {
-    display: none !important;
-  }
-  .pac-item-query {
-    font-size: 14px !important;
-    padding-right: 8px !important;
-    color: #272727 !important;
-  }
-  .pac-matched {
-    font-weight: 600 !important;
-    color: #ea580c !important;
-  }
-  .pac-item span:not(.pac-item-query) {
-    font-size: 13px !important;
-    color: #6b7280 !important;
-  }
-`;
-
 // Email validation functions
 const validateEmail = (email: string): boolean => {
   // Regular expression for email validation
@@ -618,8 +568,9 @@ export interface QuestionnaireData {
   lastName: string;
   email: string;
   phone: string;
-  hasAgent: string;
   wantsToSell: string;
+  mortgageStatus?: string;
+  address?: string;
 }
 
 const AgentQuestionnaire = ({
@@ -638,7 +589,6 @@ const AgentQuestionnaire = ({
     lastName: "",
     email: "",
     phone: "",
-    hasAgent: "",
     wantsToSell: "",
   });
 
@@ -647,21 +597,18 @@ const AgentQuestionnaire = ({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [showOtherPropertyTypePopup, setShowOtherPropertyTypePopup] =
-    useState(false);
-  const [isPopupClosing, setIsPopupClosing] = useState(false);
-  const [otherPropertyType, setOtherPropertyType] = useState("");
 
   // Get total steps based on transaction type
   const getTotalSteps = (type: string) => {
     switch (type) {
       case "buying":
-        return 9; // Total steps for buying flow
+        return 8; // Total steps for buying flow
       case "selling":
+        return 7; // Total steps for selling flow
       case "both":
-        return 9; // Total steps for selling/both flow
+        return 8; // Total steps for both flow
       default:
-        return 9;
+        return 8;
     }
   };
 
@@ -708,6 +655,23 @@ const AgentQuestionnaire = ({
     }
   }, [currentStep]);
 
+  // Add useEffect to handle utm_city parameter
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utmCity = params.get("utm_city");
+
+    if (utmCity) {
+      // Format the city name with USA suffix
+      const formattedCity = `${
+        utmCity.charAt(0).toUpperCase() + utmCity.slice(1)
+      }, USA`;
+      setFormData((prev) => ({
+        ...prev,
+        location: formattedCity,
+      }));
+    }
+  }, []);
+
   // Reset state when modal opens
   useEffect(() => {
     if (isOpen) {
@@ -717,26 +681,28 @@ const AgentQuestionnaire = ({
         closeTimeoutRef.current = null;
       }
 
-      setCurrentStep(1);
+      // Get utm_city parameter
+      const params = new URLSearchParams(window.location.search);
+      const utmCity = params.get("utm_city");
+
       setFormData({
         transactionType: "",
         timeframe: "",
-        location: "",
+        location: utmCity
+          ? `${utmCity.charAt(0).toUpperCase() + utmCity.slice(1)}, USA`
+          : "",
         budget: 500000,
         propertyType: "",
         firstName: "",
         lastName: "",
         email: "",
         phone: "",
-        hasAgent: "",
         wantsToSell: "",
       });
+
       setSubmitError(null);
       setShowSuccess(false);
       setIsClosing(false);
-      setShowOtherPropertyTypePopup(false);
-      setIsPopupClosing(false);
-      setOtherPropertyType("");
     }
   }, [isOpen]);
 
@@ -775,6 +741,11 @@ const AgentQuestionnaire = ({
         location: formData.location,
         propertytype: formData.propertyType,
         timeframe: formData.timeframe,
+        transaction_type: formData.transactionType,
+        wants_to_sell: formData.wantsToSell,
+        mortgage_status: formData.mortgageStatus || null,
+        address: formData.address || null,
+        created_at: new Date().toISOString(),
       };
 
       // Insert data into Supabase
@@ -810,7 +781,6 @@ const AgentQuestionnaire = ({
             lastName: "",
             email: "",
             phone: "",
-            hasAgent: "",
             wantsToSell: "",
           });
           setCurrentStep(1);
@@ -843,41 +813,55 @@ const AgentQuestionnaire = ({
       case "buying":
         switch (currentStep) {
           case 1:
-            return 3; // Skip timeframe, go to Location
+            return 2; // Transaction Type to Price Range
+          case 2:
+            return 3; // Price Range to City Name
           case 3:
-            return 4; // Budget
+            return 4; // City Name to Timeframe
           case 4:
-            return 5; // Agent Question
+            return 5; // Timeframe to Mortgage Status
           case 5:
-            return 6; // Selling Question
+            return 6; // Mortgage Status to Name
           case 6:
-            return 7; // Name
+            return 7; // Name to Email
           case 7:
-            return 8; // Email
-          case 8:
-            return 9; // Phone
+            return 8; // Email to Phone (skipping agent question)
           default:
             return currentStep + 1;
         }
       case "selling":
+        switch (currentStep) {
+          case 1:
+            return 2; // Transaction Type to Price Range
+          case 2:
+            return 3; // Price Range to Property Type
+          case 3:
+            return 4; // Property Type to Address
+          case 4:
+            return 5; // Address to Name
+          case 5:
+            return 6; // Name to Email
+          case 6:
+            return 7; // Email to Phone (skipping agent question)
+          default:
+            return currentStep + 1;
+        }
       case "both":
         switch (currentStep) {
           case 1:
-            return 2; // Timeframe
+            return 2; // Transaction Type to Price Range
           case 2:
-            return 3; // Location
+            return 3; // Price Range to Property Type
           case 3:
-            return 4; // Budget
+            return 4; // Property Type to Address
           case 4:
-            return 5; // Property Type
+            return 5; // Address to City
           case 5:
-            return 6; // Agent Question
+            return 6; // City to Name
           case 6:
-            return 7; // Name
+            return 7; // Name to Email
           case 7:
-            return 8; // Email
-          case 8:
-            return 9; // Phone
+            return 8; // Email to Phone (skipping agent question)
           default:
             return currentStep + 1;
         }
@@ -891,42 +875,56 @@ const AgentQuestionnaire = ({
     switch (transactionType) {
       case "buying":
         switch (currentStep) {
+          case 2:
+            return 1; // Price Range to Transaction Type
           case 3:
-            return 1; // Location to Transaction Type
+            return 2; // City Name to Price Range
           case 4:
-            return 3; // Budget to Location
+            return 3; // Timeframe to City Name
           case 5:
-            return 4; // Agent to Budget
+            return 4; // Mortgage Status to Timeframe
           case 6:
-            return 5; // Selling to Agent
+            return 5; // Name to Mortgage Status
           case 7:
-            return 6; // Name to Selling
+            return 6; // Email to Name
           case 8:
-            return 7; // Email to Name
-          case 9:
-            return 8; // Phone to Email
+            return 7; // Phone to Email
           default:
             return currentStep - 1;
         }
       case "selling":
+        switch (currentStep) {
+          case 2:
+            return 1; // Price Range to Transaction Type
+          case 3:
+            return 2; // Property Type to Price Range
+          case 4:
+            return 3; // Address to Property Type
+          case 5:
+            return 4; // Name to Address
+          case 6:
+            return 5; // Email to Name
+          case 7:
+            return 6; // Phone to Email
+          default:
+            return currentStep - 1;
+        }
       case "both":
         switch (currentStep) {
           case 2:
-            return 1; // Timeframe to Transaction Type
+            return 1; // Price Range to Transaction Type
           case 3:
-            return 2; // Location to Timeframe
+            return 2; // Property Type to Price Range
           case 4:
-            return 3; // Budget to Location
+            return 3; // Address to Property Type
           case 5:
-            return 4; // Property Type to Budget
+            return 4; // City to Address
           case 6:
-            return 5; // Agent to Property Type
+            return 5; // Name to City
           case 7:
-            return 6; // Name to Agent
+            return 6; // Email to Name
           case 8:
-            return 7; // Email to Name
-          case 9:
-            return 8; // Phone to Email
+            return 7; // Phone to Email
           default:
             return currentStep - 1;
         }
@@ -998,12 +996,7 @@ const AgentQuestionnaire = ({
 
   const handleTransactionTypeSelect = (type: string) => {
     setFormData({ ...formData, transactionType: type });
-    // Skip timeframe step for buying
-    if (type === "buying") {
-      setCurrentStep(3); // Go directly to location step
-    } else {
-      setCurrentStep(2); // Go to timeframe step for selling and both
-    }
+    setCurrentStep(2); // Go to price range step for all flows
   };
 
   if (!isOpen) return null;
@@ -1268,90 +1261,134 @@ const AgentQuestionnaire = ({
               </p>
             </div>
 
-            {/* Step 2: Timeframe (Only for selling and both) */}
+            {/* Step 2: Price Range */}
             <div
               className={`${
-                currentStep === 2 && formData.transactionType !== "buying"
+                currentStep === 2 ? "block animate-fadeInRight" : "hidden"
+              }
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+            >
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+                {formData.transactionType === "buying"
+                  ? "What's your price range?"
+                  : "What's your property's price range?"}
+              </div>
+
+              <div className="mt-6">
+                <div className="text-center text-3xl md:text-4xl font-bold text-[#ea580c] mb-8">
+                  {formatBudgetRange(formData.budget)}
+                </div>
+
+                <div className="px-2 mb-6">
+                  <input
+                    type="range"
+                    min="50000"
+                    max="2000000"
+                    step="1000"
+                    value={formData.budget}
+                    onChange={handleSliderChange}
+                    className="premium-slider"
+                    style={{
+                      background: `linear-gradient(to right, #ea580c 0%, #ea580c ${
+                        ((formData.budget - 50000) / (2000000 - 50000)) * 100
+                      }%, rgba(234, 88, 12, 0.15) ${
+                        ((formData.budget - 50000) / (2000000 - 50000)) * 100
+                      }%, rgba(234, 88, 12, 0.15) 100%)`,
+                    }}
+                  />
+                </div>
+
+                <div className="flex justify-between px-2 text-xs text-gray-500">
+                  <span>$50K</span>
+                  <span>$500K</span>
+                  <span>$1M</span>
+                  <span>$2M+</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pb-6 mt-auto">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+                <button onClick={nextStep} className="primary-button">
+                  Continue
+                </button>
+              </div>
+            </div>
+
+            {/* Step 3: Property Type (Only for selling and both) */}
+            <div
+              className={`${
+                currentStep === 3 &&
+                (formData.transactionType === "selling" ||
+                  formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-                flex flex-col px-6 md:px-10 md:pt-10 mt-10 lg:mt-0`}
-              style={{ paddingTop: "1.5rem" }}
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div className="text-xl heading-text md:text-2xl lg:text-3xl">
-                When would you like to sell your house?
+                What kind of property are you selling?
               </div>
 
               <div className="flex flex-col gap-4 mt-2 mb-4">
-                {[
-                  "ASAP",
-                  "1-3 months",
-                  "3-6 months",
-                  "6-12 months",
-                  "12+ months",
-                ].map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => {
-                      setFormData({ ...formData, timeframe: option });
-                      nextStep();
-                    }}
-                    className={`option-button ${
-                      formData.timeframe === option ? "selected-option" : ""
-                    }`}
-                  >
-                    <span className="w-full text-center">{option}</span>
-                    {formData.timeframe === option && (
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                          fill="white"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                ))}
+                {["Single Family", "Condo", "Land/Lot", "Other"].map(
+                  (option) => (
+                    <button
+                      key={option}
+                      onClick={() => {
+                        setFormData({ ...formData, propertyType: option });
+                        nextStep();
+                      }}
+                      className={`option-button ${
+                        formData.propertyType === option
+                          ? "selected-option"
+                          : ""
+                      }`}
+                    >
+                      <span className="w-full text-center">{option}</span>
+                      {formData.propertyType === option && (
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                            fill="white"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  )
+                )}
               </div>
+
               <div className="flex items-center justify-between pb-6 mt-auto">
                 <button onClick={prevStep} className="secondary-button">
                   Back
                 </button>
               </div>
-              {currentStep === 2 && (
-                <p className="text-sm text-center text-gray-500">
-                  * No spam, your information is 100% safe with us
-                </p>
-              )}
             </div>
 
-            {/* Step 3: Location */}
+            {/* Step 3: City Name (Only for buying) */}
             <div
               className={`${
-                currentStep === 3 ? "block animate-fadeInRight" : "hidden"
+                currentStep === 3 && formData.transactionType === "buying"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <style>{cityDropdownStyles}</style>
-              <div
-                className="mb-4 text-xl heading-text md:text-2xl lg:text-3xl"
-                style={{ fontSize: "1.55rem" }}
-              >
-                {formData.transactionType === "buying"
-                  ? "Which city are you looking to buy in?"
-                  : formData.transactionType === "both"
-                  ? "What is the address of your current home?"
-                  : "What is the address of your property?"}
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+                What city are you looking in?
               </div>
+
               <p className="mb-6 body-text">
-                {formData.transactionType === "buying"
-                  ? "We'll connect you with an agent who knows the city inside and out."
-                  : "So we can recommend experts who have sold similar properties in your area."}
+                We'll connect you with an agent who knows the city inside and
+                out.
               </p>
 
               <div className="relative mt-4">
@@ -1375,18 +1412,22 @@ const AgentQuestionnaire = ({
                   </div>
                   <GooglePlacesAutocomplete
                     selectProps={{
-                      placeholder:
-                        formData.transactionType === "buying"
-                          ? "Enter city name..."
-                          : "Enter your property address...",
+                      placeholder: "Enter city name...",
                       value: formData.location
                         ? { label: formData.location, value: formData.location }
                         : null,
                       onChange: async (place) => {
-                        if (place) {
-                          if (formData.transactionType === "buying") {
-                            // For buying, we only want the city name
-                            const results = await geocodeByAddress(place.label);
+                        if (!place) {
+                          setFormData({
+                            ...formData,
+                            location: "",
+                          });
+                          return;
+                        }
+
+                        try {
+                          const results = await geocodeByAddress(place.label);
+                          if (results && results.length > 0) {
                             const cityComponent =
                               results[0].address_components.find((component) =>
                                 component.types.includes("locality")
@@ -1398,14 +1439,36 @@ const AgentQuestionnaire = ({
                                 ...formData,
                                 location: cityName,
                               });
+                            } else {
+                              // Fallback if locality not found
+                              setFormData({
+                                ...formData,
+                                location: place.label,
+                              });
                             }
                           } else {
-                            // For selling, use the full address
+                            // Fallback if no results
                             setFormData({
                               ...formData,
                               location: place.label,
                             });
                           }
+                        } catch (error) {
+                          console.error("Error geocoding address:", error);
+                          // Fallback on error
+                          setFormData({
+                            ...formData,
+                            location: place.label,
+                          });
+                        }
+                      },
+                      onBlur: () => {
+                        // Ensure we have a valid location before proceeding
+                        if (!formData.location) {
+                          setFormData({
+                            ...formData,
+                            location: "",
+                          });
                         }
                       },
                       components: {
@@ -1415,17 +1478,13 @@ const AgentQuestionnaire = ({
                       openMenuOnClick: false,
                       openMenuOnFocus: false,
                       filterOption: (option, inputValue) => {
-                        if (formData.transactionType === "buying") {
-                          // For buying, only show city results
-                          return (
-                            option.label
-                              .toLowerCase()
-                              .includes(inputValue.toLowerCase()) &&
-                            !option.label.match(/\d/) && // Exclude results with numbers
-                            option.label.includes(", USA")
-                          ); // Only show USA cities
-                        }
-                        return true;
+                        return (
+                          option.label
+                            .toLowerCase()
+                            .includes(inputValue.toLowerCase()) &&
+                          !option.label.match(/\d/) &&
+                          option.label.includes(", USA")
+                        );
                       },
                       noOptionsMessage: ({ inputValue }) =>
                         inputValue ? "No cities found" : null,
@@ -1488,207 +1547,515 @@ const AgentQuestionnaire = ({
                     }}
                     apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
                     autocompletionRequest={{
-                      types:
-                        formData.transactionType === "buying"
-                          ? ["(cities)"]
-                          : ["address"],
+                      types: ["(cities)"],
                       componentRestrictions: { country: "us" },
                     }}
                   />
                 </div>
               </div>
 
-              <div
-                className="flex items-center justify-between mt-2 MessageAgentForm__screen-controls"
-                style={{
-                  marginBottom: "4rem",
-                }}
-              >
+              <div className="flex items-center justify-between pb-6 mt-auto">
                 <button onClick={prevStep} className="secondary-button">
                   Back
                 </button>
                 <button
                   onClick={nextStep}
-                  className="bg-[#ea580c] rounded-md text-white px-6 py-3.5 md:min-w-[150px] font-bold font-mulish text-base transition-colors hover:bg-[#d24b09]"
+                  disabled={!formData.location}
+                  className={`primary-button ${
+                    !formData.location ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
                 >
                   Continue
                 </button>
               </div>
             </div>
 
-            {/* Step 4: Budget (Slider) */}
+            {/* Step 4: Address (Only for selling and both) */}
             <div
               className={`${
-                currentStep === 4 ? "block animate-fadeInRight" : "hidden"
-              }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
-            >
-              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
-                {formData.transactionType === "buying"
-                  ? "What's your budget for buying a home?"
-                  : "What price are you hoping to sell at?"}
-              </div>
-
-              <div className="mt-6">
-                <div className="text-center text-3xl md:text-4xl font-bold text-[#ea580c] mb-8">
-                  {formatBudgetRange(formData.budget)}
-                </div>
-
-                <div className="px-2 mb-6">
-                  <input
-                    type="range"
-                    min="50000"
-                    max="2000000"
-                    step="1000" // Set a small step so the slider moves smoothly
-                    value={formData.budget}
-                    onChange={handleSliderChange}
-                    className="premium-slider"
-                    style={{
-                      background: `linear-gradient(to right, #ea580c 0%, #ea580c ${
-                        ((formData.budget - 50000) / (2000000 - 50000)) * 100
-                      }%, rgba(234, 88, 12, 0.15) ${
-                        ((formData.budget - 50000) / (2000000 - 50000)) * 100
-                      }%, rgba(234, 88, 12, 0.15) 100%)`,
-                    }}
-                  />
-                </div>
-
-                <div className="flex justify-between px-2 text-xs text-gray-500">
-                  <span>$50K</span>
-                  <span>$500K</span>
-                  <span>$1M</span>
-                  <span>$2M+</span>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between pb-6 mt-auto">
-                <button onClick={prevStep} className="secondary-button">
-                  Back
-                </button>
-                <button onClick={nextStep} className="primary-button">
-                  Continue
-                </button>
-              </div>
-            </div>
-
-            {/* Step 5: Property Type (Only for selling and both) */}
-            <div
-              className={`${
-                currentStep === 5 && formData.transactionType !== "buying"
+                currentStep === 4 &&
+                (formData.transactionType === "selling" ||
+                  formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
-                What kind of property are you selling?
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+                What is the address of your property?
               </div>
 
-              <div className="flex flex-col gap-4 mt-2">
-                {["Single Family", "Condo", "Land/Lot", "Other"].map(
-                  (option) => (
-                    <button
-                      key={option}
-                      onClick={() => {
-                        if (option === "Other") {
-                          setShowOtherPropertyTypePopup(true);
-                          setFormData({ ...formData, propertyType: "Other" });
-                        } else {
-                          setFormData({ ...formData, propertyType: option });
-                          nextStep();
-                        }
-                      }}
-                      className={`option-button ${
-                        formData.propertyType === option
-                          ? "selected-option"
-                          : ""
-                      }`}
+              <p className="mb-6 body-text">
+                Our recommendations are free, No strings attached.
+              </p>
+
+              <div className="relative mt-4">
+                <div className="relative group city-autocomplete-container">
+                  <div className="input-icon-wrapper">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-[#ea580c]"
                     >
-                      <span>{option}</span>
-                      {formData.propertyType === option && (
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                            fill="white"
-                          />
-                        </svg>
-                      )}
-                    </button>
-                  )
-                )}
-              </div>
+                      <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                  </div>
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      placeholder: "Enter property address...",
+                      value: formData.address
+                        ? { label: formData.address, value: formData.address }
+                        : null,
+                      onChange: async (place) => {
+                        if (!place) {
+                          setFormData({
+                            ...formData,
+                            address: "",
+                          });
+                          return;
+                        }
 
-              {/* Other Property Type Popup */}
-              {showOtherPropertyTypePopup && (
-                <div
-                  className={`fixed inset-0 modal-backdrop z-[60] flex items-center justify-center ${
-                    isPopupClosing ? "animate-fadeOut" : "animate-fadeIn"
-                  }`}
-                >
-                  <div
-                    className={`bg-white rounded-lg p-6 w-full max-w-md mx-4 shadow-xl ${
-                      isPopupClosing ? "animate-slideOut" : "animate-slideIn"
-                    }`}
-                  >
-                    <div className="mb-4 text-xl heading-text">
-                      Please specify the property type
-                    </div>
-                    <input
-                      type="text"
-                      value={otherPropertyType}
-                      onChange={(e) => setOtherPropertyType(e.target.value)}
-                      placeholder="Enter property type"
-                      className="mb-6 premium-input"
-                      autoFocus
-                    />
-                    <div className="flex justify-end gap-3">
-                      <button
-                        onClick={() => {
-                          setIsPopupClosing(true);
-                          setTimeout(() => {
-                            setShowOtherPropertyTypePopup(false);
-                            setOtherPropertyType("");
-                            setFormData({ ...formData, propertyType: "" });
-                            setIsPopupClosing(false);
-                          }, 300);
-                        }}
-                        className="secondary-button"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        onClick={() => {
-                          setIsPopupClosing(true);
-                          setTimeout(() => {
+                        try {
+                          const results = await geocodeByAddress(place.label);
+                          if (results && results.length > 0) {
                             setFormData({
                               ...formData,
-                              propertyType: `Other: ${otherPropertyType}`,
+                              address: place.label,
                             });
-                            setShowOtherPropertyTypePopup(false);
-                            setOtherPropertyType("");
-                            setIsPopupClosing(false);
-                            nextStep();
-                          }, 300);
-                        }}
-                        disabled={!otherPropertyType.trim()}
-                        className={`primary-button ${
-                          !otherPropertyType.trim()
-                            ? "opacity-50 cursor-not-allowed"
-                            : ""
-                        }`}
-                      >
-                        Confirm
-                      </button>
-                    </div>
-                  </div>
+                          } else {
+                            setFormData({
+                              ...formData,
+                              address: place.label,
+                            });
+                          }
+                        } catch (error) {
+                          console.error("Error geocoding address:", error);
+                          setFormData({
+                            ...formData,
+                            address: place.label,
+                          });
+                        }
+                      },
+                      onBlur: () => {
+                        if (!formData.address) {
+                          setFormData({
+                            ...formData,
+                            address: "",
+                          });
+                        }
+                      },
+                      components: {
+                        DropdownIndicator: () => null,
+                        IndicatorSeparator: () => null,
+                      },
+                      openMenuOnClick: false,
+                      openMenuOnFocus: false,
+                      filterOption: (option, inputValue) => {
+                        return (
+                          option.label
+                            .toLowerCase()
+                            .includes(inputValue.toLowerCase()) &&
+                          option.label.includes(", USA")
+                        );
+                      },
+                      noOptionsMessage: ({ inputValue }) =>
+                        inputValue ? "No addresses found" : null,
+                      styles: {
+                        control: (provided) => ({
+                          ...provided,
+                          border: "1.5px solid rgba(234, 88, 12, 0.2)",
+                          borderRadius: "12px",
+                          padding: "14px 16px",
+                          paddingLeft: "48px",
+                          fontSize: "16px",
+                          minHeight: "unset",
+                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.02)",
+                          cursor: "text",
+                          "&:hover": {
+                            borderColor: "rgba(234, 88, 12, 0.4)",
+                            boxShadow: "0 3px 6px rgba(0, 0, 0, 0.05)",
+                          },
+                          "&:focus-within": {
+                            borderColor: "#ea580c",
+                            boxShadow: "0 0 0 3px rgba(234, 88, 12, 0.15)",
+                          },
+                        }),
+                        menu: (provided) => ({
+                          ...provided,
+                          borderRadius: "12px",
+                          border: "1px solid rgba(234, 88, 12, 0.2)",
+                          boxShadow:
+                            "0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05)",
+                          marginTop: "4px",
+                          padding: "8px",
+                        }),
+                        option: (provided, state) => ({
+                          ...provided,
+                          padding: "12px",
+                          cursor: "pointer",
+                          borderRadius: "8px",
+                          backgroundColor: state.isFocused
+                            ? "rgba(234, 88, 12, 0.1)"
+                            : "transparent",
+                          color: "#272727",
+                          fontSize: "14px",
+                          "&:hover": {
+                            backgroundColor: "rgba(234, 88, 12, 0.1)",
+                          },
+                          "&:active": {
+                            backgroundColor: "rgba(234, 88, 12, 0.15)",
+                          },
+                        }),
+                        input: (provided) => ({
+                          ...provided,
+                          margin: "0",
+                          padding: "0",
+                        }),
+                        valueContainer: (provided) => ({
+                          ...provided,
+                          padding: "0",
+                        }),
+                      },
+                    }}
+                    apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+                    autocompletionRequest={{
+                      types: ["address"],
+                      componentRestrictions: { country: "us" },
+                    }}
+                  />
                 </div>
-              )}
+              </div>
+
+              <div className="flex items-center justify-between pb-6 mt-auto">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+                <button
+                  onClick={nextStep}
+                  disabled={!formData.address}
+                  className={`primary-button ${
+                    !formData.address ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+
+            {/* Step 4: Timeframe (Only for buying) */}
+            <div
+              className={`${
+                currentStep === 4 && formData.transactionType === "buying"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
+              }
+              absolute top-[15px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+            >
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+                When do you plan to buy?
+              </div>
+
+              <div className="flex flex-col gap-4 mt-4 mb-4">
+                {[
+                  "Immediately",
+                  "1 Month or Less",
+                  "2 - 3 Months",
+                  "3 - 6 Months",
+                  "6 - 9 Months",
+                  "9 Months or Later",
+                ].map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => {
+                      setFormData({ ...formData, timeframe: option });
+                      nextStep();
+                    }}
+                    className={`option-button ${
+                      formData.timeframe === option ? "selected-option" : ""
+                    }`}
+                  >
+                    <span className="w-full text-center">{option}</span>
+                    {formData.timeframe === option && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between mb-6">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+              </div>
+            </div>
+
+            {/* Step 5: City Name (Only for both) */}
+            <div
+              className={`${
+                currentStep === 5 && formData.transactionType === "both"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
+              }
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+            >
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+                What city are you looking in?
+              </div>
+
+              <p className="mb-6 body-text">
+                We'll connect you with an agent who knows the city inside and
+                out.
+              </p>
+
+              <div className="relative mt-4">
+                <div className="relative group city-autocomplete-container">
+                  <div className="input-icon-wrapper">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-[#ea580c]"
+                    >
+                      <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                  </div>
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      placeholder: "Enter city name...",
+                      value: formData.location
+                        ? { label: formData.location, value: formData.location }
+                        : null,
+                      onChange: async (place) => {
+                        if (!place) {
+                          setFormData({
+                            ...formData,
+                            location: "",
+                          });
+                          return;
+                        }
+
+                        try {
+                          const results = await geocodeByAddress(place.label);
+                          if (results && results.length > 0) {
+                            const cityComponent =
+                              results[0].address_components.find((component) =>
+                                component.types.includes("locality")
+                              );
+
+                            if (cityComponent) {
+                              const cityName = `${cityComponent.long_name}, USA`;
+                              setFormData({
+                                ...formData,
+                                location: cityName,
+                              });
+                            } else {
+                              // Fallback if locality not found
+                              setFormData({
+                                ...formData,
+                                location: place.label,
+                              });
+                            }
+                          } else {
+                            // Fallback if no results
+                            setFormData({
+                              ...formData,
+                              location: place.label,
+                            });
+                          }
+                        } catch (error) {
+                          console.error("Error geocoding address:", error);
+                          // Fallback on error
+                          setFormData({
+                            ...formData,
+                            location: place.label,
+                          });
+                        }
+                      },
+                      onBlur: () => {
+                        // Ensure we have a valid location before proceeding
+                        if (!formData.location) {
+                          setFormData({
+                            ...formData,
+                            location: "",
+                          });
+                        }
+                      },
+                      components: {
+                        DropdownIndicator: () => null,
+                        IndicatorSeparator: () => null,
+                      },
+                      openMenuOnClick: false,
+                      openMenuOnFocus: false,
+                      filterOption: (option, inputValue) => {
+                        return (
+                          option.label
+                            .toLowerCase()
+                            .includes(inputValue.toLowerCase()) &&
+                          !option.label.match(/\d/) &&
+                          option.label.includes(", USA")
+                        );
+                      },
+                      noOptionsMessage: ({ inputValue }) =>
+                        inputValue ? "No cities found" : null,
+                      styles: {
+                        control: (provided) => ({
+                          ...provided,
+                          border: "1.5px solid rgba(234, 88, 12, 0.2)",
+                          borderRadius: "12px",
+                          padding: "14px 16px",
+                          paddingLeft: "48px",
+                          fontSize: "16px",
+                          minHeight: "unset",
+                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.02)",
+                          cursor: "text",
+                          "&:hover": {
+                            borderColor: "rgba(234, 88, 12, 0.4)",
+                            boxShadow: "0 3px 6px rgba(0, 0, 0, 0.05)",
+                          },
+                          "&:focus-within": {
+                            borderColor: "#ea580c",
+                            boxShadow: "0 0 0 3px rgba(234, 88, 12, 0.15)",
+                          },
+                        }),
+                        menu: (provided) => ({
+                          ...provided,
+                          borderRadius: "12px",
+                          border: "1px solid rgba(234, 88, 12, 0.2)",
+                          boxShadow:
+                            "0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05)",
+                          marginTop: "4px",
+                          padding: "8px",
+                        }),
+                        option: (provided, state) => ({
+                          ...provided,
+                          padding: "12px",
+                          cursor: "pointer",
+                          borderRadius: "8px",
+                          backgroundColor: state.isFocused
+                            ? "rgba(234, 88, 12, 0.1)"
+                            : "transparent",
+                          color: "#272727",
+                          fontSize: "14px",
+                          "&:hover": {
+                            backgroundColor: "rgba(234, 88, 12, 0.1)",
+                          },
+                          "&:active": {
+                            backgroundColor: "rgba(234, 88, 12, 0.15)",
+                          },
+                        }),
+                        input: (provided) => ({
+                          ...provided,
+                          margin: "0",
+                          padding: "0",
+                        }),
+                        valueContainer: (provided) => ({
+                          ...provided,
+                          padding: "0",
+                        }),
+                      },
+                    }}
+                    apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+                    autocompletionRequest={{
+                      types: ["(cities)"],
+                      componentRestrictions: { country: "us" },
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pb-6 mt-auto">
+                <button onClick={prevStep} className="secondary-button">
+                  Back
+                </button>
+                <button
+                  onClick={nextStep}
+                  disabled={!formData.location}
+                  className={`primary-button ${
+                    !formData.location ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+
+            {/* Step 5: Mortgage Status (Only for buying) */}
+            <div
+              className={`${
+                currentStep === 5 && formData.transactionType === "buying"
+                  ? "block animate-fadeInRight"
+                  : "hidden"
+              }
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+            >
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+                What's your Mortgage Status?
+              </div>
+
+              <div className="flex flex-col gap-4 mt-2 mb-4">
+                {[
+                  "All Cash",
+                  "Haven't applied",
+                  "Pre-qualified",
+                  "Pre-approved",
+                  "Not Sure",
+                ].map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => {
+                      setFormData({ ...formData, mortgageStatus: option });
+                      nextStep();
+                    }}
+                    className={`option-button ${
+                      formData.mortgageStatus === option
+                        ? "selected-option"
+                        : ""
+                    }`}
+                  >
+                    <span className="w-full text-center">{option}</span>
+                    {formData.mortgageStatus === option && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
 
               <div className="flex items-center justify-between pb-6 mt-auto">
                 <button onClick={prevStep} className="secondary-button">
@@ -1697,14 +2064,18 @@ const AgentQuestionnaire = ({
               </div>
             </div>
 
-            {/* Step 6: Full Name */}
+            {/* Step 6: Name */}
             <div
               className={`${
-                currentStep === 7 ? "block animate-fadeInRight" : "hidden"
+                (currentStep === 6 && formData.transactionType === "buying") ||
+                (currentStep === 5 && formData.transactionType === "selling") ||
+                (currentStep === 6 && formData.transactionType === "both")
+                  ? "block animate-fadeInRight"
+                  : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
                 What's your name?
               </div>
 
@@ -1756,8 +2127,10 @@ const AgentQuestionnaire = ({
                       strokeLinejoin="round"
                       className="text-[#ea580c]"
                     >
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                      <path d="M9 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
                   </div>
                   <input
@@ -1795,12 +2168,15 @@ const AgentQuestionnaire = ({
             {/* Step 7: Email */}
             <div
               className={`${
-                currentStep === 8 ? "block animate-fadeInRight" : "hidden"
+                (currentStep === 7 && formData.transactionType === "buying") ||
+                (currentStep === 6 && formData.transactionType === "selling") ||
+                (currentStep === 7 && formData.transactionType === "both")
+                  ? "block animate-fadeInRight"
+                  : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <style>{phoneInputCustomStyles}</style>
-              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
                 What's your email address?
               </div>
 
@@ -1875,11 +2251,15 @@ const AgentQuestionnaire = ({
             {/* Step 8: Phone */}
             <div
               className={`${
-                currentStep === 9 ? "block animate-fadeInRight" : "hidden"
+                (currentStep === 8 && formData.transactionType === "buying") ||
+                (currentStep === 7 && formData.transactionType === "selling") ||
+                (currentStep === 8 && formData.transactionType === "both")
+                  ? "block animate-fadeInRight"
+                  : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
+              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
                 What's your phone number?
               </div>
 
@@ -1988,66 +2368,14 @@ const AgentQuestionnaire = ({
               </div>
             </div>
 
-            {/* Step: Agent Question */}
-            <div
-              className={`${
-                (currentStep === 5 && formData.transactionType === "buying") ||
-                (currentStep === 6 && formData.transactionType !== "buying")
-                  ? "block animate-fadeInRight"
-                  : "hidden"
-              }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
-            >
-              <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
-                Have you already hired a real estate agent?
-              </div>
-
-              <div className="flex flex-col gap-4 mt-2">
-                {["Yes", "No"].map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => {
-                      setFormData({ ...formData, hasAgent: option });
-                      nextStep();
-                    }}
-                    className={`option-button ${
-                      formData.hasAgent === option ? "selected-option" : ""
-                    }`}
-                  >
-                    <span>{option}</span>
-                    {formData.hasAgent === option && (
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                          fill="white"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex items-center justify-between pb-6 mt-auto">
-                <button onClick={prevStep} className="secondary-button">
-                  Back
-                </button>
-              </div>
-            </div>
-
             {/* Step: Selling Question (Only for Buying) */}
             <div
               className={`${
-                currentStep === 6 && formData.transactionType === "buying"
+                currentStep === 9 && formData.transactionType === "buying"
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-8 md:px-10 md:pt-10 overflow-hidden`}
+              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
                 Are you also looking to sell a home?
