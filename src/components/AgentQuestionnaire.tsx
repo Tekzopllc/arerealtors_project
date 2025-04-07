@@ -745,6 +745,7 @@ const AgentQuestionnaire = ({
         mortgage_status: formData.mortgageStatus || null,
         address: formData.address || null,
         created_at: new Date().toISOString(),
+        type: formData.transactionType,
       };
 
       // Insert data into Supabase
