@@ -742,7 +742,7 @@ const AgentQuestionnaire = ({
         propertytype: formData.propertyType,
         timeframe: formData.timeframe,
         transaction_type: formData.transactionType,
-        wants_to_sell: formData.wantsToSell,
+        // wants_to_sell: formData.wantsToSell,
         mortgage_status: formData.mortgageStatus || null,
         address: formData.address || null,
         created_at: new Date().toISOString(),
@@ -825,7 +825,7 @@ const AgentQuestionnaire = ({
           case 6:
             return 7; // Name to Email
           case 7:
-            return 8; // Email to Phone (skipping agent question)
+            return 8; // Email to Phone
           default:
             return currentStep + 1;
         }
@@ -838,11 +838,13 @@ const AgentQuestionnaire = ({
           case 3:
             return 4; // Property Type to Address
           case 4:
-            return 5; // Address to Name
+            return 5; // Address to City
           case 5:
-            return 6; // Name to Email
+            return 6; // City to Name
           case 6:
-            return 7; // Email to Phone (skipping agent question)
+            return 7; // Name to Email
+          case 7:
+            return 8; // Email to Phone
           default:
             return currentStep + 1;
         }
@@ -861,7 +863,7 @@ const AgentQuestionnaire = ({
           case 6:
             return 7; // Name to Email
           case 7:
-            return 8; // Email to Phone (skipping agent question)
+            return 8; // Email to Phone
           default:
             return currentStep + 1;
         }
@@ -901,11 +903,13 @@ const AgentQuestionnaire = ({
           case 4:
             return 3; // Address to Property Type
           case 5:
-            return 4; // Name to Address
+            return 4; // City to Address
           case 6:
-            return 5; // Email to Name
+            return 5; // Name to City
           case 7:
-            return 6; // Phone to Email
+            return 6; // Email to Name
+          case 8:
+            return 7; // Phone to Email
           default:
             return currentStep - 1;
         }
@@ -1808,10 +1812,12 @@ const AgentQuestionnaire = ({
               </div>
             </div>
 
-            {/* Step 5: City Name (Only for both) */}
+            {/* Step 5: City Name (Only for selling and both) */}
             <div
               className={`${
-                currentStep === 5 && formData.transactionType === "both"
+                currentStep === 5 &&
+                (formData.transactionType === "selling" ||
+                  formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
@@ -1875,14 +1881,12 @@ const AgentQuestionnaire = ({
                                 location: cityName,
                               });
                             } else {
-                              // Fallback if locality not found
                               setFormData({
                                 ...formData,
                                 location: place.label,
                               });
                             }
                           } else {
-                            // Fallback if no results
                             setFormData({
                               ...formData,
                               location: place.label,
@@ -1890,7 +1894,6 @@ const AgentQuestionnaire = ({
                           }
                         } catch (error) {
                           console.error("Error geocoding address:", error);
-                          // Fallback on error
                           setFormData({
                             ...formData,
                             location: place.label,
@@ -1898,7 +1901,6 @@ const AgentQuestionnaire = ({
                         }
                       },
                       onBlur: () => {
-                        // Ensure we have a valid location before proceeding
                         if (!formData.location) {
                           setFormData({
                             ...formData,
@@ -2072,8 +2074,7 @@ const AgentQuestionnaire = ({
                 (currentStep === 6 && formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
-              }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div className="text-xl heading-text md:text-2xl lg:text-3xl">
                 What's your name?
