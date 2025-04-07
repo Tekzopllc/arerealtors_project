@@ -604,7 +604,7 @@ const AgentQuestionnaire = ({
       case "buying":
         return 8; // Total steps for buying flow
       case "selling":
-        return 7; // Total steps for selling flow
+        return 8; // Total steps for selling flow (including phone step)
       case "both":
         return 8; // Total steps for both flow
       default:
@@ -742,7 +742,6 @@ const AgentQuestionnaire = ({
         propertytype: formData.propertyType,
         timeframe: formData.timeframe,
         transaction_type: formData.transactionType,
-        // wants_to_sell: formData.wantsToSell,
         mortgage_status: formData.mortgageStatus || null,
         address: formData.address || null,
         created_at: new Date().toISOString(),
@@ -764,32 +763,6 @@ const AgentQuestionnaire = ({
       setShowSuccess(true);
       setIsSubmitting(false);
       onSubmit(formData);
-
-      // Start closing animation after 2 seconds
-      setTimeout(() => {
-        setIsClosing(true);
-        // Close after animation completes and reset states
-        closeTimeoutRef.current = window.setTimeout(() => {
-          // Reset form data and states
-          setFormData({
-            transactionType: "",
-            timeframe: "",
-            location: "",
-            budget: 500000,
-            propertyType: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            phone: "",
-            wantsToSell: "",
-          });
-          setCurrentStep(1);
-          setShowSuccess(false);
-          setIsClosing(false);
-          onClose();
-          closeTimeoutRef.current = null;
-        }, 500);
-      }, 2000);
     } catch (err) {
       console.error("Unexpected error:", err);
       setSubmitError("An unexpected error occurred. Please try again.");
@@ -838,13 +811,13 @@ const AgentQuestionnaire = ({
           case 3:
             return 4; // Property Type to Address
           case 4:
-            return 5; // Address to City
-          case 5:
-            return 6; // City to Name
+            return 6; // Address to Name
           case 6:
             return 7; // Name to Email
           case 7:
             return 8; // Email to Phone
+          case 8:
+            return 9; // Phone to Submit
           default:
             return currentStep + 1;
         }
@@ -902,14 +875,14 @@ const AgentQuestionnaire = ({
             return 2; // Property Type to Price Range
           case 4:
             return 3; // Address to Property Type
-          case 5:
-            return 4; // City to Address
           case 6:
-            return 5; // Name to City
+            return 4; // Name to Address
           case 7:
             return 6; // Email to Name
           case 8:
             return 7; // Phone to Email
+          case 9:
+            return 8; // Submit to Phone
           default:
             return currentStep - 1;
         }
@@ -942,6 +915,9 @@ const AgentQuestionnaire = ({
     const totalSteps = getTotalSteps(formData.transactionType);
     if (next <= totalSteps) {
       setCurrentStep(next);
+    } else if (formData.transactionType === "selling" && currentStep === 7) {
+      // For selling flow, after email (step 7), go to phone (step 8)
+      setCurrentStep(8);
     } else {
       handleSubmit();
     }
@@ -1820,8 +1796,7 @@ const AgentQuestionnaire = ({
                   formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
-              }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div className="text-xl heading-text md:text-2xl lg:text-3xl">
                 What city are you looking in?
@@ -2070,7 +2045,7 @@ const AgentQuestionnaire = ({
             <div
               className={`${
                 (currentStep === 6 && formData.transactionType === "buying") ||
-                (currentStep === 5 && formData.transactionType === "selling") ||
+                (currentStep === 6 && formData.transactionType === "selling") ||
                 (currentStep === 6 && formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
@@ -2170,7 +2145,7 @@ const AgentQuestionnaire = ({
             <div
               className={`${
                 (currentStep === 7 && formData.transactionType === "buying") ||
-                (currentStep === 6 && formData.transactionType === "selling") ||
+                (currentStep === 7 && formData.transactionType === "selling") ||
                 (currentStep === 7 && formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
@@ -2253,7 +2228,7 @@ const AgentQuestionnaire = ({
             <div
               className={`${
                 (currentStep === 8 && formData.transactionType === "buying") ||
-                (currentStep === 7 && formData.transactionType === "selling") ||
+                (currentStep === 8 && formData.transactionType === "selling") ||
                 (currentStep === 8 && formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
