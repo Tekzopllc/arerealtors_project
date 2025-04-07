@@ -1091,7 +1091,7 @@ const AgentQuestionnaire = ({
                       : ""
                   }`}
                 >
-                  <div className="flex items-center w-full gap-4">
+                  <div className="flex flex-col items-center justify-center w-full gap-4 sm:flex-row sm:justify-start">
                     <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -1108,7 +1108,7 @@ const AgentQuestionnaire = ({
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                       </svg>
                     </div>
-                    <div className="flex flex-col items-start flex-grow">
+                    <div className="flex flex-col items-center flex-grow text-center sm:items-start sm:text-left">
                       <span className="mb-1 text-xl font-semibold">
                         I'm Buying
                       </span>
@@ -1142,7 +1142,7 @@ const AgentQuestionnaire = ({
                       : ""
                   }`}
                 >
-                  <div className="flex items-center w-full gap-4">
+                  <div className="flex flex-col items-center justify-center w-full gap-4 sm:flex-row sm:justify-start">
                     <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -1191,7 +1191,7 @@ const AgentQuestionnaire = ({
                     formData.transactionType === "both" ? "selected-option" : ""
                   }`}
                 >
-                  <div className="flex items-center w-full gap-4">
+                  <div className="flex flex-col items-center justify-center w-full gap-4 sm:flex-row sm:justify-start">
                     <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -1252,7 +1252,7 @@ const AgentQuestionnaire = ({
               <div className="text-xl heading-text md:text-2xl lg:text-3xl">
                 {formData.transactionType === "buying"
                   ? "What's your price range?"
-                  : "What's your property's price range?"}
+                  : "What price are you hoping to sell at?"}
               </div>
 
               <div className="mt-6">
@@ -1364,12 +1364,14 @@ const AgentQuestionnaire = ({
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div className="text-xl heading-text md:text-2xl lg:text-3xl">
-                What city are you looking in?
+                Where are you looking to{" "}
+                {formData.transactionType === "buying" ? "buy" : "sell"}?
               </div>
 
               <p className="mb-6 body-text">
-                We'll connect you with an agent who knows the city inside and
-                out.
+                So we can recommend{" "}
+                {formData.transactionType === "buying" ? "seller" : "buyer"}{" "}
+                expert in your area.
               </p>
 
               <div className="relative mt-4">
@@ -1800,12 +1802,14 @@ const AgentQuestionnaire = ({
               } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div className="text-xl heading-text md:text-2xl lg:text-3xl">
-                What city are you looking in?
+                Where are you looking to buy
+                {formData.transactionType === "buying" ? "buy" : "sell"}?
               </div>
 
               <p className="mb-6 body-text">
-                We'll connect you with an agent who knows the city inside and
-                out.
+                So we can recommend{" "}
+                {formData.transactionType === "buying" ? "seller" : "buyer"}{" "}
+                expert in your area.
               </p>
 
               <div className="relative mt-4">
