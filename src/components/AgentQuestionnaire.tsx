@@ -1802,7 +1802,7 @@ const AgentQuestionnaire = ({
               } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div className="text-xl heading-text md:text-2xl lg:text-3xl">
-                Where are you looking to buy
+                Where are you looking to{" "}
                 {formData.transactionType === "buying" ? "buy" : "sell"}?
               </div>
 
