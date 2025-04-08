@@ -46,12 +46,6 @@ const ThankYou = () => {
                 We've received your information and will reach out to you
                 shortly to discuss your property needs.
               </div>
-              <Link
-                to="/"
-                className="inline-block px-6 py-3 text-white bg-[#ea580c] rounded-lg hover:bg-[#ea580c]/90 transition-colors duration-200"
-              >
-                Go to Home
-              </Link>
             </div>
           </div>
         </div>
