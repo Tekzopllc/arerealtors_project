@@ -22,6 +22,7 @@ import RealEstateAgentBlogPost from "./pages/blogspot5.tsx";
 import SocialMediaBlogPost from "./pages/blogpost6";
 import Blogs from "./pages/Blogs";
 import Microsite from "./pages/microsite.tsx";
+import ThankYou from "./pages/ThankYou";
 
 function AppContent() {
   const location = useLocation();
@@ -51,6 +52,7 @@ function AppContent() {
             <Route path="/adminlogin" element={<AdminLogin />} />
             <Route path="/adminpanel" element={<AdminPanel />} />
             <Route path="/compare_agents" element={<CompareAgents />} />
+            <Route path="/thank-you" element={<ThankYou />} />
             <Route
               path="/blog/market-trends"
               element={<RealEstateBlogPost />}
