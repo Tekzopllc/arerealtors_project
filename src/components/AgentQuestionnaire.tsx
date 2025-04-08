@@ -5,6 +5,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { geocodeByAddress } from "react-google-places-autocomplete";
+import { useNavigate } from "react-router-dom";
 
 // Google Maps type declarations
 declare global {
@@ -579,6 +580,7 @@ const AgentQuestionnaire = ({
   onSubmit,
   embedded = false,
 }: QuestionnaireProps & { embedded?: boolean }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<QuestionnaireData>({
     transactionType: "",
     timeframe: "",
@@ -760,10 +762,9 @@ const AgentQuestionnaire = ({
         return;
       }
 
-      // Show success message
-      setShowSuccess(true);
-      setIsSubmitting(false);
+      // Show success message and redirect
       onSubmit(formData);
+      navigate("/thank-you");
     } catch (err) {
       console.error("Unexpected error:", err);
       setSubmitError("An unexpected error occurred. Please try again.");
@@ -1003,51 +1004,6 @@ const AgentQuestionnaire = ({
                 }`
           }
         >
-          {/* Success message overlay with higher z-index */}
-          {showSuccess && (
-            <div className="absolute inset-0 flex items-center justify-center bg-white z-[150] ">
-              <div className="text-center success-animation">
-                <div className="flex justify-center mb-6 success-icon">
-                  <svg
-                    width="80"
-                    height="80"
-                    viewBox="0 0 80 80"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="40"
-                      cy="40"
-                      r="40"
-                      fill="rgba(234, 88, 12, 0.1)"
-                    />
-                    <circle
-                      cx="40"
-                      cy="40"
-                      r="32"
-                      fill="rgba(234, 88, 12, 0.15)"
-                    />
-                    <circle cx="40" cy="40" r="24" fill="#ea580c" />
-                    <path
-                      d="M32 40L38 46L48 34"
-                      stroke="white"
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-                <div className="text-3xl font-bold text-[#272727] mb-4">
-                  Thank you!
-                </div>
-                <div className="max-w-md mx-auto text-gray-600">
-                  We've received your information and will reach out to you
-                  shortly to discuss your property needs.
-                </div>
-              </div>
-            </div>
-          )}
-
           <div className="MessageAgentForm h-full flex flex-col text-[rgba(39,39,39,0.8)] text-sm md:text-base font-normal relative">
             {/* Progress header */}
             <div className="relative z-[3] bg-[#f8f8f8] border-b border-[rgba(234,88,12,0.1)]">
