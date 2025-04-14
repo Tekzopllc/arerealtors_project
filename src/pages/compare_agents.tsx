@@ -1,4 +1,4 @@
-import { HomeIcon, Phone } from "lucide-react";
+import { HomeIcon, Phone, MapPin, User } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import styles from "../styles/Footer.module.css";
 import { Link, useSearchParams } from "react-router-dom";
@@ -9,6 +9,9 @@ import "../animations.css";
 import "../index.css";
 import "../styles/slider.css";
 import { getCityFromUrl } from "../utils/urlUtils";
+import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+} from "react-google-places-autocomplete";
 
 // Custom styles for phone input to match our theme
 const phoneInputCustomStyles = `
@@ -713,52 +716,150 @@ function AgentQuestionnaire({
 
           <div className="relative mt-4">
             <div className="relative" onClick={(e) => e.stopPropagation()}>
-              <input
-                type="text"
-                value={formData.location}
-                onChange={(e) =>
-                  setFormData({ ...formData, location: e.target.value })
-                }
-                placeholder="Enter your property address..."
-                className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c] bg-white hover:border-[#ea580c] transition-colors"
-                ref={(input) => {
-                  if (input && !input.getAttribute("data-places-initialized")) {
-                    const autocomplete =
-                      new window.google.maps.places.Autocomplete(input, {
-                        types: ["address"],
-                        componentRestrictions: { country: "us" },
+              <div className="absolute z-10 text-gray-500 transform -translate-y-1/2 left-4 top-1/2">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <GooglePlacesAutocomplete
+                selectProps={{
+                  placeholder: "Enter your address...",
+                  value: formData.location
+                    ? { label: formData.location, value: formData.location }
+                    : null,
+                  onChange: async (
+                    place: { label: string; value: string } | null
+                  ) => {
+                    if (!place) {
+                      setFormData({
+                        ...formData,
+                        location: "",
                       });
+                      return;
+                    }
 
-                    autocomplete.addListener("place_changed", () => {
-                      const place = autocomplete.getPlace();
-                      if (place.formatted_address) {
+                    try {
+                      const results = await geocodeByAddress(place.label);
+                      if (results && results.length > 0) {
+                        const addressComponents = results[0].address_components;
+                        const streetNumber = addressComponents.find(
+                          (component) =>
+                            component.types.includes("street_number")
+                        )?.long_name;
+                        const streetName = addressComponents.find((component) =>
+                          component.types.includes("route")
+                        )?.long_name;
+                        const city = addressComponents.find((component) =>
+                          component.types.includes("locality")
+                        )?.long_name;
+                        const state = addressComponents.find((component) =>
+                          component.types.includes(
+                            "administrative_area_level_1"
+                          )
+                        )?.short_name;
+                        const zipCode = addressComponents.find((component) =>
+                          component.types.includes("postal_code")
+                        )?.long_name;
+
+                        const formattedAddress = `${
+                          streetNumber ? streetNumber + " " : ""
+                        }${streetName ? streetName + ", " : ""}${
+                          city ? city + ", " : ""
+                        }${state ? state + " " : ""}${zipCode ? zipCode : ""}`;
+
                         setFormData({
                           ...formData,
-                          location: place.formatted_address,
+                          location: formattedAddress,
+                        });
+                      } else {
+                        setFormData({
+                          ...formData,
+                          location: place.label,
                         });
                       }
-                    });
-
-                    input.setAttribute("data-places-initialized", "true");
-                  }
+                    } catch (error) {
+                      console.error("Error geocoding address:", error);
+                      setFormData({
+                        ...formData,
+                        location: place.label,
+                      });
+                    }
+                  },
+                  onBlur: () => {
+                    if (!formData.location) {
+                      setFormData({
+                        ...formData,
+                        location: "",
+                      });
+                    }
+                  },
+                  components: {
+                    DropdownIndicator: () => null,
+                    IndicatorSeparator: () => null,
+                  },
+                  openMenuOnClick: false,
+                  openMenuOnFocus: false,
+                  styles: {
+                    control: (provided: any) => ({
+                      ...provided,
+                      border: "1.5px solid rgba(234, 88, 12, 0.2)",
+                      borderRadius: "12px",
+                      padding: "14px 16px",
+                      paddingLeft: "52px",
+                      fontSize: "16px",
+                      minHeight: "unset",
+                      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.02)",
+                      cursor: "text",
+                      "&:hover": {
+                        borderColor: "rgba(234, 88, 12, 0.4)",
+                        boxShadow: "0 3px 6px rgba(0, 0, 0, 0.05)",
+                      },
+                      "&:focus-within": {
+                        borderColor: "#ea580c",
+                        boxShadow: "0 0 0 3px rgba(234, 88, 12, 0.15)",
+                      },
+                    }),
+                    menu: (provided: any) => ({
+                      ...provided,
+                      borderRadius: "12px",
+                      border: "1px solid rgba(234, 88, 12, 0.2)",
+                      boxShadow:
+                        "0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05)",
+                      marginTop: "4px",
+                      padding: "8px",
+                    }),
+                    option: (provided: any, state: { isFocused: boolean }) => ({
+                      ...provided,
+                      padding: "12px",
+                      cursor: "pointer",
+                      borderRadius: "8px",
+                      backgroundColor: state.isFocused
+                        ? "rgba(234, 88, 12, 0.1)"
+                        : "transparent",
+                      color: "#272727",
+                      fontSize: "14px",
+                      "&:hover": {
+                        backgroundColor: "rgba(234, 88, 12, 0.1)",
+                      },
+                      "&:active": {
+                        backgroundColor: "rgba(234, 88, 12, 0.15)",
+                      },
+                    }),
+                    input: (provided: any) => ({
+                      ...provided,
+                      margin: "0",
+                      padding: "0",
+                    }),
+                    valueContainer: (provided: any) => ({
+                      ...provided,
+                      padding: "0",
+                    }),
+                  },
+                }}
+                apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+                autocompletionRequest={{
+                  types: ["address"],
+                  componentRestrictions: { country: "us" },
                 }}
               />
-              <div className="absolute text-gray-500 transform -translate-y-1/2 pointer-events-none right-3 top-1/2">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
 
@@ -796,24 +897,34 @@ function AgentQuestionnaire({
           <p>Our recommendations are free. No strings attached.</p>
 
           <div className="mt-4 space-y-4">
-            <input
-              type="text"
-              value={formData.firstName}
-              onChange={(e) =>
-                setFormData({ ...formData, firstName: e.target.value })
-              }
-              placeholder="Enter your first name"
-              className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c]"
-            />
-            <input
-              type="text"
-              value={formData.lastName}
-              onChange={(e) =>
-                setFormData({ ...formData, lastName: e.target.value })
-              }
-              placeholder="Enter your last name"
-              className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c]"
-            />
+            <div className="relative">
+              <div className="absolute text-gray-500 transform -translate-y-1/2 left-4 top-1/2">
+                <User className="w-5 h-5" />
+              </div>
+              <input
+                type="text"
+                value={formData.firstName}
+                onChange={(e) =>
+                  setFormData({ ...formData, firstName: e.target.value })
+                }
+                placeholder="Enter your first name"
+                className="w-full px-4 py-3 pl-12 border border-[#eaeaea] rounded-md focus:border-[#ea580c] hover:border-[#ea580c] transition-colors outline-none"
+              />
+            </div>
+            <div className="relative">
+              <div className="absolute text-gray-500 transform -translate-y-1/2 left-4 top-1/2">
+                <User className="w-5 h-5" />
+              </div>
+              <input
+                type="text"
+                value={formData.lastName}
+                onChange={(e) =>
+                  setFormData({ ...formData, lastName: e.target.value })
+                }
+                placeholder="Enter your last name"
+                className="w-full px-4 py-3 pl-12 border border-[#eaeaea] rounded-md focus:border-[#ea580c] hover:border-[#ea580c] transition-colors outline-none"
+              />
+            </div>
           </div>
 
           <div className="flex items-center justify-between pt-4 mt-6 MessageAgentForm__screen-controls">
@@ -849,17 +960,8 @@ function AgentQuestionnaire({
             What's your email address?
           </div>
 
-          <div className="mt-4">
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              placeholder="Enter your email"
-              className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:ring-[#ea580c] focus:border-[#ea580c]"
-            />
-            <p className="mt-2 text-xs text-gray-500">
+          <div className="">
+            <p className="text-xs text-gray-500 ">
               <img
                 src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg"
                 alt="checkmark"
@@ -867,7 +969,7 @@ function AgentQuestionnaire({
               />{" "}
               Get a list of great local agents in your inbox today
             </p>
-            <p className="mt-2 text-xs text-gray-500">
+            <p className="mt-2 mb-5 text-xs text-gray-500">
               <img
                 src="https://www.realestateagents.com/compare-agents/static/svgs/check-mark-icon.svg"
                 alt="checkmark"
@@ -876,7 +978,15 @@ function AgentQuestionnaire({
               We or your carefully selected agents may email you to help with
               your transaction
             </p>
-            {/* Email validation function */}
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              placeholder="Enter your email"
+              className="w-full px-4 py-3 border border-[#eaeaea] rounded-md focus:border-[#ea580c] hover:border-[#ea580c] transition-colors outline-none"
+            />
             {formData.email && (
               <p
                 className={`text-xs mt-1 ${
@@ -888,6 +998,7 @@ function AgentQuestionnaire({
                 {getEmailValidationMessage(formData.email)}
               </p>
             )}
+            {/* Email validation function */}
           </div>
 
           <div className="flex items-center justify-between pt-4 mt-6 MessageAgentForm__screen-controls">
@@ -963,7 +1074,7 @@ function AgentQuestionnaire({
               specialLabel=""
             />
             <p className="mt-2 text-xs text-gray-500">
-              By clicking “Accept”, I am providing my esign and express written
+              By clicking "Accept", I am providing my esign and express written
               consent to allow ReferralExchange and our affiliated Participating
               Agents, or parties calling on their behalf, to contact me at the
               phone number above for marketing purposes, including through the
