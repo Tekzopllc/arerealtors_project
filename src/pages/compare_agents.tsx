@@ -269,8 +269,16 @@ function AgentQuestionnaire({
 
   // Reference to store and clear timeouts
   const closeTimeoutRef = useRef<number | null>(null);
-  const city = searchParams.get("city");
+  const [city, setCity] = useState("");
   const country = searchParams.get("country");
+
+  useEffect(() => {
+    const fetchCity = async () => {
+      const city = await getCityFromUrl();
+      setCity(city);
+    };
+    fetchCity();
+  }, []);
 
   // Clean up any lingering timeouts when component unmounts or isOpen changes
   useEffect(() => {
@@ -548,9 +556,7 @@ function AgentQuestionnaire({
               Find The Best Realtors
             </div>
             <div className="MessageAgentForm__screen-heading text-lg md:text-[2.5rem] font-bold text-[#272727] mb-1">
-              {city
-                ? `In ${city} ${country ? `, ${country.toUpperCase()}` : ""}`
-                : "In Your City"}
+              {city ? city : `In Your City`}
             </div>
             <p className="mt-4 mb-2 text-base md:text-xl">
               Instantly see a personalized list of great agents to choose from.
@@ -1102,7 +1108,7 @@ export default function CompareAgentsPage() {
                 Find The Best Realtors
               </h1>
               <h2 className="mb-4 text-2xl font-bold text-white">
-                {cityName ? `In ${cityName}` : "In Your City"}
+                {city ? city : `In Your City`}
               </h2>
               <p
                 className="text-sm text-white/90"
