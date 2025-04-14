@@ -1,7 +1,7 @@
 import { HomeIcon, Phone, MapPin, User } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import styles from "../styles/Footer.module.css";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
@@ -262,6 +262,7 @@ function AgentQuestionnaire({
   currentStep,
   setCurrentStep,
 }: QuestionnaireProps) {
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -378,42 +379,8 @@ function AgentQuestionnaire({
         return;
       }
 
-      // Show success message
-      setShowSuccess(true);
-      setIsSubmitting(false);
-      onSubmit(formData);
-
-      // Start closing animation after 2 seconds
-      setTimeout(() => {
-        setIsClosing(true);
-        // Close after animation completes and reset states
-        closeTimeoutRef.current = window.setTimeout(() => {
-          // Only reset after successful submission
-          console.log("Form submitted successfully, resetting...");
-          onSubmit(formData); // Call onSubmit before resetting
-
-          // Reset the form
-          setCurrentStep(1);
-          setShowSuccess(false);
-          setIsClosing(false);
-          onClose();
-          closeTimeoutRef.current = null;
-
-          // Reset form data last
-          setTimeout(() => {
-            setFormData({
-              timeframe: "",
-              location: "",
-              budget: 300000,
-              propertyType: "",
-              firstName: "",
-              lastName: "",
-              email: "",
-              phone: "+1", // Initialize with +1 for US
-            });
-          }, 500);
-        }, 500);
-      }, 2000);
+      // Navigate to thank-you page using useNavigate
+      navigate("/thank-you");
     } catch (err) {
       console.error("Unexpected error:", err);
       setSubmitError("An unexpected error occurred. Please try again.");
