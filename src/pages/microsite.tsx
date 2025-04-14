@@ -175,30 +175,27 @@ export default function Home() {
         </div>
       </div>
 
-      {/* How It Works - Mobile optimized */}
-      <div className="py-12 sm:py-28 bg-gradient-to-b from-gray-50 to-white">
+      {/* How It Works - Optimized for all screens */}
+      <div className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <h2 className="relative inline-block w-full mx-auto mb-6 text-xl font-bold text-center sm:text-3xl text-secondary sm:mb-12 lg:mb-20">
-            <span
-              className="relative inline-block"
-              style={{ fontSize: "2.5rem" }}
-            >
+            <span className="relative inline-block text-3xl sm:text-4xl lg:text-5xl">
               How It Works
-              <span className="absolute w-12 h-1 transform -translate-x-1/2 rounded-full -bottom-4 left-1/2 sm:w-20 bg-primary"></span>
+              <span className="absolute w-12 h-1 transform -translate-x-1/2 rounded-full -bottom-5 left-1/2 sm:w-20 bg-primary"></span>
             </span>
           </h2>
 
-          <div className="grid gap-4 md:grid-cols-3 sm:gap-8">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8 lg:gap-8">
             <div className="flex flex-col">
-              <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
+              <div className="flex flex-col justify-between h-full p-5 text-center bg-white border border-gray-100 shadow-lg rounded-xl sm:p-8 group">
                 <div>
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-xl font-bold text-white rounded-full bg-primary sm:w-16 sm:h-16 sm:mb-6">
                     1
                   </div>
-                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl lg:text-xl xl:text-2xl">
                     Take a Quick Quiz
                   </h3>
-                  <p className="text-base text-gray-600">
+                  <p className="text-base text-gray-600 lg:text-sm xl:text-base">
                     Answer a few simple questions about your home and selling
                     goals to help us understand your needs
                   </p>
@@ -207,15 +204,15 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col">
-              <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
+              <div className="flex flex-col justify-between h-full p-5 text-center bg-white border border-gray-100 shadow-lg rounded-xl sm:p-8 group">
                 <div>
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-xl font-bold text-white rounded-full bg-primary sm:w-16 sm:h-16 sm:mb-6">
                     2
                   </div>
-                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl lg:text-xl xl:text-2xl">
                     Get a Personalized Agent List
                   </h3>
-                  <p className="text-base text-gray-600">
+                  <p className="text-base text-gray-600 lg:text-sm xl:text-base">
                     We match you with top-rated realtors in your area, tailored
                     to your preferences and requirements
                   </p>
@@ -223,16 +220,16 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col">
-              <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
+            <div className="flex flex-col sm:col-span-2 lg:col-span-1">
+              <div className="flex flex-col justify-between h-full p-5 text-center bg-white border border-gray-100 shadow-lg rounded-xl sm:p-8 group">
                 <div>
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-xl font-bold text-white rounded-full bg-primary sm:w-16 sm:h-16 sm:mb-6">
                     3
                   </div>
-                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl lg:text-xl xl:text-2xl">
                     Connect & Save on Commission
                   </h3>
-                  <p className="text-base text-gray-600">
+                  <p className="text-base text-gray-600 lg:text-sm xl:text-base">
                     Choose a pre-vetted realtor with pre-negotiated commissions,
                     so you get the best deal without the hassle
                   </p>
