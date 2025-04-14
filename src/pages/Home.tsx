@@ -280,7 +280,7 @@ export default function Home() {
       {/* Additional Testimonial */}
       <div className="py-5 xxs:py-10 sm:py-24 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="grid items-start gap-8 md:grid-cols-2 lg:gap-12">
+          <div className="grid items-center gap-8 md:items-start md:grid-cols-2 lg:gap-12">
             <div className="relative group">
               <div className="absolute transition duration-500 opacity-50 -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur group-hover:opacity-100"></div>
               <div className="relative">
