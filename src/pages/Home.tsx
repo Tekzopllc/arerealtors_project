@@ -315,28 +315,31 @@ export default function Home() {
       {/* Statistics Section */}
       <div className="py-16 sm:py-16 bg-gradient-to-br from-primary to-primary/80">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 sm:gap-8 md:gap-12">
-            <div className="relative px-6 py-6 text-center sm:px-8 backdrop-blur-sm rounded-xl">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8 lg:gap-12">
+            {/* First Stat */}
+            <div className="relative px-6 py-6 text-center backdrop-blur-sm rounded-xl">
               <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-6xl sm:mb-4">
                 800+
               </h3>
               <p className="text-lg sm:text-xl text-white/80">
                 Top 1% Agents Across US
               </p>
-              <div className="absolute right-0 hidden w-px -translate-y-1/2 top-1/2 h-2/3 bg-white/20 sm:block md:hidden"></div>
+              <div className="absolute bottom-0 w-2/3 h-px -translate-x-1/2 left-1/2 bg-white/20 lg:hidden"></div>
             </div>
 
-            <div className="relative px-6 py-6 text-center sm:px-8 backdrop-blur-sm rounded-xl">
+            {/* Second Stat */}
+            <div className="relative px-6 py-6 text-center backdrop-blur-sm rounded-xl">
               <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-6xl sm:mb-4">
                 $13.2 M
               </h3>
               <p className="text-lg sm:text-xl text-white/80">
                 Commissions Saved
               </p>
-              <div className="absolute right-0 hidden w-px -translate-y-1/2 top-1/2 h-2/3 bg-white/20 md:block"></div>
+              <div className="absolute bottom-0 w-2/3 h-px -translate-x-1/2 left-1/2 bg-white/20 lg:hidden"></div>
             </div>
 
-            <div className="px-6 py-6 text-center sm:px-8 backdrop-blur-sm rounded-xl sm:col-span-2 md:col-span-1">
+            {/* Third Stat */}
+            <div className="px-6 py-6 text-center backdrop-blur-sm rounded-xl sm:col-span-2 lg:col-span-1">
               <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-6xl sm:mb-4">
                 4500+
               </h3>
