@@ -20,6 +20,7 @@ import AgentQuestionnaire, {
 } from "../components/AgentQuestionnaire";
 import styles from "../styles/Footer.module.css";
 import { TestimonialsCard } from "../components";
+import { getCityFromUrl } from "../utils/urlUtils";
 
 const features = [
   { text: "100% free" },
@@ -31,6 +32,15 @@ export default function Home() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [city, setCity] = useState("");
+
+  useEffect(() => {
+    const fetchCity = async () => {
+      const city = await getCityFromUrl();
+      setCity(city);
+    };
+    fetchCity();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,7 +96,8 @@ export default function Home() {
               style={{ letterSpacing: "1px" }}
             >
               <h1 className="mb-4 text-4xl font-bold leading-tight text-white md:mb-6 md:text-7xl ">
-                Find the best listing agent
+                Find the best listing agent{" "}
+                {city ? `in ${city}` : "in your city"}
               </h1>
               <p className="mb-6 text-base font-light sm:text-xl md:text-2xl">
                 We negotiate so you don't have to - get the best realtor while
