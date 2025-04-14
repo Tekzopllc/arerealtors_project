@@ -57,13 +57,17 @@ export default function Home() {
     console.log("Questionnaire submitted:", data);
   };
 
+  const handleFindAgentClick = () => {
+    setIsQuestionnaireOpen(true);
+  };
+
   return (
     <div className="min-h-screen" style={{ marginTop: "-64px" }}>
-      {/* <AgentQuestionnaire
+      <AgentQuestionnaire
         isOpen={isQuestionnaireOpen}
         onClose={() => setIsQuestionnaireOpen(false)}
         onSubmit={handleQuestionnaireSubmit}
-      /> */}
+      />
 
       {/* Hero Section - Optimized for mobile */}
       <div
@@ -214,7 +218,7 @@ export default function Home() {
 
               <div className="mt-6 sm:mt-8">
                 <button
-                  onClick={() => setIsQuestionnaireOpen(true)}
+                  onClick={handleFindAgentClick}
                   className="flex items-center justify-center gap-2 px-8 py-3 text-sm font-medium text-white transition-all duration-300 rounded-lg w-fit bg-gradient-to-r from-primary to-primary/90 sm:py-4 hover:shadow-lg hover:shadow-primary/20 sm:text-base"
                 >
                   Find an Agent
@@ -585,7 +589,7 @@ export default function Home() {
             Let our expert agents help you navigate the real estate market.
           </p>
           <button
-            onClick={() => setIsQuestionnaireOpen(true)}
+            onClick={handleFindAgentClick}
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-colors bg-orange-500 rounded-lg shadow-xl sm:px-8 sm:py-4 sm:text-lg hover:bg-orange-600 hover:shadow-2xl shadow-black/10"
           >
             Find an Agent
