@@ -20,6 +20,7 @@ import AgentQuestionnaire, {
 } from "../components/AgentQuestionnaire";
 import styles from "../styles/Footer.module.css";
 import { TestimonialsCard } from "../components";
+import { getCityFromUrl } from "../utils/urlUtils";
 
 const features = [
   { text: "100% free" },
@@ -31,6 +32,15 @@ export default function Home() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [city, setCity] = useState("");
+
+  useEffect(() => {
+    const fetchCity = async () => {
+      const city = await getCityFromUrl();
+      setCity(city);
+    };
+    fetchCity();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,13 +67,17 @@ export default function Home() {
     console.log("Questionnaire submitted:", data);
   };
 
+  const handleFindAgentClick = () => {
+    setIsQuestionnaireOpen(true);
+  };
+
   return (
     <div className="min-h-screen" style={{ marginTop: "-64px" }}>
-      {/* <AgentQuestionnaire
+      <AgentQuestionnaire
         isOpen={isQuestionnaireOpen}
         onClose={() => setIsQuestionnaireOpen(false)}
         onSubmit={handleQuestionnaireSubmit}
-      /> */}
+      />
 
       {/* Hero Section - Optimized for mobile */}
       <div
@@ -82,7 +96,8 @@ export default function Home() {
               style={{ letterSpacing: "1px" }}
             >
               <h1 className="mb-4 text-4xl font-bold leading-tight text-white md:mb-6 md:text-7xl ">
-                Find the best listing agent
+                Find the best listing agent{" "}
+                {city ? `in ${city}` : "in your city"}
               </h1>
               <p className="mb-6 text-base font-light sm:text-xl md:text-2xl">
                 We negotiate so you don't have to - get the best realtor while
@@ -114,30 +129,27 @@ export default function Home() {
         </div>
       </div>
 
-      {/* How It Works - Mobile optimized */}
+      {/* How It Works - Optimized for all screens */}
       <div className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <h2 className="relative inline-block w-full mx-auto mb-6 text-xl font-bold text-center sm:text-3xl text-secondary sm:mb-12 lg:mb-20">
-            <span
-              className="relative inline-block"
-              style={{ fontSize: "2.5rem" }}
-            >
+            <span className="relative inline-block text-3xl sm:text-4xl lg:text-5xl">
               How It Works
               <span className="absolute w-12 h-1 transform -translate-x-1/2 rounded-full -bottom-5 left-1/2 sm:w-20 bg-primary"></span>
             </span>
           </h2>
 
-          <div className="grid gap-4 md:grid-cols-3 sm:gap-8">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8 lg:gap-8">
             <div className="flex flex-col">
-              <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
+              <div className="flex flex-col justify-between h-full p-5 text-center bg-white border border-gray-100 shadow-lg rounded-xl sm:p-8 group">
                 <div>
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-xl font-bold text-white rounded-full bg-primary sm:w-16 sm:h-16 sm:mb-6">
                     1
                   </div>
-                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl lg:text-xl xl:text-2xl">
                     Take a Quick Quiz
                   </h3>
-                  <p className="text-base text-gray-600">
+                  <p className="text-base text-gray-600 lg:text-sm xl:text-base">
                     Answer a few simple questions about your home and selling
                     goals to help us understand your needs
                   </p>
@@ -146,15 +158,15 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col">
-              <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
+              <div className="flex flex-col justify-between h-full p-5 text-center bg-white border border-gray-100 shadow-lg rounded-xl sm:p-8 group">
                 <div>
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-xl font-bold text-white rounded-full bg-primary sm:w-16 sm:h-16 sm:mb-6">
                     2
                   </div>
-                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl lg:text-xl xl:text-2xl">
                     Get a Personalized Agent List
                   </h3>
-                  <p className="text-base text-gray-600">
+                  <p className="text-base text-gray-600 lg:text-sm xl:text-base">
                     We match you with top-rated realtors in your area, tailored
                     to your preferences and requirements
                   </p>
@@ -162,16 +174,16 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col">
-              <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg text-center min-h-[240px] sm:min-h-[324px] flex flex-col justify-between group border border-gray-100">
+            <div className="flex flex-col sm:col-span-2 lg:col-span-1">
+              <div className="flex flex-col justify-between h-full p-5 text-center bg-white border border-gray-100 shadow-lg rounded-xl sm:p-8 group">
                 <div>
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-xl font-bold text-white rounded-full bg-primary sm:w-16 sm:h-16 sm:mb-6">
                     3
                   </div>
-                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900 sm:text-2xl lg:text-xl xl:text-2xl">
                     Connect & Save on Commission
                   </h3>
-                  <p className="text-base text-gray-600">
+                  <p className="text-base text-gray-600 lg:text-sm xl:text-base">
                     Choose a pre-vetted realtor with pre-negotiated commissions,
                     so you get the best deal without the hassle
                   </p>
@@ -214,7 +226,7 @@ export default function Home() {
 
               <div className="mt-6 sm:mt-8">
                 <button
-                  onClick={() => setIsQuestionnaireOpen(true)}
+                  onClick={handleFindAgentClick}
                   className="flex items-center justify-center gap-2 px-8 py-3 text-sm font-medium text-white transition-all duration-300 rounded-lg w-fit bg-gradient-to-r from-primary to-primary/90 sm:py-4 hover:shadow-lg hover:shadow-primary/20 sm:text-base"
                 >
                   Find an Agent
@@ -268,7 +280,7 @@ export default function Home() {
       {/* Additional Testimonial */}
       <div className="py-5 xxs:py-10 sm:py-24 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="grid items-start gap-8 md:grid-cols-2 lg:gap-12">
+          <div className="grid items-center gap-8 md:items-start md:grid-cols-2 lg:gap-12">
             <div className="relative group">
               <div className="absolute transition duration-500 opacity-50 -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur group-hover:opacity-100"></div>
               <div className="relative">
@@ -300,28 +312,31 @@ export default function Home() {
       {/* Statistics Section */}
       <div className="py-16 sm:py-16 bg-gradient-to-br from-primary to-primary/80">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 sm:gap-8 md:gap-12">
-            <div className="relative px-6 py-6 text-center sm:px-8 backdrop-blur-sm rounded-xl">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8 lg:gap-12">
+            {/* First Stat */}
+            <div className="relative px-6 py-6 text-center backdrop-blur-sm rounded-xl">
               <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-6xl sm:mb-4">
                 800+
               </h3>
               <p className="text-lg sm:text-xl text-white/80">
                 Top 1% Agents Across US
               </p>
-              <div className="absolute right-0 hidden w-px -translate-y-1/2 top-1/2 h-2/3 bg-white/20 sm:block md:hidden"></div>
+              <div className="absolute bottom-0 w-2/3 h-px -translate-x-1/2 left-1/2 bg-white/20 lg:hidden"></div>
             </div>
 
-            <div className="relative px-6 py-6 text-center sm:px-8 backdrop-blur-sm rounded-xl">
+            {/* Second Stat */}
+            <div className="relative px-6 py-6 text-center backdrop-blur-sm rounded-xl">
               <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-6xl sm:mb-4">
                 $13.2 M
               </h3>
               <p className="text-lg sm:text-xl text-white/80">
                 Commissions Saved
               </p>
-              <div className="absolute right-0 hidden w-px -translate-y-1/2 top-1/2 h-2/3 bg-white/20 md:block"></div>
+              <div className="absolute bottom-0 w-2/3 h-px -translate-x-1/2 left-1/2 bg-white/20 lg:hidden"></div>
             </div>
 
-            <div className="px-6 py-6 text-center sm:px-8 backdrop-blur-sm rounded-xl sm:col-span-2 md:col-span-1">
+            {/* Third Stat */}
+            <div className="px-6 py-6 text-center backdrop-blur-sm rounded-xl sm:col-span-2 lg:col-span-1">
               <h3 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-6xl sm:mb-4">
                 4500+
               </h3>
@@ -585,7 +600,7 @@ export default function Home() {
             Let our expert agents help you navigate the real estate market.
           </p>
           <button
-            onClick={() => setIsQuestionnaireOpen(true)}
+            onClick={handleFindAgentClick}
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-colors bg-orange-500 rounded-lg shadow-xl sm:px-8 sm:py-4 sm:text-lg hover:bg-orange-600 hover:shadow-2xl shadow-black/10"
           >
             Find an Agent

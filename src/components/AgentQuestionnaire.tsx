@@ -999,7 +999,7 @@ const AgentQuestionnaire = ({
           className={
             embedded
               ? "w-full h-full"
-              : `modal-container max-w-[900px] w-full h-[650px] relative ${
+              : `modal-container mx-5 max-w-[900px] w-full h-[650px] relative ${
                   isClosing ? "animate-slideOut" : ""
                 }`
           }
