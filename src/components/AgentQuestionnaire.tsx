@@ -1059,7 +1059,7 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   type === "compare"
-                    ? "grid grid-cols-1 md:grid-cols-3 gap-6 flex-grow mb-8"
+                    ? "grid grid-cols-1 md:grid-cols-3 gap-5 flex-grow mb-8"
                     : "flex flex-col justify-center flex-grow gap-6 mb-8"
                 )}
               >
@@ -1067,16 +1067,30 @@ const AgentQuestionnaire = ({
                   onClick={() => handleTransactionTypeSelect("buying")}
                   className={cn(
                     "option-button group",
-                    type === "compare" ? "bg-white h-fit" : "",
+                    type === "compare"
+                      ? "bg-white h-fit py-8 px-6"
+                      : "!py-11 px-6",
                     formData.transactionType === "buying" && "selected-option"
                   )}
                 >
-                  <div className="flex flex-col items-center justify-center w-full gap-4">
-                    <div className="flex items-center justify-center w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                  <div
+                    className={cn(
+                      "flex w-full gap-4",
+                      type === "compare"
+                        ? "flex-col items-center justify-center"
+                        : "flex-col items-center sm:flex-row sm:justify-start"
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        "flex items-center justify-center transition-all rounded-full bg-white/20 group-hover:bg-white/30",
+                        type === "compare" ? "w-16 h-16" : "w-12 h-12"
+                      )}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
+                        width={type === "compare" ? "32" : "24"}
+                        height={type === "compare" ? "32" : "24"}
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -1088,7 +1102,28 @@ const AgentQuestionnaire = ({
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                       </svg>
                     </div>
-                    <span className="text-xl font-semibold">I'm Buying</span>
+                    <div
+                      className={cn(
+                        "flex flex-col",
+                        type === "compare"
+                          ? "items-center text-center"
+                          : "items-start text-left"
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "font-semibold",
+                          type === "compare" ? "text-2xl" : "text-xl"
+                        )}
+                      >
+                        I'm Buying
+                      </span>
+                      {type !== "compare" && (
+                        <span className="text-sm font-normal opacity-90">
+                          Find the best real estate agent to represent you
+                        </span>
+                      )}
+                    </div>
                     {formData.transactionType === "buying" && (
                       <svg
                         width="24"
@@ -1111,16 +1146,30 @@ const AgentQuestionnaire = ({
                   onClick={() => handleTransactionTypeSelect("selling")}
                   className={cn(
                     "option-button group",
-                    type === "compare" ? "bg-white h-fit" : "",
+                    type === "compare"
+                      ? "bg-white h-fit py-8 px-6"
+                      : "!py-11 px-6",
                     formData.transactionType === "selling" && "selected-option"
                   )}
                 >
-                  <div className="flex flex-col items-center justify-center w-full gap-4">
-                    <div className="flex items-center justify-center w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                  <div
+                    className={cn(
+                      "flex w-full gap-4",
+                      type === "compare"
+                        ? "flex-col items-center justify-center"
+                        : "flex-col items-center sm:flex-row sm:justify-start"
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        "flex items-center justify-center transition-all rounded-full bg-white/20 group-hover:bg-white/30",
+                        type === "compare" ? "w-16 h-16" : "w-12 h-12"
+                      )}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
+                        width={type === "compare" ? "32" : "24"}
+                        height={type === "compare" ? "32" : "24"}
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -1132,7 +1181,28 @@ const AgentQuestionnaire = ({
                         <path d="m19 9-5 5-4-4-3 3"></path>
                       </svg>
                     </div>
-                    <span className="text-xl font-semibold">I'm Selling</span>
+                    <div
+                      className={cn(
+                        "flex flex-col",
+                        type === "compare"
+                          ? "items-center text-center"
+                          : "items-start text-left"
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "font-semibold",
+                          type === "compare" ? "text-2xl" : "text-xl"
+                        )}
+                      >
+                        I'm Selling
+                      </span>
+                      {type !== "compare" && (
+                        <span className="text-sm font-normal opacity-90">
+                          A top REALTOR will sell your home fast
+                        </span>
+                      )}
+                    </div>
                     {formData.transactionType === "selling" && (
                       <svg
                         width="24"
@@ -1155,16 +1225,30 @@ const AgentQuestionnaire = ({
                   onClick={() => handleTransactionTypeSelect("both")}
                   className={cn(
                     "option-button group",
-                    type === "compare" ? "bg-white h-fit" : "",
+                    type === "compare"
+                      ? "bg-white h-fit py-8 px-6"
+                      : "!py-11 px-6",
                     formData.transactionType === "both" && "selected-option"
                   )}
                 >
-                  <div className="flex flex-col items-center justify-center w-full gap-4">
-                    <div className="flex items-center justify-center w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                  <div
+                    className={cn(
+                      "flex w-full gap-4",
+                      type === "compare"
+                        ? "flex-col items-center justify-center"
+                        : "flex-col items-center sm:flex-row sm:justify-start"
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        "flex items-center justify-center transition-all rounded-full bg-white/20 group-hover:bg-white/30",
+                        type === "compare" ? "w-16 h-16" : "w-12 h-12"
+                      )}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
+                        width={type === "compare" ? "32" : "24"}
+                        height={type === "compare" ? "32" : "24"}
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -1178,9 +1262,28 @@ const AgentQuestionnaire = ({
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                       </svg>
                     </div>
-                    <span className="text-xl font-semibold">
-                      I'm Buying & Selling
-                    </span>
+                    <div
+                      className={cn(
+                        "flex flex-col",
+                        type === "compare"
+                          ? "items-center text-center"
+                          : "items-start text-left"
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "font-semibold",
+                          type === "compare" ? "text-2xl" : "text-xl"
+                        )}
+                      >
+                        I'm Buying & Selling
+                      </span>
+                      {type !== "compare" && (
+                        <span className="text-sm font-normal opacity-90">
+                          Top rated realtor can support your journey
+                        </span>
+                      )}
+                    </div>
                     {formData.transactionType === "both" && (
                       <svg
                         width="24"

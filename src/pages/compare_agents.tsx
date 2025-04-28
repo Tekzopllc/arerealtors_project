@@ -40,7 +40,7 @@ export default function CompareAgentsPage() {
           <div className="absolute inset-0 from-black/70 via-black/50 to-black/60" />
           <div className="relative flex flex-col min-h-screen">
             <div className="flex items-center justify-center w-full px-4 py-6 mx-auto max-w-7xl md:py-8 sm:px-6">
-              <div className="w-[70%] min-w-[600px] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 h-auto min-h-[500px] sm:h-[640px] md:h-[640px] mb-[30px] sm:mb-[100px] border border-white/20">
+              <div className="w-[80%] min-w-[600px] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 h-auto min-h-[500px] sm:h-[640px] md:h-[640px] mb-[30px] sm:mb-[100px] border border-white/20">
                 <div className="h-full overflow-y-auto">
                   <AgentQuestionnaire
                     isOpen={true}
