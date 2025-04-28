@@ -1008,6 +1008,21 @@ const AgentQuestionnaire = ({
                 }`
           }
         >
+          {/* Progress bar at the very top, full width, for all types */}
+          <div className="absolute top-0 left-0 z-20 w-full">
+            <div
+              className={cn(
+                "premium-progress-container",
+                type === "compare" && "!h-[10px] !rounded-lg"
+              )}
+              style={{ borderRadius: "25px" }}
+            >
+              <div
+                className="premium-progress-bar"
+                style={{ width: getProgressWidth(), borderRadius: "25px" }}
+              />
+            </div>
+          </div>
           <div className="MessageAgentForm h-full flex flex-col text-[rgba(39,39,39,0.8)] text-sm md:text-base font-normal relative">
             {/* Progress header */}
             <div className="relative z-[3] bg-[#f8f8f8] border-b border-[rgba(234,88,12,0.1)]">
@@ -1021,15 +1036,6 @@ const AgentQuestionnaire = ({
                     <X className="w-5 h-5 text-[#272727]" />
                   </button>
                 )}
-              </div>
-              <div
-                className="premium-progress-container"
-                style={{ borderRadius: "25px" }}
-              >
-                <div
-                  className="premium-progress-bar"
-                  style={{ width: getProgressWidth(), borderRadius: "25px" }}
-                />
               </div>
             </div>
 
