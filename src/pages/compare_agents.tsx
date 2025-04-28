@@ -1149,8 +1149,10 @@ export default function CompareAgentsPage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         <div
-          className="w-full min-h-full bg-center bg-no-repeat bg-cover"
-          style={{ backgroundImage: "url(/bg.jpg)" }}
+          className="relative min-h-screen overflow-hidden bg-fixed bg-center bg-no-repeat bg-cover"
+          style={{
+            backgroundImage: "url(/new-bg.jpg)",
+          }}
         >
           {/* Header Container */}
           <div className="py-4 Header_Header__container__ZX38g">
