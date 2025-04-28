@@ -30,9 +30,10 @@ export default function CompareAgentsPage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         <div
-          className="relative min-h-screen overflow-hidden bg-center bg-cover"
+          className="relative min-h-screen overflow-hidden bg-fixed bg-center bg-no-repeat bg-cover"
           style={{
             backgroundImage: "url(/new-bg.jpg)",
+            backgroundAttachment: "fixed",
           }}
         >
           <Header />
@@ -46,6 +47,7 @@ export default function CompareAgentsPage() {
                     onClose={() => {}}
                     onSubmit={handleQuestionnaireSubmit}
                     embedded={true}
+                    type="compare"
                   />
                 </div>
               </div>

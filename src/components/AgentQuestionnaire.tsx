@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { X } from "lucide-react";
+import { X, Plus, Minus } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { geocodeByAddress } from "react-google-places-autocomplete";
 import { useNavigate } from "react-router-dom";
+import { cn } from "../lib/utility";
+import { Check } from "lucide-react";
 
 // Google Maps type declarations
 declare global {
@@ -557,6 +559,7 @@ interface QuestionnaireProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: QuestionnaireData) => void;
+  type?: string;
 }
 
 export interface QuestionnaireData {
@@ -579,6 +582,7 @@ const AgentQuestionnaire = ({
   onClose,
   onSubmit,
   embedded = false,
+  type,
 }: QuestionnaireProps & { embedded?: boolean }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<QuestionnaireData>({
@@ -1034,21 +1038,41 @@ const AgentQuestionnaire = ({
               className={`${currentStep === 1 ? "block" : "hidden"}
                 flex flex-col px-6 md:px-10 h-full overflow-hidden`}
             >
-              <div className="mt-8 mb-6 text-2xl heading-text md:text-3xl lg:text-4xl">
-                Are you buying or selling?
+              <div
+                className={cn(
+                  "mt-8 mb-6 text-2xl heading-text md:text-3xl lg:text-4xl",
+                  type === "compare" && "text-center !font-semibold"
+                )}
+              >
+                {type === "compare"
+                  ? "Find The Best REALTORS® For You"
+                  : `Are you buying or selling?`}
+
+                {type === "compare" && (
+                  <p className="text-[20px] mt-6 mb-6 text-center text-[#272727] font-normal">
+                    Instantly see a personalized list of great agents to choose
+                    from.
+                  </p>
+                )}
               </div>
 
-              <div className="flex flex-col justify-center flex-grow gap-6 mb-8">
+              <div
+                className={cn(
+                  type === "compare"
+                    ? "grid grid-cols-1 md:grid-cols-3 gap-6 flex-grow mb-8"
+                    : "flex flex-col justify-center flex-grow gap-6 mb-8"
+                )}
+              >
                 <button
                   onClick={() => handleTransactionTypeSelect("buying")}
-                  className={`option-button min-h-[120px] group ${
-                    formData.transactionType === "buying"
-                      ? "selected-option"
-                      : ""
-                  }`}
+                  className={cn(
+                    "option-button group",
+                    type === "compare" ? "bg-white h-fit" : "",
+                    formData.transactionType === "buying" && "selected-option"
+                  )}
                 >
-                  <div className="flex flex-col items-center justify-center w-full gap-4 sm:flex-row sm:justify-start">
-                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                  <div className="flex flex-col items-center justify-center w-full gap-4">
+                    <div className="flex items-center justify-center w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -1064,14 +1088,7 @@ const AgentQuestionnaire = ({
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                       </svg>
                     </div>
-                    <div className="flex flex-col items-center flex-grow text-center sm:items-start sm:text-left">
-                      <span className="mb-1 text-xl font-semibold">
-                        I'm Buying
-                      </span>
-                      <span className="text-sm font-normal opacity-90">
-                        Find the best real estate agent to represent you
-                      </span>
-                    </div>
+                    <span className="text-xl font-semibold">I'm Buying</span>
                     {formData.transactionType === "buying" && (
                       <svg
                         width="24"
@@ -1092,14 +1109,14 @@ const AgentQuestionnaire = ({
 
                 <button
                   onClick={() => handleTransactionTypeSelect("selling")}
-                  className={`option-button min-h-[120px] group ${
-                    formData.transactionType === "selling"
-                      ? "selected-option"
-                      : ""
-                  }`}
+                  className={cn(
+                    "option-button group",
+                    type === "compare" ? "bg-white h-fit" : "",
+                    formData.transactionType === "selling" && "selected-option"
+                  )}
                 >
-                  <div className="flex flex-col items-center justify-center w-full gap-4 sm:flex-row sm:justify-start">
-                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                  <div className="flex flex-col items-center justify-center w-full gap-4">
+                    <div className="flex items-center justify-center w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -1115,14 +1132,7 @@ const AgentQuestionnaire = ({
                         <path d="m19 9-5 5-4-4-3 3"></path>
                       </svg>
                     </div>
-                    <div className="flex flex-col items-center flex-grow text-center sm:items-start sm:text-left">
-                      <span className="mb-1 text-xl font-semibold">
-                        I'm Selling
-                      </span>
-                      <span className="text-sm font-normal opacity-90">
-                        A top REALTOR will sell your home fast
-                      </span>
-                    </div>
+                    <span className="text-xl font-semibold">I'm Selling</span>
                     {formData.transactionType === "selling" && (
                       <svg
                         width="24"
@@ -1143,12 +1153,14 @@ const AgentQuestionnaire = ({
 
                 <button
                   onClick={() => handleTransactionTypeSelect("both")}
-                  className={`option-button min-h-[120px] group ${
-                    formData.transactionType === "both" ? "selected-option" : ""
-                  }`}
+                  className={cn(
+                    "option-button group",
+                    type === "compare" ? "bg-white h-fit" : "",
+                    formData.transactionType === "both" && "selected-option"
+                  )}
                 >
-                  <div className="flex flex-col items-center justify-center w-full gap-4 sm:flex-row sm:justify-start">
-                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
+                  <div className="flex flex-col items-center justify-center w-full gap-4">
+                    <div className="flex items-center justify-center w-12 h-12 transition-all rounded-full bg-white/20 group-hover:bg-white/30">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -1166,14 +1178,9 @@ const AgentQuestionnaire = ({
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                       </svg>
                     </div>
-                    <div className="flex flex-col items-center flex-grow text-center sm:items-start sm:text-left">
-                      <span className="mb-1 text-xl font-semibold">
-                        I'm Buying & Selling
-                      </span>
-                      <span className="text-sm font-normal opacity-90">
-                        Top rated realtor can support your journey
-                      </span>
-                    </div>
+                    <span className="text-xl font-semibold">
+                      I'm Buying & Selling
+                    </span>
                     {formData.transactionType === "both" && (
                       <svg
                         width="24"
@@ -1192,10 +1199,24 @@ const AgentQuestionnaire = ({
                   </div>
                 </button>
               </div>
-
-              <p className="mb-6 text-sm text-center text-gray-500">
-                * No spam, your information is 100% safe with us
-              </p>
+              {type === "compare" && (
+                <div className="mt-2 mb-4 text-center">
+                  {[
+                    "We've worked with over 10k happy home buyers & sellers",
+                    "We only recommend the top agents in your area",
+                    "Get a free custom list of top agents in your area in less than 2 minutes",
+                  ].map((option) => (
+                    <div key={option} className="flex items-center gap-3 mb-2">
+                      <div className="bg-[#0CB182] rounded-full p-1">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-[11px] sm:text-[18px] text-[#272727]">
+                        {option}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Step 2: Price Range */}
@@ -1205,15 +1226,50 @@ const AgentQuestionnaire = ({
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
                 {formData.transactionType === "buying"
                   ? "What's your price range?"
                   : "What price are you hoping to sell at?"}
               </div>
 
               <div className="mt-6">
-                <div className="text-center text-3xl md:text-4xl font-bold text-[#ea580c] mb-8">
-                  {formatBudgetRange(formData.budget)}
+                <div className="flex items-center justify-between mb-8">
+                  <button
+                    onClick={() => {
+                      const newValue = Math.max(
+                        50000,
+                        formData.budget -
+                          (formData.budget < 1000000 ? 50000 : 250000)
+                      );
+                      setFormData({ ...formData, budget: newValue });
+                    }}
+                    className="p-2 transition-shadow bg-white rounded-full shadow-md hover:shadow-lg"
+                    aria-label="Decrease budget"
+                  >
+                    <Minus className="w-5 h-5 text-[#272727]" />
+                  </button>
+                  <p className="text-center text-3xl md:text-4xl font-bold text-[#ea580c]">
+                    {formatBudgetRange(formData.budget)}
+                  </p>
+                  <button
+                    onClick={() => {
+                      const newValue = Math.min(
+                        2000000,
+                        formData.budget +
+                          (formData.budget < 1000000 ? 50000 : 250000)
+                      );
+                      setFormData({ ...formData, budget: newValue });
+                    }}
+                    className="p-2 transition-shadow bg-white rounded-full shadow-md hover:shadow-lg"
+                    aria-label="Increase budget"
+                  >
+                    <Plus className="w-5 h-5 text-[#272727]" />
+                  </button>
                 </div>
 
                 <div className="px-2 mb-6">
@@ -1243,13 +1299,55 @@ const AgentQuestionnaire = ({
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pb-6 mt-auto">
-                <button onClick={prevStep} className="secondary-button">
-                  Back
-                </button>
-                <button onClick={nextStep} className="primary-button">
-                  Continue
-                </button>
+              <div
+                className={cn(
+                  "pb-6 mt-auto",
+                  type === "compare"
+                    ? "flex flex-col gap-4 items-stretch"
+                    : "flex items-center justify-between"
+                )}
+              >
+                {type === "compare" ? (
+                  <div className="flex justify-between w-full gap-4 ">
+                    <button onClick={prevStep} className="secondary-button">
+                      Back
+                    </button>
+                    <div className="space-x-5">
+                      <button
+                        onClick={() => {
+                          setFormData({ ...formData, budget: 0 });
+                          nextStep();
+                        }}
+                        className="secondary-button"
+                      >
+                        Not Sure
+                      </button>
+                      <button onClick={nextStep} className="primary-button">
+                        Continue
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <button onClick={prevStep} className="secondary-button">
+                      Back
+                    </button>
+                    <div className="flex gap-4">
+                      <button
+                        onClick={() => {
+                          setFormData({ ...formData, budget: 0 });
+                          nextStep();
+                        }}
+                        className="secondary-button"
+                      >
+                        Not Sure
+                      </button>
+                      <button onClick={nextStep} className="primary-button">
+                        Continue
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
@@ -1264,11 +1362,21 @@ const AgentQuestionnaire = ({
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
                 What kind of property are you selling?
               </div>
 
-              <div className="flex flex-col gap-4 mt-2 mb-4">
+              <div
+                className={cn(
+                  "flex flex-col gap-4 mt-2 mb-4",
+                  type === "compare" && "grid grid-cols-1 sm:grid-cols-2 gap-4"
+                )}
+              >
                 {["Single Family", "Condo", "Land/Lot", "Other"].map(
                   (option) => (
                     <button
@@ -1277,11 +1385,11 @@ const AgentQuestionnaire = ({
                         setFormData({ ...formData, propertyType: option });
                         nextStep();
                       }}
-                      className={`option-button ${
-                        formData.propertyType === option
-                          ? "selected-option"
-                          : ""
-                      }`}
+                      className={cn(
+                        "option-button",
+                        formData.propertyType === option && "selected-option",
+                        type === "compare" && "h-full"
+                      )}
                     >
                       <span className="w-full text-center">{option}</span>
                       {formData.propertyType === option && (
@@ -1319,7 +1427,12 @@ const AgentQuestionnaire = ({
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
                 Where are you looking to buy?
               </div>
 
@@ -1519,7 +1632,12 @@ const AgentQuestionnaire = ({
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
                 What is the address of your property?
               </div>
 
@@ -1697,11 +1815,23 @@ const AgentQuestionnaire = ({
               }
               absolute top-[15px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
                 When do you plan to buy?
               </div>
 
-              <div className="flex flex-col gap-4 mt-4 mb-4">
+              <div
+                className={cn(
+                  "flex flex-col gap-4 mt-4 mb-4",
+                  type === "compare"
+                    ? "grid grid-cols-1 sm:grid-cols-2 gap-4"
+                    : "flex flex-col gap-4"
+                )}
+              >
                 {[
                   "Immediately",
                   "1 Month or Less",
@@ -1716,9 +1846,11 @@ const AgentQuestionnaire = ({
                       setFormData({ ...formData, timeframe: option });
                       nextStep();
                     }}
-                    className={`option-button ${
-                      formData.timeframe === option ? "selected-option" : ""
-                    }`}
+                    className={cn(
+                      "option-button",
+                      formData.timeframe === option ? "selected-option" : "",
+                      type === "compare" ? "h-full" : ""
+                    )}
                   >
                     <span className="w-full text-center">{option}</span>
                     {formData.timeframe === option && (
@@ -1739,7 +1871,7 @@ const AgentQuestionnaire = ({
                 ))}
               </div>
 
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between pb-6 mt-auto">
                 <button onClick={prevStep} className="secondary-button">
                   Back
                 </button>
@@ -1756,7 +1888,12 @@ const AgentQuestionnaire = ({
                   : "hidden"
               } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
                 Where are you looking to buy?
               </div>
 
@@ -1950,16 +2087,27 @@ const AgentQuestionnaire = ({
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
                 What's your Mortgage Status?
               </div>
 
-              <div className="flex flex-col gap-4 mt-2 mb-4">
+              <div
+                className={cn(
+                  "flex flex-col gap-4 mt-4 mb-4",
+                  type === "compare"
+                    ? "grid grid-cols-1 sm:grid-cols-2 gap-4"
+                    : "flex flex-col gap-4"
+                )}
+              >
                 {[
-                  "All Cash",
-                  "Haven't applied",
-                  "Pre-qualified",
-                  "Pre-approved",
+                  "Pre-Approved",
+                  "Not Pre-Approved",
+                  "Cash Buyer",
                   "Not Sure",
                 ].map((option) => (
                   <button
@@ -1968,11 +2116,13 @@ const AgentQuestionnaire = ({
                       setFormData({ ...formData, mortgageStatus: option });
                       nextStep();
                     }}
-                    className={`option-button ${
+                    className={cn(
+                      "option-button",
                       formData.mortgageStatus === option
                         ? "selected-option"
-                        : ""
-                    }`}
+                        : "",
+                      type === "compare" ? "h-full" : ""
+                    )}
                   >
                     <span className="w-full text-center">{option}</span>
                     {formData.mortgageStatus === option && (
@@ -2010,7 +2160,12 @@ const AgentQuestionnaire = ({
                   : "hidden"
               } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
                 What's your name?
               </div>
 
@@ -2018,8 +2173,18 @@ const AgentQuestionnaire = ({
                 Our recommendations are free, No strings attached.
               </p>
 
-              <div className="mt-4 space-y-4">
-                <div className="relative group">
+              <div
+                className={cn(
+                  "mt-4",
+                  type === "compare" ? "flex flex-row gap-4" : "space-y-4"
+                )}
+              >
+                <div
+                  className={cn(
+                    "relative group",
+                    type === "compare" ? "w-full sm:w-1/2" : "w-full"
+                  )}
+                >
                   <div className="input-icon-wrapper">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -2048,7 +2213,12 @@ const AgentQuestionnaire = ({
                   />
                 </div>
 
-                <div className="relative group">
+                <div
+                  className={cn(
+                    "relative group",
+                    type === "compare" ? "w-full sm:w-1/2" : "w-full"
+                  )}
+                >
                   <div className="input-icon-wrapper">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -2111,9 +2281,32 @@ const AgentQuestionnaire = ({
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
-                What's your email address?
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
+                What's your email?
               </div>
+
+              {type === "compare" && (
+                <div className="mt-2 mb-4 text-center">
+                  {[
+                    "Get a list of great local agents in your inbox today",
+                    "We or your carefully selected agents may email you to help with your transaction",
+                  ].map((option) => (
+                    <div key={option} className="flex items-center gap-3 mb-2">
+                      <div className="bg-[#0CB182] rounded-full p-1">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-[11px] sm:text-[18px] text-[#272727]">
+                        {option}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               <div className="mt-4">
                 <div className="relative group">
@@ -2194,9 +2387,32 @@ const AgentQuestionnaire = ({
               }
               absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
-              <div className="text-xl heading-text md:text-2xl lg:text-3xl">
+              <div
+                className={cn(
+                  "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
+                  "!text-[32px] md:!text-[42px] !text-center"
+                )}
+              >
                 What's your phone number?
               </div>
+
+              {type === "compare" && (
+                <div className="mt-2 mb-4 text-center">
+                  {[
+                    "A phone consultation with your recommended agents is the best way to get help",
+                    "We or your carefully selected agents may call you to assist with your transaction",
+                  ].map((option) => (
+                    <div key={option} className="flex items-center gap-3 mb-2">
+                      <div className="bg-[#0CB182] rounded-full p-1">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-[11px] sm:text-[18px] text-[#272727]">
+                        {option}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               <div className="mt-4">
                 <div
