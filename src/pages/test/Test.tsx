@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/layout/Header";
 import { cn } from "../../lib/utility";
@@ -11,26 +12,39 @@ interface ProgressBarProps {
   totalSteps: number;
 }
 
+interface FormData {
+  transactionType: string;
+  budget?: number;
+  location?: string;
+  timeframe?: string;
+  propertyType?: string;
+  address?: string;
+}
+
 const options = [
-  { text: "I'm Buying", icon: SellingIcon },
-  { text: "I'm Selling", icon: BuyingIcon },
-  { text: "I'm Buying & Selling", icon: BothIcon },
+  { text: "I'm Buying", icon: SellingIcon, value: "buying" },
+  { text: "I'm Selling", icon: BuyingIcon, value: "selling" },
+  { text: "I'm Buying & Selling", icon: BothIcon, value: "both" },
 ];
 
-const InitialStep = () => {
+const InitialStep = ({ onSelect }: { onSelect: (value: string) => void }) => {
   return (
     <div>
-      <h1 className="text-[46px] font-medium text-customblack text-center mt-10">
+      <h1 className="text-[40px] font-semibold text-customblack text-center">
         Find The Best REALTORS® For You
       </h1>
       <p className="text-[20px] text-customblack text-center mt-5">
         Instantly see a personalized list of great agents to choose from.
       </p>
 
-      <div className="grid grid-cols-3 gap-10 mt-10">
+      <div className="grid grid-cols-3 gap-10 mt-14">
         {options.map((option) => {
           return (
-            <div className="text-[22px] font-medium text-customblack text-center p-11 cursor-pointer border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] hover:shadow-[0_0_28px_rgba(30,41,59,0.08)]">
+            <div
+              key={option.value}
+              onClick={() => onSelect(option.value)}
+              className="text-[22px] font-medium text-customblack text-center p-11 cursor-pointer border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] hover:shadow-[0_0_28px_rgba(30,41,59,0.08)]"
+            >
               <img
                 src={option.icon}
                 alt={option.text}
@@ -67,9 +81,8 @@ const InitialStep = () => {
   );
 };
 
-const ProgressBar = ({ currentStep = 1, totalSteps }: ProgressBarProps) => {
+const ProgressBar = ({ currentStep, totalSteps }: ProgressBarProps) => {
   const progress = (currentStep / totalSteps) * 100;
-
   const indicatorProgress =
     currentStep === totalSteps ? Math.min(progress, 95) : progress;
 
@@ -116,6 +129,29 @@ const ProgressBar = ({ currentStep = 1, totalSteps }: ProgressBarProps) => {
 
 // Main Page Component
 function Test() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState<FormData>({
+    transactionType: "",
+  });
+
+  const getTotalSteps = (type: string) => {
+    switch (type) {
+      case "buying":
+        return 6; // Adjust based on your buying flow
+      case "selling":
+        return 7; // Adjust based on your selling flow
+      case "both":
+        return 8; // Adjust based on your buying & selling flow
+      default:
+        return 8;
+    }
+  };
+
+  const handleOptionSelect = (value: string) => {
+    setFormData({ ...formData, transactionType: value });
+    setCurrentStep(2);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
@@ -129,11 +165,17 @@ function Test() {
           <Header />
           <div className="absolute inset-0 from-black/70 via-black/50 to-black/60" />
 
-          {/* content of page */}
           <div className="bg-[#FCFCFB] w-[99%] sm:w-[70%] mx-auto min-h-[615px] rounded my-16 relative p-10 shadow-[0_0_28px_rgba(30,41,59,0.08)]">
-            <InitialStep />
-            {/* progress bar */}
-            <ProgressBar currentStep={1} totalSteps={8} />
+            <ProgressBar
+              currentStep={currentStep}
+              totalSteps={getTotalSteps(formData.transactionType)}
+            />
+            {currentStep === 1 ? (
+              <InitialStep onSelect={handleOptionSelect} />
+            ) : (
+              // Add other steps here based on currentStep and formData.transactionType
+              <div>Next steps will go here</div>
+            )}
           </div>
 
           <Footer />
