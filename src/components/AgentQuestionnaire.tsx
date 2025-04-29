@@ -1412,7 +1412,7 @@ const AgentQuestionnaire = ({
                 )}
               >
                 {type === "compare" ? (
-                  <div className="flex justify-between w-full gap-4 ">
+                  <div className="flex flex-wrap justify-between w-full gap-4 ">
                     <button onClick={prevStep} className="secondary-button">
                       Back
                     </button>
