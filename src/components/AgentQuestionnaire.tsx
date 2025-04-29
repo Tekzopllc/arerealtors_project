@@ -204,15 +204,17 @@ const animationStyles = `
 
   /* Custom form elements */
   .premium-input {
-    transition: all 0.3s ease;
-    border: 1.5px solid rgba(234, 88, 12, 0.2);
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    font-size: 16px;
-    padding: 14px 16px;
-    padding-left: 48px; /* Increased left padding to prevent text overlapping with icon */
     width: 100%;
+    height: 60px;
+    padding: 18px 20px;
+    padding-left: 52px;
+    font-size: 18px;
+    border: 1.5px solid rgba(234, 88, 12, 0.2);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    color: #272727;
   }
   
   .premium-input:hover {
@@ -260,10 +262,10 @@ const animationStyles = `
     background: linear-gradient(145deg, #ea580c, #d24b09);
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 14px 24px;
+    border-radius: 4px;
+    padding: 16px 32px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -307,10 +309,10 @@ const animationStyles = `
     background: white;
     color: #272727;
     border: 1.5px solid rgba(234, 88, 12, 0.2);
-    border-radius: 12px;
-    padding: 13px 24px;
+    border-radius: 4px;
+    padding: 16px 32px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
@@ -463,6 +465,43 @@ const animationStyles = `
     transform: translateY(-50%);
     pointer-events: none;
     z-index: 1;
+  }
+
+  .city-autocomplete-container .css-1s2u09g-control {
+    min-height: 60px !important;
+    padding: 18px 20px !important;
+    padding-left: 52px !important;
+    font-size: 18px !important;
+    border: 1.5px solid rgba(234, 88, 12, 0.2) !important;
+    border-radius: 4px !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02) !important;
+  }
+
+  .phone-input-container input {
+    height: 60px !important;
+    padding: 18px 20px !important;
+    padding-left: 52px !important;
+    font-size: 18px !important;
+    border-radius: 4px !important;
+  }
+
+  .city-autocomplete-container .css-1s2u09g-menu {
+    margin-top: 4px !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(234, 88, 12, 0.2) !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05) !important;
+    padding: 8px !important;
+    background-color: white !important;
+    z-index: 1000 !important;
+  }
+
+  .city-autocomplete-container .css-1n7v3ny-option {
+    padding: 12px !important;
+    font-size: 18px !important;
+    cursor: pointer !important;
+    border-radius: 4px !important;
+    color: #272727 !important;
   }
 `;
 
@@ -941,10 +980,6 @@ const AgentQuestionnaire = ({
 
   // Function to format budget range for display
   const formatBudgetRange = (value: number): string => {
-    if (value >= 2000000) {
-      return "$2M+";
-    }
-
     // Calculate the upper range based on value
     let upperValue;
     if (value < 1000000) {
@@ -1003,7 +1038,7 @@ const AgentQuestionnaire = ({
           )}
           <div className="MessageAgentForm h-full flex flex-col text-[rgba(39,39,39,0.8)] text-sm md:text-base font-normal relative">
             {/* Progress header */}
-            <div className="relative z-[3] bg-[#f8f8f8] border-b border-[rgba(234,88,12,0.1)]">
+            <div className="relative z-[3] bg-[#f8f8f8]">
               <div className="flex items-center justify-between px-6">
                 {!embedded && (
                   <button
@@ -1299,7 +1334,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 {formData.transactionType === "buying"
@@ -1308,64 +1344,62 @@ const AgentQuestionnaire = ({
               </div>
 
               <div className="mt-6">
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center justify-between mb-8 w-full lg:w-[70%] mx-auto">
                   <button
                     onClick={() => {
                       const newValue = Math.max(
                         50000,
                         formData.budget -
-                          (formData.budget < 1000000 ? 50000 : 250000)
+                          (formData.budget <= 1000000 ? 50000 : 250000)
                       );
                       setFormData({ ...formData, budget: newValue });
                     }}
                     className="p-2 transition-shadow bg-white rounded-full shadow-md hover:shadow-lg"
-                    aria-label="Decrease budget"
                   >
                     <Minus className="w-5 h-5 text-[#272727]" />
                   </button>
-                  <p className="text-center text-3xl md:text-4xl font-bold text-[#ea580c]">
+                  <p className="text-3xl font-bold text-center text-black md:text-4xl">
                     {formatBudgetRange(formData.budget)}
                   </p>
                   <button
                     onClick={() => {
                       const newValue = Math.min(
-                        2000000,
+                        5000000,
                         formData.budget +
                           (formData.budget < 1000000 ? 50000 : 250000)
                       );
                       setFormData({ ...formData, budget: newValue });
                     }}
                     className="p-2 transition-shadow bg-white rounded-full shadow-md hover:shadow-lg"
-                    aria-label="Increase budget"
                   >
                     <Plus className="w-5 h-5 text-[#272727]" />
                   </button>
                 </div>
 
                 <div className="px-2 mb-6">
-                  <input
-                    type="range"
-                    min="50000"
-                    max="2000000"
-                    step="1000"
-                    value={formData.budget}
-                    onChange={handleSliderChange}
-                    className="premium-slider"
-                    style={{
-                      background: `linear-gradient(to right, #ea580c 0%, #ea580c ${
-                        ((formData.budget - 50000) / (2000000 - 50000)) * 100
-                      }%, rgba(234, 88, 12, 0.15) ${
-                        ((formData.budget - 50000) / (2000000 - 50000)) * 100
-                      }%, rgba(234, 88, 12, 0.15) 100%)`,
-                    }}
-                  />
-                </div>
-
-                <div className="flex justify-between px-2 text-xs text-gray-500">
-                  <span>$50K</span>
-                  <span>$500K</span>
-                  <span>$1M</span>
-                  <span>$2M+</span>
+                  <div className="w-full lg:w-[70%] mx-auto">
+                    <input
+                      type="range"
+                      min="50000"
+                      max="5000000"
+                      step="1000"
+                      value={formData.budget}
+                      onChange={handleSliderChange}
+                      className="premium-slider"
+                      style={{
+                        height: "10px",
+                        background: `linear-gradient(to right, #ea580c 0%, #ea580c ${
+                          ((formData.budget - 50000) / (5000000 - 50000)) * 100
+                        }%, rgba(234, 88, 12, 0.15) ${
+                          ((formData.budget - 50000) / (5000000 - 50000)) * 100
+                        }%, rgba(234, 88, 12, 0.15) 100%)`,
+                      }}
+                    />
+                    <div className="flex justify-between mt-2">
+                      <span className="text-[18px] text-gray-500">$50K</span>
+                      <span className="text-[18px] text-gray-500">$5M+</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1378,7 +1412,7 @@ const AgentQuestionnaire = ({
                 )}
               >
                 {type === "compare" ? (
-                  <div className="flex justify-between w-full gap-4 ">
+                  <div className="flex flex-wrap justify-between w-full gap-4 ">
                     <button onClick={prevStep} className="secondary-button">
                       Back
                     </button>
@@ -1435,7 +1469,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What kind of property are you selling?
@@ -1500,13 +1535,14 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 Where are you looking to buy?
               </div>
 
-              <p className="mb-6 body-text">
+              <p className="mb-6 text-[18px] text-black text-center">
                 So we can recommend{" "}
                 {formData.transactionType === "buying" ? "seller" : "buyer"}{" "}
                 expert in your area.
@@ -1705,13 +1741,14 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What is the address of your property?
               </div>
 
-              <p className="mb-6 body-text">
+              <p className="mb-6 text-[18px] text-black text-center">
                 Our recommendations are free, No strings attached.
               </p>
 
@@ -1888,7 +1925,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 When do you plan to buy?
@@ -1961,13 +1999,14 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 Where are you looking to buy?
               </div>
 
-              <p className="mb-6 body-text">
+              <p className="mb-6 text-[18px] text-black text-center">
                 So we can recommend{" "}
                 {formData.transactionType === "buying" ? "seller" : "buyer"}{" "}
                 expert in your area.
@@ -2160,7 +2199,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What's your Mortgage Status?
@@ -2233,7 +2273,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What's your name?
@@ -2354,7 +2395,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What's your email?
@@ -2460,7 +2502,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What's your phone number?
