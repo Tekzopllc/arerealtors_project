@@ -2,10 +2,11 @@ import { useState } from "react";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/layout/Header";
 import { cn } from "../../lib/utility";
-import { Check } from "lucide-react";
+import { Check, Plus, Minus } from "lucide-react";
 import BuyingIcon from "./svg/sell.svg";
 import SellingIcon from "./svg/home.svg";
 import BothIcon from "./svg/both.svg";
+import "./test.css";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -26,6 +27,124 @@ const options = [
   { text: "I'm Selling", icon: BuyingIcon, value: "selling" },
   { text: "I'm Buying & Selling", icon: BothIcon, value: "both" },
 ];
+
+const formatCurrency = (value: number): string => {
+  if (value >= 1000000) {
+    return `$${(value / 1000000).toFixed(1)}M`;
+  } else if (value >= 1000) {
+    return `$${(value / 1000).toFixed(0)}K`;
+  }
+  return `$${value}`;
+};
+
+interface StepProps {
+  onNext: () => void;
+  onBack: () => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
+}
+
+const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    let adjustedValue;
+    if (value < 1000000) {
+      adjustedValue = Math.round(value / 50000) * 50000;
+    } else {
+      adjustedValue = Math.round(value / 250000) * 250000;
+    }
+    setFormData({ ...formData, budget: adjustedValue });
+  };
+
+  const incrementPrice = () => {
+    if (!formData.budget) return;
+    const increment = formData.budget < 1000000 ? 50000 : 250000;
+    const newValue = Math.min(5000000, formData.budget + increment);
+    setFormData({ ...formData, budget: newValue });
+  };
+
+  const decrementPrice = () => {
+    if (!formData.budget) return;
+    const decrement = formData.budget <= 1000000 ? 50000 : 250000;
+    const newValue = Math.max(100000, formData.budget - decrement);
+    setFormData({ ...formData, budget: newValue });
+  };
+
+  return (
+    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+      <div className="flex-1">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+          What price are you <br /> hoping to buy at?
+        </h1>
+
+        <div className="mt-16">
+          <div className="flex items-center justify-between mb-8 w-full lg:w-[70%] mx-auto">
+            <button
+              onClick={decrementPrice}
+              className="p-2 transition-shadow bg-white rounded-full shadow-md hover:shadow-lg"
+            >
+              <Minus className="w-5 h-5 text-[#272727]" />
+            </button>
+            <p className="text-3xl font-bold text-center text-black md:text-[44px]">
+              {formData.budget
+                ? `${formatCurrency(formData.budget)} - ${formatCurrency(
+                    formData.budget +
+                      (formData.budget < 1000000 ? 50000 : 250000)
+                  )}`
+                : "$600K - $650K"}
+            </p>
+            <button
+              onClick={incrementPrice}
+              className="p-2 transition-shadow bg-white rounded-full shadow-md hover:shadow-lg"
+            >
+              <Plus className="w-5 h-5 text-[#272727]" />
+            </button>
+          </div>
+
+          <div className="px-2 mb-6">
+            <div className="w-full lg:w-[70%] mx-auto">
+              <input
+                type="range"
+                min="100000"
+                max="5000000"
+                step="1000"
+                value={formData.budget || 600000}
+                onChange={handleSliderChange}
+                className="w-full h-2 bg-[rgba(234,88,12,0.2)] rounded-lg appearance-none cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #EA580C 0%, #EA580C ${
+                    ((formData.budget || 600000) / 5000000) * 100
+                  }%, rgba(234, 88, 12, 0.2) ${
+                    ((formData.budget || 600000) / 5000000) * 100
+                  }%)`,
+                }}
+              />
+              <div className="flex justify-between mt-2">
+                <span className="text-[18px] text-gray-500">$100K</span>
+                <span className="text-[18px] text-gray-500">$5M+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-between w-full py-6 mt-auto">
+        <button
+          onClick={onBack}
+          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+        >
+          Back
+        </button>
+        <button
+          onClick={onNext}
+          className="px-12 py-4 text-[20px] font-semibold text-white bg-[#EA580C] rounded transition-all hover:bg-[#EA580C]/90"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const InitialStep = ({ onSelect }: { onSelect: (value: string) => void }) => {
   return (
@@ -132,6 +251,7 @@ function Test() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     transactionType: "",
+    budget: 600000,
   });
 
   const getTotalSteps = (type: string) => {
@@ -150,6 +270,14 @@ function Test() {
   const handleOptionSelect = (value: string) => {
     setFormData({ ...formData, transactionType: value });
     setCurrentStep(2);
+  };
+
+  const handleNext = () => {
+    setCurrentStep((prev) => prev + 1);
+  };
+
+  const handleBack = () => {
+    setCurrentStep((prev) => prev - 1);
   };
 
   return (
@@ -173,8 +301,12 @@ function Test() {
             {currentStep === 1 ? (
               <InitialStep onSelect={handleOptionSelect} />
             ) : (
-              // Add other steps here based on currentStep and formData.transactionType
-              <div>Next steps will go here</div>
+              <PriceRange
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
             )}
           </div>
 
