@@ -5,6 +5,7 @@ export default {
     extend: {
       screens: {
         xxs: "425px",
+        xxss: "470px",
       },
       fontSize: {
         lg: ["1.5rem", "2rem"], // Modifying text-lg to be larger with adjusted line height

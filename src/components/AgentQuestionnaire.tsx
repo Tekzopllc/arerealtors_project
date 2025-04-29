@@ -231,53 +231,29 @@ const animationStyles = `
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    background: linear-gradient(145deg, rgba(234, 88, 12, 0.95), rgba(234, 88, 12, 0.85));
-    color: white;
+    background: white;
+    color: #272727;
     border-radius: 12px;
-    border: none;
+    border: 1.5px solid rgba(234, 88, 12, 0.2);
     font-weight: 500;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+    transition: all 0.3s ease;
   }
   
   .option-button:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.25);
+    border-color: #ea580c;
+    color: #ea580c;
   }
   
   .option-button:active {
-    transform: translateY(1px);
+    border-color: #ea580c;
+    color: #ea580c;
   }
-  
-  .option-button::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      120deg,
-      transparent 0%,
-      transparent 40%,
-      rgba(255, 255, 255, 0.15) 50%,
-      transparent 60%,
-      transparent 100%
-    );
-    transition: all 0.6s ease;
-    transform: translateX(-100%);
-  }
-  
-  .option-button:hover::after {
-    transform: translateX(100%);
-  }
-  
+
   .selected-option {
-    background: linear-gradient(145deg, rgba(234, 88, 12, 1), rgba(210, 75, 9, 0.9));
-    transform: scale(1.03);
-    box-shadow: 0 8px 25px rgba(234, 88, 12, 0.3);
+    border-color: #ea580c;
+    color: #ea580c;
   }
 
   .primary-button {
@@ -1086,11 +1062,9 @@ const AgentQuestionnaire = ({
                 <button
                   onClick={() => handleTransactionTypeSelect("buying")}
                   className={cn(
-                    "option-button group",
-                    type === "compare"
-                      ? "bg-white h-fit py-8 px-6"
-                      : "!py-11 px-6",
-                    formData.transactionType === "buying" && "selected-option"
+                    "relative bg-white rounded-xl border-2 border-gray-200 hover:border-[#ea580c] transition-all duration-300 hover:shadow-lg group",
+                    type === "compare" ? "py-8 px-6" : "py-11 px-6",
+                    formData.transactionType === "buying" && "border-[#ea580c]"
                   )}
                 >
                   <div
@@ -1103,8 +1077,9 @@ const AgentQuestionnaire = ({
                   >
                     <div
                       className={cn(
-                        "flex items-center justify-center transition-all rounded-full bg-white/20 group-hover:bg-white/30",
-                        type === "compare" ? "w-16 h-16" : "w-12 h-12"
+                        "flex items-center justify-center transition-all rounded-full bg-gray-100",
+                        type === "compare" ? "w-16 h-16" : "w-12 h-12",
+                        formData.transactionType === "buying" && "!bg-orange-50"
                       )}
                     >
                       <svg
@@ -1113,7 +1088,12 @@ const AgentQuestionnaire = ({
                         height={type === "compare" ? "32" : "24"}
                         viewBox="0 0 24 24"
                         fill="none"
-                        stroke="currentColor"
+                        stroke={
+                          formData.transactionType === "buying"
+                            ? "#ea580c"
+                            : "#6B7280"
+                        }
+                        className="transition-colors duration-300 group-hover:stroke-[#ea580c]"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1127,49 +1107,32 @@ const AgentQuestionnaire = ({
                         "flex flex-col",
                         type === "compare"
                           ? "items-center text-center"
-                          : "items-start text-left"
+                          : "items-center sm:items-start text-left"
                       )}
                     >
                       <span
                         className={cn(
-                          "font-semibold",
+                          "font-semibold text-gray-900",
                           type === "compare" ? "text-2xl" : "text-xl"
                         )}
                       >
                         I'm Buying
                       </span>
-                      {type !== "compare" && (
-                        <span className="text-sm font-normal opacity-90">
+                      {!type && (
+                        <span className="text-sm font-normal text-gray-600">
                           Find the best real estate agent to represent you
                         </span>
                       )}
                     </div>
-                    {formData.transactionType === "buying" && (
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="flex-shrink-0"
-                      >
-                        <path
-                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                          fill="white"
-                        />
-                      </svg>
-                    )}
                   </div>
                 </button>
 
                 <button
                   onClick={() => handleTransactionTypeSelect("selling")}
                   className={cn(
-                    "option-button group",
-                    type === "compare"
-                      ? "bg-white h-fit py-8 px-6"
-                      : "!py-11 px-6",
-                    formData.transactionType === "selling" && "selected-option"
+                    "relative bg-white rounded-xl border-2 border-gray-200 hover:border-[#ea580c] transition-all duration-300 hover:shadow-lg group",
+                    type === "compare" ? "py-8 px-6" : "py-11 px-6",
+                    formData.transactionType === "selling" && "border-[#ea580c]"
                   )}
                 >
                   <div
@@ -1182,8 +1145,10 @@ const AgentQuestionnaire = ({
                   >
                     <div
                       className={cn(
-                        "flex items-center justify-center transition-all rounded-full bg-white/20 group-hover:bg-white/30",
-                        type === "compare" ? "w-16 h-16" : "w-12 h-12"
+                        "flex items-center justify-center transition-all rounded-full bg-gray-100",
+                        type === "compare" ? "w-16 h-16" : "w-12 h-12",
+                        formData.transactionType === "selling" &&
+                          "!bg-orange-50"
                       )}
                     >
                       <svg
@@ -1192,7 +1157,12 @@ const AgentQuestionnaire = ({
                         height={type === "compare" ? "32" : "24"}
                         viewBox="0 0 24 24"
                         fill="none"
-                        stroke="currentColor"
+                        stroke={
+                          formData.transactionType === "selling"
+                            ? "#ea580c"
+                            : "#6B7280"
+                        }
+                        className="transition-colors duration-300 group-hover:stroke-[#ea580c]"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1206,49 +1176,32 @@ const AgentQuestionnaire = ({
                         "flex flex-col",
                         type === "compare"
                           ? "items-center text-center"
-                          : "items-start text-left"
+                          : "items-center sm:items-start text-left"
                       )}
                     >
                       <span
                         className={cn(
-                          "font-semibold",
+                          "font-semibold text-gray-900",
                           type === "compare" ? "text-2xl" : "text-xl"
                         )}
                       >
                         I'm Selling
                       </span>
-                      {type !== "compare" && (
-                        <span className="text-sm font-normal opacity-90">
+                      {!type && (
+                        <span className="text-sm font-normal text-gray-600">
                           A top REALTOR will sell your home fast
                         </span>
                       )}
                     </div>
-                    {formData.transactionType === "selling" && (
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="flex-shrink-0"
-                      >
-                        <path
-                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                          fill="white"
-                        />
-                      </svg>
-                    )}
                   </div>
                 </button>
 
                 <button
                   onClick={() => handleTransactionTypeSelect("both")}
                   className={cn(
-                    "option-button group",
-                    type === "compare"
-                      ? "bg-white h-fit py-8 px-6"
-                      : "!py-11 px-6",
-                    formData.transactionType === "both" && "selected-option"
+                    "relative bg-white rounded-xl border-2 border-gray-200 hover:border-[#ea580c] transition-all duration-300 hover:shadow-lg group",
+                    type === "compare" ? "py-8 px-6" : "py-11 px-6",
+                    formData.transactionType === "both" && "border-[#ea580c]"
                   )}
                 >
                   <div
@@ -1261,8 +1214,9 @@ const AgentQuestionnaire = ({
                   >
                     <div
                       className={cn(
-                        "flex items-center justify-center transition-all rounded-full bg-white/20 group-hover:bg-white/30",
-                        type === "compare" ? "w-16 h-16" : "w-12 h-12"
+                        "flex items-center justify-center transition-all rounded-full bg-gray-100",
+                        type === "compare" ? "w-16 h-16" : "w-12 h-12",
+                        formData.transactionType === "both" && "!bg-orange-50"
                       )}
                     >
                       <svg
@@ -1271,7 +1225,12 @@ const AgentQuestionnaire = ({
                         height={type === "compare" ? "32" : "24"}
                         viewBox="0 0 24 24"
                         fill="none"
-                        stroke="currentColor"
+                        stroke={
+                          formData.transactionType === "both"
+                            ? "#ea580c"
+                            : "#6B7280"
+                        }
+                        className="transition-colors duration-300 group-hover:stroke-[#ea580c]"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1287,53 +1246,41 @@ const AgentQuestionnaire = ({
                         "flex flex-col",
                         type === "compare"
                           ? "items-center text-center"
-                          : "items-start text-left"
+                          : "items-center sm:items-start text-left"
                       )}
                     >
                       <span
                         className={cn(
-                          "font-semibold",
+                          "font-semibold text-gray-900",
                           type === "compare" ? "text-2xl" : "text-xl"
                         )}
                       >
                         I'm Buying & Selling
                       </span>
-                      {type !== "compare" && (
-                        <span className="text-sm font-normal opacity-90">
+                      {!type && (
+                        <span className="text-sm font-normal text-gray-600">
                           Top rated realtor can support your journey
                         </span>
                       )}
                     </div>
-                    {formData.transactionType === "both" && (
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="flex-shrink-0"
-                      >
-                        <path
-                          d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                          fill="white"
-                        />
-                      </svg>
-                    )}
                   </div>
                 </button>
               </div>
               {type === "compare" && (
-                <div className="mt-2 mb-4 text-center">
+                <div className="px-2 mt-2 mb-4 text-center sm:px-0">
                   {[
                     "We've worked with over 10k happy home buyers & sellers",
                     "We only recommend the top agents in your area",
                     "Get a free custom list of top agents in your area in less than 2 minutes",
                   ].map((option) => (
-                    <div key={option} className="flex items-center gap-3 mb-2">
-                      <div className="bg-[#0CB182] rounded-full p-1">
+                    <div
+                      key={option}
+                      className="flex items-start gap-2 mb-3 text-left sm:items-center sm:gap-3 sm:text-center"
+                    >
+                      <div className="bg-[#0CB182] rounded-full p-1 shrink-0">
                         <Check className="w-4 h-4 text-white" />
                       </div>
-                      <span className="text-[11px] sm:text-[18px] text-[#272727]">
+                      <span className="text-[12px] sm:text-[18px] text-[#272727] leading-snug sm:leading-normal">
                         {option}
                       </span>
                     </div>
@@ -1347,7 +1294,7 @@ const AgentQuestionnaire = ({
               className={`${
                 currentStep === 2 ? "block animate-fadeInRight" : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -1424,10 +1371,10 @@ const AgentQuestionnaire = ({
 
               <div
                 className={cn(
-                  "pb-6 mt-auto",
+                  "pb-6 mt-auto flex-wrap",
                   type === "compare"
                     ? "flex flex-col gap-4 items-stretch"
-                    : "flex items-center justify-between"
+                    : "flex gap-4 xxss:gap-0 items-center justify-between"
                 )}
               >
                 {type === "compare" ? (
@@ -1435,7 +1382,7 @@ const AgentQuestionnaire = ({
                     <button onClick={prevStep} className="secondary-button">
                       Back
                     </button>
-                    <div className="space-x-5">
+                    <div className="flex flex-wrap gap-4">
                       <button
                         onClick={() => {
                           setFormData({ ...formData, budget: 0 });
@@ -1455,7 +1402,7 @@ const AgentQuestionnaire = ({
                     <button onClick={prevStep} className="secondary-button">
                       Back
                     </button>
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap gap-4">
                       <button
                         onClick={() => {
                           setFormData({ ...formData, budget: 0 });
@@ -1483,7 +1430,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -1548,7 +1495,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -1753,7 +1700,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -1936,7 +1883,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[15px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2009,7 +1956,7 @@ const AgentQuestionnaire = ({
                   formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
-              } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              } flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2208,7 +2155,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2281,7 +2228,7 @@ const AgentQuestionnaire = ({
                 (currentStep === 6 && formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
-              } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              } flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2402,7 +2349,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2508,7 +2455,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2520,16 +2467,19 @@ const AgentQuestionnaire = ({
               </div>
 
               {type === "compare" && (
-                <div className="mt-2 mb-4 text-center">
+                <div className="px-2 mt-2 mb-4 text-center sm:px-0">
                   {[
                     "A phone consultation with your recommended agents is the best way to get help",
                     "We or your carefully selected agents may call you to assist with your transaction",
                   ].map((option) => (
-                    <div key={option} className="flex items-center gap-3 mb-2">
-                      <div className="bg-[#0CB182] rounded-full p-1">
+                    <div
+                      key={option}
+                      className="flex items-start gap-2 mb-3 text-left sm:items-center sm:gap-3 sm:text-center"
+                    >
+                      <div className="bg-[#0CB182] rounded-full p-1 shrink-0">
                         <Check className="w-4 h-4 text-white" />
                       </div>
-                      <span className="text-[11px] sm:text-[18px] text-[#272727]">
+                      <span className="text-[12px] sm:text-[18px] text-[#272727] leading-snug sm:leading-normal">
                         {option}
                       </span>
                     </div>
@@ -2649,7 +2599,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
                 Are you also looking to sell a home?
