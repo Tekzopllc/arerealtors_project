@@ -1308,64 +1308,62 @@ const AgentQuestionnaire = ({
               </div>
 
               <div className="mt-6">
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center justify-between mb-8 w-full lg:w-[70%] mx-auto">
                   <button
                     onClick={() => {
                       const newValue = Math.max(
                         50000,
                         formData.budget -
-                          (formData.budget < 1000000 ? 50000 : 250000)
+                          (formData.budget <= 1000000 ? 50000 : 250000)
                       );
                       setFormData({ ...formData, budget: newValue });
                     }}
                     className="p-2 transition-shadow bg-white rounded-full shadow-md hover:shadow-lg"
-                    aria-label="Decrease budget"
                   >
                     <Minus className="w-5 h-5 text-[#272727]" />
                   </button>
-                  <p className="text-center text-3xl md:text-4xl font-bold text-[#ea580c]">
+                  <p className="text-3xl font-bold text-center text-black md:text-4xl">
                     {formatBudgetRange(formData.budget)}
                   </p>
                   <button
                     onClick={() => {
                       const newValue = Math.min(
-                        2000000,
+                        5000000,
                         formData.budget +
                           (formData.budget < 1000000 ? 50000 : 250000)
                       );
                       setFormData({ ...formData, budget: newValue });
                     }}
                     className="p-2 transition-shadow bg-white rounded-full shadow-md hover:shadow-lg"
-                    aria-label="Increase budget"
                   >
                     <Plus className="w-5 h-5 text-[#272727]" />
                   </button>
                 </div>
 
                 <div className="px-2 mb-6">
-                  <input
-                    type="range"
-                    min="50000"
-                    max="2000000"
-                    step="1000"
-                    value={formData.budget}
-                    onChange={handleSliderChange}
-                    className="premium-slider"
-                    style={{
-                      background: `linear-gradient(to right, #ea580c 0%, #ea580c ${
-                        ((formData.budget - 50000) / (2000000 - 50000)) * 100
-                      }%, rgba(234, 88, 12, 0.15) ${
-                        ((formData.budget - 50000) / (2000000 - 50000)) * 100
-                      }%, rgba(234, 88, 12, 0.15) 100%)`,
-                    }}
-                  />
-                </div>
-
-                <div className="flex justify-between px-2 text-xs text-gray-500">
-                  <span>$50K</span>
-                  <span>$500K</span>
-                  <span>$1M</span>
-                  <span>$2M+</span>
+                  <div className="w-full lg:w-[70%] mx-auto">
+                    <input
+                      type="range"
+                      min="50000"
+                      max="5000000"
+                      step="1000"
+                      value={formData.budget}
+                      onChange={handleSliderChange}
+                      className="premium-slider"
+                      style={{
+                        height: "10px",
+                        background: `linear-gradient(to right, #ea580c 0%, #ea580c ${
+                          ((formData.budget - 50000) / (5000000 - 50000)) * 100
+                        }%, rgba(234, 88, 12, 0.15) ${
+                          ((formData.budget - 50000) / (5000000 - 50000)) * 100
+                        }%, rgba(234, 88, 12, 0.15) 100%)`,
+                      }}
+                    />
+                    <div className="flex justify-between mt-2">
+                      <span className="text-[18px] text-gray-500">$50K</span>
+                      <span className="text-[18px] text-gray-500">$5M+</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1506,7 +1504,7 @@ const AgentQuestionnaire = ({
                 Where are you looking to buy?
               </div>
 
-              <p className="mb-6 body-text">
+              <p className="mb-6 text-center body-text">
                 So we can recommend{" "}
                 {formData.transactionType === "buying" ? "seller" : "buyer"}{" "}
                 expert in your area.
@@ -1711,7 +1709,7 @@ const AgentQuestionnaire = ({
                 What is the address of your property?
               </div>
 
-              <p className="mb-6 body-text">
+              <p className="mb-6 text-center body-text">
                 Our recommendations are free, No strings attached.
               </p>
 
@@ -1967,7 +1965,7 @@ const AgentQuestionnaire = ({
                 Where are you looking to buy?
               </div>
 
-              <p className="mb-6 body-text">
+              <p className="mb-6 text-center body-text">
                 So we can recommend{" "}
                 {formData.transactionType === "buying" ? "seller" : "buyer"}{" "}
                 expert in your area.
