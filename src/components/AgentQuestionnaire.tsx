@@ -260,10 +260,10 @@ const animationStyles = `
     background: linear-gradient(145deg, #ea580c, #d24b09);
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 14px 24px;
+    border-radius: 4px;
+    padding: 16px 32px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -307,10 +307,10 @@ const animationStyles = `
     background: white;
     color: #272727;
     border: 1.5px solid rgba(234, 88, 12, 0.2);
-    border-radius: 12px;
-    padding: 13px 24px;
+    border-radius: 4px;
+    padding: 16px 32px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
