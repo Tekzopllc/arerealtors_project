@@ -1395,10 +1395,10 @@ const AgentQuestionnaire = ({
 
               <div
                 className={cn(
-                  "pb-6 mt-auto",
+                  "pb-6 mt-auto flex-wrap",
                   type === "compare"
                     ? "flex flex-col gap-4 items-stretch"
-                    : "flex items-center justify-between"
+                    : "flex gap-4 xxss:gap-0 items-center justify-between"
                 )}
               >
                 {type === "compare" ? (
@@ -1406,7 +1406,7 @@ const AgentQuestionnaire = ({
                     <button onClick={prevStep} className="secondary-button">
                       Back
                     </button>
-                    <div className="space-x-5">
+                    <div className="flex flex-wrap gap-4">
                       <button
                         onClick={() => {
                           setFormData({ ...formData, budget: 0 });
@@ -1426,7 +1426,7 @@ const AgentQuestionnaire = ({
                     <button onClick={prevStep} className="secondary-button">
                       Back
                     </button>
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap gap-4">
                       <button
                         onClick={() => {
                           setFormData({ ...formData, budget: 0 });
