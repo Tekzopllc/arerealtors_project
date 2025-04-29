@@ -980,10 +980,6 @@ const AgentQuestionnaire = ({
 
   // Function to format budget range for display
   const formatBudgetRange = (value: number): string => {
-    if (value >= 2000000) {
-      return "$2M+";
-    }
-
     // Calculate the upper range based on value
     let upperValue;
     if (value < 1000000) {
