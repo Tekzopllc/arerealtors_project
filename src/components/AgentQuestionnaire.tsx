@@ -1334,7 +1334,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 {formData.transactionType === "buying"
@@ -1468,7 +1469,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What kind of property are you selling?
@@ -1533,7 +1535,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 Where are you looking to buy?
@@ -1738,7 +1741,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What is the address of your property?
@@ -1921,7 +1925,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 When do you plan to buy?
@@ -1994,7 +1999,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 Where are you looking to buy?
@@ -2193,7 +2199,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What's your Mortgage Status?
@@ -2266,7 +2273,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What's your name?
@@ -2387,7 +2395,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What's your email?
@@ -2493,7 +2502,8 @@ const AgentQuestionnaire = ({
               <div
                 className={cn(
                   "text-xl heading-text md:text-2xl lg:text-3xl mb-6",
-                  "!text-[32px] md:!text-[42px] !text-center"
+                  "!text-[32px] md:!text-[42px] !text-center",
+                  type === "compare" && "!mt-[50px] sm:!mt-[100px]"
                 )}
               >
                 What's your phone number?
