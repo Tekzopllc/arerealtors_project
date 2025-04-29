@@ -23,6 +23,19 @@ export default {
           DEFAULT: "#1A1A1A",
           light: "#333333",
         },
+        orange: {
+          DEFAULT: "#EA580C",
+          50: "#FEF3EE",
+          100: "#FDE3D5",
+          200: "#FBC7AB",
+          300: "#F9A982",
+          400: "#F78B58",
+          500: "#EA580C", // Our main orange color
+          600: "#C54A0A",
+          700: "#9F3C08",
+          800: "#792E06",
+          900: "#541F04",
+        },
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
