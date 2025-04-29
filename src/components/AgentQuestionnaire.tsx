@@ -1098,7 +1098,7 @@ const AgentQuestionnaire = ({
                       "flex w-full gap-4",
                       type === "compare"
                         ? "flex-col items-center justify-center"
-                        : "flex-col items-center sm:flex-row sm:justify-start"
+                        : "flex-col items-center  sm:flex-row sm:justify-start"
                     )}
                   >
                     <div
@@ -1127,7 +1127,7 @@ const AgentQuestionnaire = ({
                         "flex flex-col",
                         type === "compare"
                           ? "items-center text-center"
-                          : "items-start text-left"
+                          : "items-center sm:items-start text-left"
                       )}
                     >
                       <span
@@ -1206,7 +1206,7 @@ const AgentQuestionnaire = ({
                         "flex flex-col",
                         type === "compare"
                           ? "items-center text-center"
-                          : "items-start text-left"
+                          : "items-center sm:items-start text-left"
                       )}
                     >
                       <span
@@ -1287,7 +1287,7 @@ const AgentQuestionnaire = ({
                         "flex flex-col",
                         type === "compare"
                           ? "items-center text-center"
-                          : "items-start text-left"
+                          : "items-center sm:items-start text-left"
                       )}
                     >
                       <span
@@ -1323,17 +1323,20 @@ const AgentQuestionnaire = ({
                 </button>
               </div>
               {type === "compare" && (
-                <div className="mt-2 mb-4 text-center">
+                <div className="px-2 mt-2 mb-4 text-center sm:px-0">
                   {[
                     "We've worked with over 10k happy home buyers & sellers",
                     "We only recommend the top agents in your area",
                     "Get a free custom list of top agents in your area in less than 2 minutes",
                   ].map((option) => (
-                    <div key={option} className="flex items-center gap-3 mb-2">
-                      <div className="bg-[#0CB182] rounded-full p-1">
+                    <div
+                      key={option}
+                      className="flex items-start gap-2 mb-3 text-left sm:items-center sm:gap-3 sm:text-center"
+                    >
+                      <div className="bg-[#0CB182] rounded-full p-1 shrink-0">
                         <Check className="w-4 h-4 text-white" />
                       </div>
-                      <span className="text-[11px] sm:text-[18px] text-[#272727]">
+                      <span className="text-[12px] sm:text-[18px] text-[#272727] leading-snug sm:leading-normal">
                         {option}
                       </span>
                     </div>
@@ -1347,7 +1350,7 @@ const AgentQuestionnaire = ({
               className={`${
                 currentStep === 2 ? "block animate-fadeInRight" : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -1483,7 +1486,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -1548,7 +1551,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -1753,7 +1756,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -1936,7 +1939,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[15px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2009,7 +2012,7 @@ const AgentQuestionnaire = ({
                   formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
-              } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              } flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2208,7 +2211,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2281,7 +2284,7 @@ const AgentQuestionnaire = ({
                 (currentStep === 6 && formData.transactionType === "both")
                   ? "block animate-fadeInRight"
                   : "hidden"
-              } absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              } flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2402,7 +2405,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2508,7 +2511,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div
                 className={cn(
@@ -2520,16 +2523,19 @@ const AgentQuestionnaire = ({
               </div>
 
               {type === "compare" && (
-                <div className="mt-2 mb-4 text-center">
+                <div className="px-2 mt-2 mb-4 text-center sm:px-0">
                   {[
                     "A phone consultation with your recommended agents is the best way to get help",
                     "We or your carefully selected agents may call you to assist with your transaction",
                   ].map((option) => (
-                    <div key={option} className="flex items-center gap-3 mb-2">
-                      <div className="bg-[#0CB182] rounded-full p-1">
+                    <div
+                      key={option}
+                      className="flex items-start gap-2 mb-3 text-left sm:items-center sm:gap-3 sm:text-center"
+                    >
+                      <div className="bg-[#0CB182] rounded-full p-1 shrink-0">
                         <Check className="w-4 h-4 text-white" />
                       </div>
-                      <span className="text-[11px] sm:text-[18px] text-[#272727]">
+                      <span className="text-[12px] sm:text-[18px] text-[#272727] leading-snug sm:leading-normal">
                         {option}
                       </span>
                     </div>
@@ -2649,7 +2655,7 @@ const AgentQuestionnaire = ({
                   ? "block animate-fadeInRight"
                   : "hidden"
               }
-              absolute top-[65px] left-0 right-0 bottom-0 flex flex-col px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
+              flex flex-col w-full h-full px-6 pt-4 md:px-10 md:pt-6 overflow-hidden`}
             >
               <div className="mb-6 text-xl heading-text md:text-2xl lg:text-3xl">
                 Are you also looking to sell a home?
