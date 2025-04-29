@@ -11,6 +11,7 @@ export default {
         lg: ["1.5rem", "2rem"], // Modifying text-lg to be larger with adjusted line height
       },
       colors: {
+        customblack: "#272727",
         modalprimary: "#ea580c",
         "modalprimary-dark": "#d24b09",
         modalsecondary: "#272727",
