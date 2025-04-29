@@ -231,53 +231,29 @@ const animationStyles = `
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    background: linear-gradient(145deg, rgba(234, 88, 12, 0.95), rgba(234, 88, 12, 0.85));
-    color: white;
+    background: white;
+    color: #272727;
     border-radius: 12px;
-    border: none;
+    border: 1.5px solid rgba(234, 88, 12, 0.2);
     font-weight: 500;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+    transition: all 0.3s ease;
   }
   
   .option-button:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.25);
+    border-color: #ea580c;
+    color: #ea580c;
   }
   
   .option-button:active {
-    transform: translateY(1px);
+    border-color: #ea580c;
+    color: #ea580c;
   }
-  
-  .option-button::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      120deg,
-      transparent 0%,
-      transparent 40%,
-      rgba(255, 255, 255, 0.15) 50%,
-      transparent 60%,
-      transparent 100%
-    );
-    transition: all 0.6s ease;
-    transform: translateX(-100%);
-  }
-  
-  .option-button:hover::after {
-    transform: translateX(100%);
-  }
-  
+
   .selected-option {
-    background: linear-gradient(145deg, rgba(234, 88, 12, 1), rgba(210, 75, 9, 0.9));
-    transform: scale(1.03);
-    box-shadow: 0 8px 25px rgba(234, 88, 12, 0.3);
+    border-color: #ea580c;
+    color: #ea580c;
   }
 
   .primary-button {
