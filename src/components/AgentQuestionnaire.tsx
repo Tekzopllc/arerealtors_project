@@ -204,15 +204,17 @@ const animationStyles = `
 
   /* Custom form elements */
   .premium-input {
-    transition: all 0.3s ease;
-    border: 1.5px solid rgba(234, 88, 12, 0.2);
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    font-size: 16px;
-    padding: 14px 16px;
-    padding-left: 48px; /* Increased left padding to prevent text overlapping with icon */
     width: 100%;
+    height: 60px;
+    padding: 18px 20px;
+    padding-left: 52px;
+    font-size: 18px;
+    border: 1.5px solid rgba(234, 88, 12, 0.2);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    color: #272727;
   }
   
   .premium-input:hover {
@@ -463,6 +465,43 @@ const animationStyles = `
     transform: translateY(-50%);
     pointer-events: none;
     z-index: 1;
+  }
+
+  .city-autocomplete-container .css-1s2u09g-control {
+    min-height: 60px !important;
+    padding: 18px 20px !important;
+    padding-left: 52px !important;
+    font-size: 18px !important;
+    border: 1.5px solid rgba(234, 88, 12, 0.2) !important;
+    border-radius: 4px !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02) !important;
+  }
+
+  .phone-input-container input {
+    height: 60px !important;
+    padding: 18px 20px !important;
+    padding-left: 52px !important;
+    font-size: 18px !important;
+    border-radius: 4px !important;
+  }
+
+  .city-autocomplete-container .css-1s2u09g-menu {
+    margin-top: 4px !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(234, 88, 12, 0.2) !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05) !important;
+    padding: 8px !important;
+    background-color: white !important;
+    z-index: 1000 !important;
+  }
+
+  .city-autocomplete-container .css-1n7v3ny-option {
+    padding: 12px !important;
+    font-size: 18px !important;
+    cursor: pointer !important;
+    border-radius: 4px !important;
+    color: #272727 !important;
   }
 `;
 
@@ -1003,7 +1042,7 @@ const AgentQuestionnaire = ({
           )}
           <div className="MessageAgentForm h-full flex flex-col text-[rgba(39,39,39,0.8)] text-sm md:text-base font-normal relative">
             {/* Progress header */}
-            <div className="relative z-[3] bg-[#f8f8f8] border-b border-[rgba(234,88,12,0.1)]">
+            <div className="relative z-[3] bg-[#f8f8f8]">
               <div className="flex items-center justify-between px-6">
                 {!embedded && (
                   <button
@@ -1504,7 +1543,7 @@ const AgentQuestionnaire = ({
                 Where are you looking to buy?
               </div>
 
-              <p className="mb-6 text-center body-text">
+              <p className="mb-6 text-[18px] text-black text-center">
                 So we can recommend{" "}
                 {formData.transactionType === "buying" ? "seller" : "buyer"}{" "}
                 expert in your area.
@@ -1709,7 +1748,7 @@ const AgentQuestionnaire = ({
                 What is the address of your property?
               </div>
 
-              <p className="mb-6 text-center body-text">
+              <p className="mb-6 text-[18px] text-black text-center">
                 Our recommendations are free, No strings attached.
               </p>
 
@@ -1965,7 +2004,7 @@ const AgentQuestionnaire = ({
                 Where are you looking to buy?
               </div>
 
-              <p className="mb-6 text-center body-text">
+              <p className="mb-6 text-[18px] text-black text-center">
                 So we can recommend{" "}
                 {formData.transactionType === "buying" ? "seller" : "buyer"}{" "}
                 expert in your area.
