@@ -70,6 +70,67 @@ interface PropertyAddressProps {
   setFormData: (data: FormData) => void;
 }
 
+const LookingBuying = ({
+  onNext,
+  onBack,
+  formData,
+  setFormData,
+}: StepProps) => {
+  const [cityName, setCityName] = useState(formData.location || "");
+
+  const handleNext = () => {
+    if (cityName.trim()) {
+      setFormData({ ...formData, location: cityName.trim() });
+      onNext();
+    }
+  };
+
+  return (
+    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+      <div className="flex-1">
+        <div className="text-center">
+          <h1 className="text-[40px] font-semibold text-customblack mt-10">
+            Where are you looking to buy?
+          </h1>
+          <p className="text-[20px] text-customblack mt-4">
+            So we can recommend buyer experts in your area.
+          </p>
+        </div>
+
+        <div className="mt-12 w-full max-w-[600px] mx-auto px-4">
+          <input
+            type="text"
+            value={cityName}
+            onChange={(e) => setCityName(e.target.value)}
+            placeholder="Enter city name"
+            className="w-full h-[60px] px-6 text-[18px] border-2 border-[#E0E0E0] rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all"
+          />
+        </div>
+      </div>
+
+      <div className="flex justify-between w-full py-6 mt-auto">
+        <button
+          onClick={onBack}
+          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+        >
+          Back
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={!cityName.trim()}
+          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+            cityName.trim()
+              ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const PropertyAddress = ({
   onNext,
   onBack,
@@ -77,14 +138,12 @@ const PropertyAddress = ({
   setFormData,
 }: PropertyAddressProps) => {
   const [streetAddress, setStreetAddress] = useState(formData.address || "");
-  const [suite, setSuite] = useState(formData.suite || "");
 
   const handleNext = () => {
     if (streetAddress.trim()) {
       setFormData({
         ...formData,
         address: streetAddress.trim(),
-        suite: suite.trim(),
       });
       onNext();
     }
@@ -103,26 +162,15 @@ const PropertyAddress = ({
           So we can recommend experts who have sold similar properties.
         </p>
 
-        <div className="mt-12 w-full max-w-[800px] mx-auto px-4">
-          <div className="grid grid-cols-[1fr,auto] gap-x-4">
-            <div>
-              <input
-                type="text"
-                value={streetAddress}
-                onChange={(e) => setStreetAddress(e.target.value)}
-                placeholder="Street Address"
-                className="w-full h-[60px] px-6 text-[18px] border-2 border-[#E0E0E0] rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all"
-              />
-            </div>
-            <div className="w-[200px]">
-              <input
-                type="text"
-                value={suite}
-                onChange={(e) => setSuite(e.target.value)}
-                placeholder="Suite or Apt"
-                className="w-full h-[60px] px-6 text-[18px] border-2 border-[#E0E0E0] rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all"
-              />
-            </div>
+        <div className="px-4 mx-auto mt-12 w-[80%]">
+          <div>
+            <input
+              type="text"
+              value={streetAddress}
+              onChange={(e) => setStreetAddress(e.target.value)}
+              placeholder="Street Address"
+              className="w-full h-[60px] px-6 text-[18px] border-2 border-[#E0E0E0] rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all"
+            />
           </div>
         </div>
       </div>
@@ -871,7 +919,7 @@ function Test() {
               />
             )}
             {currentStep === 3 && (
-              <CityName
+              <LookingBuying
                 onNext={handleNext}
                 onBack={handleBack}
                 formData={formData}
@@ -879,7 +927,7 @@ function Test() {
               />
             )}
             {currentStep === 4 && (
-              <BuyHome
+              <CityName
                 onNext={handleNext}
                 onBack={handleBack}
                 formData={formData}
@@ -887,7 +935,7 @@ function Test() {
               />
             )}
             {currentStep === 5 && (
-              <MortgageStatus
+              <BuyHome
                 onNext={handleNext}
                 onBack={handleBack}
                 formData={formData}
@@ -895,7 +943,7 @@ function Test() {
               />
             )}
             {currentStep === 6 && (
-              <FullName
+              <MortgageStatus
                 onNext={handleNext}
                 onBack={handleBack}
                 formData={formData}
@@ -903,7 +951,7 @@ function Test() {
               />
             )}
             {currentStep === 7 && (
-              <Email
+              <FullName
                 onNext={handleNext}
                 onBack={handleBack}
                 formData={formData}
@@ -911,6 +959,14 @@ function Test() {
               />
             )}
             {currentStep === 8 && (
+              <Email
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            )}
+            {currentStep === 9 && (
               <PhoneNumber
                 onNext={handleNext}
                 onBack={handleBack}
@@ -919,7 +975,7 @@ function Test() {
               />
             )}
 
-            {currentStep === 9 && (
+            {currentStep === 10 && (
               <SellingProperty
                 onSelect={(type) =>
                   setFormData({ ...formData, propertyType: type })
@@ -928,7 +984,7 @@ function Test() {
               />
             )}
 
-            {currentStep === 10 && (
+            {currentStep === 11 && (
               <PropertyAddress
                 onNext={handleNext}
                 onBack={handleBack}
