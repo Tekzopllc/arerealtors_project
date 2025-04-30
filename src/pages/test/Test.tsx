@@ -8,6 +8,8 @@ import SellingIcon from "./svg/home.svg";
 import BothIcon from "./svg/both.svg";
 import "./test.css";
 import PhoneInput from "react-phone-input-2";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { geocodeByAddress } from "react-google-places-autocomplete";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -99,13 +101,134 @@ const LookingBuying = ({
         </div>
 
         <div className="mt-12 w-full max-w-[600px] mx-auto px-4">
-          <input
-            type="text"
-            value={cityName}
-            onChange={(e) => setCityName(e.target.value)}
-            placeholder="Enter city name"
-            className="w-full h-[60px] px-6 text-[18px] border-2 border-[#E0E0E0] rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all"
-          />
+          <div className="relative">
+            <div className="absolute z-10 -translate-y-1/2 left-6 top-1/2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-[#ea580c]"
+              >
+                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <GooglePlacesAutocomplete
+              selectProps={{
+                placeholder: "Enter city name...",
+                value: cityName ? { label: cityName, value: cityName } : null,
+                onChange: async (place) => {
+                  if (!place) {
+                    setCityName("");
+                    return;
+                  }
+
+                  try {
+                    const results = await geocodeByAddress(place.label);
+                    if (results && results.length > 0) {
+                      const cityComponent = results[0].address_components.find(
+                        (component) => component.types.includes("locality")
+                      );
+
+                      if (cityComponent) {
+                        const cityName = `${cityComponent.long_name}, USA`;
+                        setCityName(cityName);
+                      } else {
+                        setCityName(place.label);
+                      }
+                    } else {
+                      setCityName(place.label);
+                    }
+                  } catch (error) {
+                    console.error("Error geocoding address:", error);
+                    setCityName(place.label);
+                  }
+                },
+                onBlur: () => {
+                  if (!cityName) {
+                    setCityName("");
+                  }
+                },
+                components: {
+                  DropdownIndicator: () => null,
+                  IndicatorSeparator: () => null,
+                },
+                openMenuOnClick: false,
+                openMenuOnFocus: false,
+                filterOption: (option, inputValue) => {
+                  return (
+                    option.label
+                      .toLowerCase()
+                      .includes(inputValue.toLowerCase()) &&
+                    !option.label.match(/\d/) &&
+                    option.label.includes(", USA")
+                  );
+                },
+                noOptionsMessage: ({ inputValue }) =>
+                  inputValue ? "No cities found" : null,
+                styles: {
+                  control: (provided) => ({
+                    ...provided,
+                    minHeight: "60px",
+                    padding: "18px 20px",
+                    paddingLeft: "52px",
+                    fontSize: "18px",
+                    border: "2px solid #E0E0E0",
+                    borderRadius: "5px",
+                    boxShadow: "none",
+                    "&:hover": {
+                      borderColor: "#EA580C",
+                    },
+                    "&:focus-within": {
+                      borderColor: "#EA580C",
+                      boxShadow: "none",
+                    },
+                  }),
+                  menu: (provided) => ({
+                    ...provided,
+                    marginTop: "4px",
+                    borderRadius: "5px",
+                    border: "2px solid #E0E0E0",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                    zIndex: 20,
+                  }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    padding: "12px",
+                    cursor: "pointer",
+                    backgroundColor: state.isFocused
+                      ? "rgba(234, 88, 12, 0.1)"
+                      : "transparent",
+                    color: "#272727",
+                    fontSize: "18px",
+                    "&:hover": {
+                      backgroundColor: "rgba(234, 88, 12, 0.1)",
+                    },
+                  }),
+                  input: (provided) => ({
+                    ...provided,
+                    margin: "0",
+                    padding: "0",
+                  }),
+                  valueContainer: (provided) => ({
+                    ...provided,
+                    padding: "0",
+                  }),
+                },
+              }}
+              apiKey={import.meta.env.VITE_GOOGLE_API_KEY}
+              autocompletionRequest={{
+                types: ["(cities)"],
+                componentRestrictions: { country: "us" },
+              }}
+            />
+          </div>
         </div>
       </div>
 
@@ -164,13 +287,124 @@ const PropertyAddress = ({
         </p>
 
         <div className="px-4 mx-auto mt-12 w-[80%]">
-          <div>
-            <input
-              type="text"
-              value={streetAddress}
-              onChange={(e) => setStreetAddress(e.target.value)}
-              placeholder="Street Address"
-              className="w-full h-[60px] px-6 text-[18px] border-2 border-[#E0E0E0] rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all"
+          <div className="relative">
+            <div className="absolute z-10 -translate-y-1/2 left-6 top-1/2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-[#ea580c]"
+              >
+                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <GooglePlacesAutocomplete
+              selectProps={{
+                placeholder: "Enter property address...",
+                value: streetAddress
+                  ? { label: streetAddress, value: streetAddress }
+                  : null,
+                onChange: async (place) => {
+                  if (!place) {
+                    setStreetAddress("");
+                    return;
+                  }
+
+                  try {
+                    const results = await geocodeByAddress(place.label);
+                    if (results && results.length > 0) {
+                      setStreetAddress(place.label);
+                    } else {
+                      setStreetAddress(place.label);
+                    }
+                  } catch (error) {
+                    console.error("Error geocoding address:", error);
+                    setStreetAddress(place.label);
+                  }
+                },
+                onBlur: () => {
+                  if (!streetAddress) {
+                    setStreetAddress("");
+                  }
+                },
+                components: {
+                  DropdownIndicator: () => null,
+                  IndicatorSeparator: () => null,
+                },
+                openMenuOnClick: false,
+                openMenuOnFocus: false,
+                filterOption: (option, inputValue) => {
+                  return (
+                    option.label
+                      .toLowerCase()
+                      .includes(inputValue.toLowerCase()) &&
+                    option.label.includes(", USA")
+                  );
+                },
+                noOptionsMessage: ({ inputValue }) =>
+                  inputValue ? "No addresses found" : null,
+                styles: {
+                  control: (provided) => ({
+                    ...provided,
+                    minHeight: "60px",
+                    padding: "18px 20px",
+                    paddingLeft: "52px",
+                    fontSize: "18px",
+                    border: "2px solid #E0E0E0",
+                    borderRadius: "5px",
+                    boxShadow: "none",
+                    "&:hover": {
+                      borderColor: "#EA580C",
+                    },
+                    "&:focus-within": {
+                      borderColor: "#EA580C",
+                      boxShadow: "none",
+                    },
+                  }),
+                  menu: (provided) => ({
+                    ...provided,
+                    marginTop: "4px",
+                    borderRadius: "5px",
+                    border: "2px solid #E0E0E0",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                    zIndex: 20,
+                  }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    padding: "12px",
+                    cursor: "pointer",
+                    backgroundColor: state.isFocused
+                      ? "rgba(234, 88, 12, 0.1)"
+                      : "transparent",
+                    color: "#272727",
+                    fontSize: "18px",
+                    "&:hover": {
+                      backgroundColor: "rgba(234, 88, 12, 0.1)",
+                    },
+                  }),
+                  input: (provided) => ({
+                    ...provided,
+                    margin: "0",
+                    padding: "0",
+                  }),
+                  valueContainer: (provided) => ({
+                    ...provided,
+                    padding: "0",
+                  }),
+                },
+              }}
+              apiKey={import.meta.env.VITE_GOOGLE_API_KEY}
+              autocompletionRequest={{
+                types: ["address"],
+                componentRestrictions: { country: "us" },
+              }}
             />
           </div>
         </div>
@@ -200,6 +434,13 @@ const PropertyAddress = ({
 };
 
 const SellingProperty = ({ onSelect, onBack }: SellingPropertyProps) => {
+  const [selectedType, setSelectedType] = useState("");
+
+  const handleSelect = (type: string) => {
+    setSelectedType(type);
+    onSelect(type);
+  };
+
   return (
     <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
       <div className="flex-1">
@@ -213,8 +454,12 @@ const SellingProperty = ({ onSelect, onBack }: SellingPropertyProps) => {
           {propertyTypes.map((type) => (
             <button
               key={type.id}
-              onClick={() => onSelect(type.id)}
-              className="w-full p-6 text-[20px] font-medium text-[#585F69] text-center border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] hover:shadow-[0_0_28px_rgba(30,41,59,0.08)]"
+              onClick={() => handleSelect(type.id)}
+              className={`w-full p-6 text-[20px] font-medium text-[#585F69] text-center border-2 ${
+                selectedType === type.id
+                  ? "border-[#EA580C]"
+                  : "border-[#E0E0E0]"
+              } rounded-[5px] transition-all duration-300 hover:border-[#EA580C] hover:shadow-[0_0_28px_rgba(30,41,59,0.08)]`}
             >
               {type.label}
             </button>
@@ -502,7 +747,12 @@ const FullName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         </button>
         <button
           onClick={onNext}
-          className="px-12 py-4 text-[20px] font-semibold text-white bg-[#EA580C] rounded transition-all hover:bg-[#EA580C]/90"
+          disabled={!formData.firstName?.trim() || !formData.lastName?.trim()}
+          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+            formData.firstName?.trim() && formData.lastName?.trim()
+              ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
         >
           Next
         </button>
@@ -556,7 +806,7 @@ const MortgageStatus = ({
         </div>
       </div>
 
-      <div className="flex justify-between w-full py-6 mt-auto">
+      <div className="flex justify-start w-full py-6 mt-auto">
         <button
           onClick={onBack}
           className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
@@ -609,7 +859,7 @@ const BuyHome = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         </div>
       </div>
 
-      <div className="flex justify-between w-full py-6 mt-auto">
+      <div className="flex justify-start w-full py-6 mt-auto">
         <button
           onClick={onBack}
           className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
@@ -714,7 +964,12 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         </button>
         <button
           onClick={onNext}
-          className="px-12 py-4 text-[20px] font-semibold text-white bg-[#EA580C] rounded transition-all hover:bg-[#EA580C]/90"
+          disabled={!formData.budget}
+          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+            formData.budget
+              ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
         >
           Next
         </button>
@@ -724,22 +979,155 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
 };
 
 const CityName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
+  const [cityName, setCityName] = useState(formData.location || "");
+
+  const handleNext = () => {
+    if (cityName.trim()) {
+      setFormData({ ...formData, location: cityName.trim() });
+      onNext();
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
       <div className="flex-1">
         <div className="text-center">
-          <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+          <h1 className="text-[40px] font-semibold text-customblack mt-10">
             Where would you <br /> like to buy?
           </h1>
         </div>
 
         <div className="mt-8">
           <div className="w-full lg:w-[70%] mx-auto">
-            <input
-              type="text"
-              placeholder="Enter city name"
-              className="w-full h-[60px] px-6 text-[18px] border-2 border-[#E0E0E0] rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all"
-            />
+            <div className="relative">
+              <div className="absolute z-10 -translate-y-1/2 left-6 top-1/2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-[#ea580c]"
+                >
+                  <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <GooglePlacesAutocomplete
+                selectProps={{
+                  placeholder: "Enter city name...",
+                  value: cityName ? { label: cityName, value: cityName } : null,
+                  onChange: async (place) => {
+                    if (!place) {
+                      setCityName("");
+                      return;
+                    }
+
+                    try {
+                      const results = await geocodeByAddress(place.label);
+                      if (results && results.length > 0) {
+                        const cityComponent =
+                          results[0].address_components.find((component) =>
+                            component.types.includes("locality")
+                          );
+
+                        if (cityComponent) {
+                          const cityName = `${cityComponent.long_name}, USA`;
+                          setCityName(cityName);
+                        } else {
+                          setCityName(place.label);
+                        }
+                      } else {
+                        setCityName(place.label);
+                      }
+                    } catch (error) {
+                      console.error("Error geocoding address:", error);
+                      setCityName(place.label);
+                    }
+                  },
+                  onBlur: () => {
+                    if (!cityName) {
+                      setCityName("");
+                    }
+                  },
+                  components: {
+                    DropdownIndicator: () => null,
+                    IndicatorSeparator: () => null,
+                  },
+                  openMenuOnClick: false,
+                  openMenuOnFocus: false,
+                  filterOption: (option, inputValue) => {
+                    return (
+                      option.label
+                        .toLowerCase()
+                        .includes(inputValue.toLowerCase()) &&
+                      !option.label.match(/\d/) &&
+                      option.label.includes(", USA")
+                    );
+                  },
+                  noOptionsMessage: ({ inputValue }) =>
+                    inputValue ? "No cities found" : null,
+                  styles: {
+                    control: (provided) => ({
+                      ...provided,
+                      minHeight: "60px",
+                      padding: "18px 20px",
+                      paddingLeft: "52px",
+                      fontSize: "18px",
+                      border: "2px solid #E0E0E0",
+                      borderRadius: "5px",
+                      boxShadow: "none",
+                      "&:hover": {
+                        borderColor: "#EA580C",
+                      },
+                      "&:focus-within": {
+                        borderColor: "#EA580C",
+                        boxShadow: "none",
+                      },
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      marginTop: "4px",
+                      borderRadius: "5px",
+                      border: "2px solid #E0E0E0",
+                      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                      zIndex: 20,
+                    }),
+                    option: (provided, state) => ({
+                      ...provided,
+                      padding: "12px",
+                      cursor: "pointer",
+                      backgroundColor: state.isFocused
+                        ? "rgba(234, 88, 12, 0.1)"
+                        : "transparent",
+                      color: "#272727",
+                      fontSize: "18px",
+                      "&:hover": {
+                        backgroundColor: "rgba(234, 88, 12, 0.1)",
+                      },
+                    }),
+                    input: (provided) => ({
+                      ...provided,
+                      margin: "0",
+                      padding: "0",
+                    }),
+                    valueContainer: (provided) => ({
+                      ...provided,
+                      padding: "0",
+                    }),
+                  },
+                }}
+                apiKey={import.meta.env.VITE_GOOGLE_API_KEY}
+                autocompletionRequest={{
+                  types: ["(cities)"],
+                  componentRestrictions: { country: "us" },
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -752,8 +1140,13 @@ const CityName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
           Back
         </button>
         <button
-          onClick={onNext}
-          className="px-12 py-4 text-[20px] font-semibold text-white bg-[#EA580C] rounded transition-all hover:bg-[#EA580C]/90"
+          onClick={handleNext}
+          disabled={!cityName.trim()}
+          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+            cityName.trim()
+              ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
         >
           Next
         </button>
