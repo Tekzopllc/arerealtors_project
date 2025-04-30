@@ -1335,7 +1335,10 @@ const ProgressBar = ({ currentStep, totalSteps }: ProgressBarProps) => {
             }}
           >
             <div
-              className={cn("relative mt-2", currentStep === totalSteps && "")}
+              className={cn(
+                "relative mt-2",
+                currentStep === totalSteps && "me-24 xxs:me-20 md:me-12 lg:me-8"
+              )}
             >
               <div className="absolute w-3 h-3 transform rotate-45 -translate-x-1/2 bg-orange-500 left-1/2 -top-1" />
               <div className="min-w-[120px] inline-flex items-center justify-center px-4 py-1 text-[16px] text-[#EA580C] font-semibold border border-orange-500 rounded-full bg-white relative">
