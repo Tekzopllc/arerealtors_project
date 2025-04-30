@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/layout/Header";
 import { cn } from "../../lib/utility";
@@ -10,6 +10,7 @@ import "./test.css";
 import PhoneInput from "react-phone-input-2";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { geocodeByAddress } from "react-google-places-autocomplete";
+import { getCityFromUrl } from "../../utils/urlUtils";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -58,6 +59,7 @@ interface StepProps {
   onBack: () => void;
   formData: FormData;
   setFormData: (data: FormData) => void;
+  utmCity?: string;
 }
 
 interface SellingPropertyProps {
@@ -78,8 +80,9 @@ const LookingBuying = ({
   onBack,
   formData,
   setFormData,
+  utmCity,
 }: StepProps) => {
-  const [cityName, setCityName] = useState(formData.location || "");
+  const [cityName, setCityName] = useState(formData.location || utmCity || "");
 
   const handleNext = () => {
     if (cityName.trim()) {
@@ -988,8 +991,14 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   );
 };
 
-const CityName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
-  const [cityName, setCityName] = useState(formData.location || "");
+const CityName = ({
+  onNext,
+  onBack,
+  formData,
+  setFormData,
+  utmCity,
+}: StepProps) => {
+  const [cityName, setCityName] = useState(formData.location || utmCity || "");
 
   const handleNext = () => {
     if (cityName.trim()) {
@@ -1268,6 +1277,16 @@ function Test() {
     transactionType: "",
     budget: 600000,
   });
+  const [utmCity, setUtmCity] = useState("");
+
+  console.log(utmCity, "utm");
+
+  useEffect(() => {
+    (async () => {
+      const response = await getCityFromUrl();
+      setUtmCity(response);
+    })();
+  }, []);
 
   const getTotalSteps = (type: string) => {
     switch (type) {
@@ -1327,6 +1346,7 @@ function Test() {
                 onBack={handleBack}
                 formData={formData}
                 setFormData={setFormData}
+                utmCity={utmCity}
               />
             );
           case 4:
@@ -1458,6 +1478,7 @@ function Test() {
                 onBack={handleBack}
                 formData={formData}
                 setFormData={setFormData}
+                utmCity={utmCity}
               />
             );
           case 6:
