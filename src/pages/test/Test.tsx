@@ -293,11 +293,11 @@ const PropertyAddress = ({
           of your property?
         </h1>
 
-        <p className="text-[20px] text-customblack text-center mt-4">
+        <p className="text-[14px] md:text-[20px] text-customblack text-center mt-4">
           So we can recommend experts who have sold similar properties.
         </p>
 
-        <div className="px-4 mx-auto mt-12 w-[80%]">
+        <div className="px-4 mx-auto mt-12 w-full md:w-[80%]">
           <div className="relative">
             <div className="absolute z-10 -translate-y-1/2 left-6 top-1/2">
               <svg
@@ -461,12 +461,12 @@ const SellingProperty = ({ onSelect, onBack }: SellingPropertyProps) => {
           are you selling?
         </h1>
 
-        <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-4 w-full max-w-[800px] mx-auto px-4">
+        <div className="mt-8 lg:mt-12 grid md:grid-cols-2 gap-x-8 gap-y-4 w-full max-w-[800px] mx-auto px-4">
           {propertyTypes.map((type) => (
             <button
               key={type.id}
               onClick={() => handleSelect(type.id)}
-              className={`w-full p-6 text-[20px] font-medium text-[#585F69] text-center border-2 ${
+              className={`w-full p-4 md:p-6 text-[14px] lg:text-[20px] font-medium text-[#585F69] text-center border-2 ${
                 selectedType === type.id
                   ? "border-[#EA580C]"
                   : "border-[#E0E0E0]"
@@ -1011,7 +1011,7 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
               setFormData({ ...formData, notSure: true });
               onNext();
             }}
-            className="w-full px-12 py-4 text-[20px] font-semibold text-[#EA580C] bg-white border-2 rounded transition-all border-[#EA580C]"
+            className="w-full px-12 py-4 text-[20px] font-semibold text-[#EA580C] bg-white rounded transition-all border-[#EA580C]"
           >
             Not Sure
           </button>
