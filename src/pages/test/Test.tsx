@@ -89,10 +89,10 @@ const LookingBuying = ({
   };
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
         <div className="text-center">
-          <h1 className="text-[40px] font-semibold text-customblack mt-10">
+          <h1 className="text-[40px] font-semibold text-customblack mt-2">
             Where are you looking to buy?
           </h1>
           <p className="text-[20px] text-customblack mt-4">
@@ -274,9 +274,9 @@ const PropertyAddress = ({
   };
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
           What is the address
           <br />
           of your property?
@@ -442,9 +442,9 @@ const SellingProperty = ({ onSelect, onBack }: SellingPropertyProps) => {
   };
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
           What kind of property
           <br />
           are you selling?
@@ -507,9 +507,9 @@ const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
           What's your phone number?
         </h1>
 
@@ -619,9 +619,9 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
           What's your email?
         </h1>
 
@@ -705,9 +705,9 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
 
 const FullName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
           What's your name?
         </h1>
         <p className="text-[20px] text-customblack text-center mt-4">
@@ -781,9 +781,9 @@ const MortgageStatus = ({
   };
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
           What is your <br /> Mortgage Status?
         </h1>
 
@@ -834,9 +834,9 @@ const BuyHome = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
           When do you plan <br /> to buy a home?
         </h1>
 
@@ -898,9 +898,9 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="relative flex flex-col">
-      <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
+      <div className="">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
           What price are you hoping to buy at?
         </h1>
 
@@ -989,10 +989,10 @@ const CityName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
         <div className="text-center">
-          <h1 className="text-[40px] font-semibold text-customblack mt-10">
+          <h1 className="text-[40px] font-semibold text-customblack mt-2">
             Where would you <br /> like to buy?
           </h1>
         </div>
@@ -1494,7 +1494,12 @@ function Test() {
         >
           <Header />
 
-          <div className="bg-[#FCFCFB] w-[99%] sm:w-[72%] mx-auto min-h-[615px] rounded my-16 relative p-16 shadow-[0_0_28px_rgba(30,41,59,0.08)]">
+          <div
+            className={cn(
+              "bg-[#FCFCFB] w-[99%] sm:w-[72%] mx-auto min-h-[615px] rounded my-16 relative  shadow-[0_0_28px_rgba(30,41,59,0.08)]",
+              currentStep === 1 ? "p-16" : "px-16 pt-16"
+            )}
+          >
             <ProgressBar
               currentStep={currentStep}
               totalSteps={getTotalSteps(formData.transactionType)}
