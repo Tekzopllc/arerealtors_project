@@ -89,7 +89,7 @@ const LookingBuying = ({
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <div className="text-center">
           <h1 className="text-[40px] font-semibold text-customblack mt-10">
@@ -274,7 +274,7 @@ const PropertyAddress = ({
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
           What is the address
@@ -442,7 +442,7 @@ const SellingProperty = ({ onSelect, onBack }: SellingPropertyProps) => {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
           What kind of property
@@ -507,7 +507,7 @@ const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
           What's your phone number?
@@ -619,7 +619,7 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
           What's your email?
@@ -705,7 +705,7 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
 
 const FullName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
           What's your name?
@@ -781,7 +781,7 @@ const MortgageStatus = ({
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
           What is your <br /> Mortgage Status?
@@ -834,7 +834,7 @@ const BuyHome = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
           When do you plan <br /> to buy a home?
@@ -898,7 +898,7 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
           What price are you hoping to buy at?
@@ -989,7 +989,7 @@ const CityName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+    <div className="relative flex flex-col">
       <div className="flex-1">
         <div className="text-center">
           <h1 className="text-[40px] font-semibold text-customblack mt-10">
@@ -1493,7 +1493,6 @@ function Test() {
           }}
         >
           <Header />
-          <div className="absolute inset-0 from-black/70 via-black/50 to-black/60" />
 
           <div className="bg-[#FCFCFB] w-[99%] sm:w-[72%] mx-auto min-h-[615px] rounded my-16 relative p-16 shadow-[0_0_28px_rgba(30,41,59,0.08)]">
             <ProgressBar
@@ -1502,10 +1501,9 @@ function Test() {
             />
             {renderStep()}
           </div>
-
-          <Footer />
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
