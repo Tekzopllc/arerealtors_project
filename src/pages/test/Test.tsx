@@ -1627,7 +1627,11 @@ function Test() {
               "bg-[#FCFCFB] w-[98%] xxs:w-[95%] xl:w-[72%] mx-auto min-h-[615px] my-5 rounded md:my-10 lg:my-16 relative  shadow-[0_0_28px_rgba(30,41,59,0.08)]",
               currentStep === 1
                 ? "p-4 md:p-16"
-                : "px-4 sm:px-6 md:px-16 pt-12 md:pt-16"
+                : "px-4 sm:px-6 md:px-16 pt-12 md:pt-16",
+              ((formData.transactionType === "buying" && currentStep === 8) ||
+                (formData.transactionType === "selling" && currentStep === 7) ||
+                (formData.transactionType === "both" && currentStep === 8)) &&
+                "min-h-[800px] sm:min-h-[615px]"
             )}
           >
             <ProgressBar
