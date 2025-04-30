@@ -1232,7 +1232,7 @@ const CityName = ({
         </div>
       </div>
 
-      <div className="flex justify-between w-full py-6 mt-auto">
+      <div className="flex justify-between w-full gap-4 py-6 mt-auto lg:gap-0">
         <button
           onClick={onBack}
           className="w-1/2 lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
@@ -1242,7 +1242,7 @@ const CityName = ({
         <button
           onClick={handleNext}
           disabled={!cityName.trim()}
-          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+          className={`w-1/2 lg:w-fit px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
             cityName.trim()
               ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
               : "bg-gray-400 cursor-not-allowed"
