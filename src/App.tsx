@@ -53,7 +53,7 @@ function AppContent() {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/adminlogin" element={<AdminLogin />} />
             <Route path="/adminpanel" element={<AdminPanel />} />
-            <Route path="/compare_agents" element={<CompareAgents />} />
+            <Route path="/compare_agents" element={<Test />} />
             <Route path="/test" element={<Test />} />
             <Route path="/thank-you" element={<ThankYou />} />
             <Route
