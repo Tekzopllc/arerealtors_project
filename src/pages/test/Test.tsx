@@ -950,7 +950,8 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="">
         <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
-          What price are you hoping to buy at?
+          What price are you hoping to{" "}
+          {formData.transactionType === "buying" ? "buy" : "sell"} at?
         </h1>
 
         <div className="mt-10 lg:mt-16">
