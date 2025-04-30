@@ -7,6 +7,7 @@ import BuyingIcon from "./svg/sell.svg";
 import SellingIcon from "./svg/home.svg";
 import BothIcon from "./svg/both.svg";
 import "./test.css";
+import PhoneInput from "react-phone-input-2";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -25,7 +26,15 @@ interface FormData {
   lastName?: string;
   email?: string;
   phone?: string;
+  suite?: string;
 }
+
+const propertyTypes = [
+  { id: "single-family", label: "Single Family" },
+  { id: "condo", label: "Condo" },
+  { id: "land-lot", label: "Land/Lot" },
+  { id: "other", label: "Other" },
+];
 
 const options = [
   { text: "I'm Buying", icon: SellingIcon, value: "buying" },
@@ -49,39 +58,155 @@ interface StepProps {
   setFormData: (data: FormData) => void;
 }
 
-const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
-  const [phone, setPhone] = useState(formData.phone || "");
-  const [isValid, setIsValid] = useState(true);
+interface SellingPropertyProps {
+  onSelect: (propertyType: string) => void;
+  onNext: () => void;
+}
 
-  const formatPhoneNumber = (value: string) => {
-    // Remove all non-digits
-    const digits = value.replace(/\D/g, "");
+interface PropertyAddressProps {
+  onNext: () => void;
+  onBack: () => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
+}
 
-    // Format as (XXX) XXX-XXXX
-    if (digits.length <= 3) {
-      return digits;
-    } else if (digits.length <= 6) {
-      return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-    } else {
-      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(
-        6,
-        10
-      )}`;
+const PropertyAddress = ({
+  onNext,
+  onBack,
+  formData,
+  setFormData,
+}: PropertyAddressProps) => {
+  const [streetAddress, setStreetAddress] = useState(formData.address || "");
+  const [suite, setSuite] = useState(formData.suite || "");
+
+  const handleNext = () => {
+    if (streetAddress.trim()) {
+      setFormData({
+        ...formData,
+        address: streetAddress.trim(),
+        suite: suite.trim(),
+      });
+      onNext();
     }
   };
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    const formattedPhone = formatPhoneNumber(input);
-    setPhone(formattedPhone);
+  return (
+    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+      <div className="flex-1">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+          What is the address
+          <br />
+          of your property?
+        </h1>
 
-    // Basic phone validation (10 digits)
-    const digits = input.replace(/\D/g, "");
-    setIsValid(digits.length === 10);
+        <p className="text-[20px] text-customblack text-center mt-4">
+          So we can recommend experts who have sold similar properties.
+        </p>
+
+        <div className="mt-12 w-full max-w-[800px] mx-auto px-4">
+          <div className="grid grid-cols-[1fr,auto] gap-x-4">
+            <div>
+              <input
+                type="text"
+                value={streetAddress}
+                onChange={(e) => setStreetAddress(e.target.value)}
+                placeholder="Street Address"
+                className="w-full h-[60px] px-6 text-[18px] border-2 border-[#E0E0E0] rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all"
+              />
+            </div>
+            <div className="w-[200px]">
+              <input
+                type="text"
+                value={suite}
+                onChange={(e) => setSuite(e.target.value)}
+                placeholder="Suite or Apt"
+                className="w-full h-[60px] px-6 text-[18px] border-2 border-[#E0E0E0] rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-between w-full py-6 mt-auto">
+        <button
+          onClick={onBack}
+          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+        >
+          Back
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={!streetAddress.trim()}
+          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+            streetAddress.trim()
+              ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const SellingProperty = ({ onSelect, onNext }: SellingPropertyProps) => {
+  return (
+    <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
+      <div className="flex-1">
+        <h1 className="text-[40px] font-semibold text-customblack text-center mt-10">
+          What kind of property
+          <br />
+          are you selling?
+        </h1>
+
+        <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-4 w-full max-w-[800px] mx-auto px-4">
+          {propertyTypes.map((type) => (
+            <button
+              key={type.id}
+              onClick={() => {
+                onSelect(type.id);
+                onNext();
+              }}
+              className="w-full p-6 text-[20px] font-medium text-[#585F69] text-center border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] hover:shadow-[0_0_28px_rgba(30,41,59,0.08)]"
+            >
+              {type.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex justify-start w-full py-6 mt-auto">
+        <button className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]">
+          Back
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
+  const [phone, setPhone] = useState(formData.phone || "");
+  const [isValid, setIsValid] = useState(false);
+
+  interface PhoneData {
+    countryCode: string;
+    dialCode: string;
+    format: string;
+    isValid: boolean;
+    name: string;
+    value: string;
+  }
+
+  const handlePhoneChange = (value: string, data: PhoneData) => {
+    setPhone(value);
+    // Check if the phone number has at least 10 digits (excluding country code)
+    const phoneDigits = value.replace(/\D/g, "").slice(1); // Remove country code
+    setIsValid(phoneDigits.length >= 10);
   };
 
   const handleAccept = () => {
-    if (isValid && phone) {
+    if (phone) {
       setFormData({ ...formData, phone });
       onNext();
     }
@@ -94,7 +219,7 @@ const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
           What's your phone number?
         </h1>
 
-        <div className="mt-8 space-y-4">
+        <div className="mx-auto mt-8 space-y-4 w-fit">
           <div className="flex items-center gap-2">
             <div className="bg-[#047857] rounded-full p-1">
               <Check className="w-4 h-4 text-white" />
@@ -119,18 +244,25 @@ const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
           <p className="text-[16px] text-[#585F69] mb-2">
             Please enter your phone number below:
           </p>
-          <div className="relative w-full">
-            <div className="absolute left-0 top-0 bottom-0 flex items-center px-4 border-r-2 border-[#E0E0E0]">
-              <span className="text-[18px] text-[#272727]">🇺🇸 +1</span>
-            </div>
-            <input
-              type="tel"
+          <div className="w-full">
+            <PhoneInput
+              country="us"
               value={phone}
               onChange={handlePhoneChange}
-              placeholder="(XXX) XXX-XXXX"
-              className={`w-full h-[60px] pl-24 pr-6 text-[18px] border-2 ${
-                isValid ? "border-[#E0E0E0]" : "border-red-500"
-              } rounded-[5px] focus:border-[#EA580C] focus:outline-none transition-all`}
+              inputClass="!w-full !h-[60px] !text-[18px]"
+              containerClass="!w-full"
+              buttonClass="!h-[60px] !border-[#E0E0E0]"
+              dropdownClass="!w-[300px] !max-h-[200px] !overflow-y-auto"
+              searchClass="!h-[40px] !py-2 !px-3 !text-[16px] !mb-2"
+              inputProps={{
+                required: true,
+                placeholder: "(XXX) XXX-XXXX",
+              }}
+              enableSearch={true}
+              searchPlaceholder="Search countries..."
+              specialLabel=""
+              disableSearchIcon={false}
+              searchNotFound="No country found"
             />
           </div>
         </div>
@@ -138,9 +270,9 @@ const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         <div className="mt-8">
           <button
             onClick={handleAccept}
-            disabled={!isValid || !phone}
+            disabled={!isValid}
             className={`w-full py-4 text-[20px] font-semibold text-white rounded transition-all ${
-              isValid && phone
+              isValid
                 ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
@@ -199,7 +331,7 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
           What's your email?
         </h1>
 
-        <div className="mt-8 space-y-4">
+        <div className="mx-auto mt-8 space-y-4 w-fit">
           <div className="flex items-center gap-2">
             <div className="bg-[#047857] rounded-full p-1">
               <Check className="w-4 h-4 text-white" />
@@ -250,14 +382,14 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
           </button>
         </div>
 
-        <p className="mt-4 text-[14px] text-[#585F69] text-center">
+        <p className="mt-4 text-[14px] text-[#585F69] text-start">
           By clicking "Next" above, I acknowledge and agree to
           ReferralExchange's{" "}
-          <a href="#" className="text-[#EA580C] hover:underline">
+          <a href="#" className="text-blue-500 hover:underline">
             Terms of Use
           </a>{" "}
           and{" "}
-          <a href="#" className="text-[#EA580C] hover:underline">
+          <a href="#" className="text-blue-500 hover:underline">
             Privacy Policy
           </a>
           , which includes binding arbitration and consent to receive electronic
@@ -780,6 +912,24 @@ function Test() {
             )}
             {currentStep === 8 && (
               <PhoneNumber
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            )}
+
+            {currentStep === 9 && (
+              <SellingProperty
+                onSelect={(type) =>
+                  setFormData({ ...formData, propertyType: type })
+                }
+                onNext={handleNext}
+              />
+            )}
+
+            {currentStep === 10 && (
+              <PropertyAddress
                 onNext={handleNext}
                 onBack={handleBack}
                 formData={formData}
