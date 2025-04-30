@@ -23,12 +23,14 @@ import SocialMediaBlogPost from "./pages/blogpost6";
 import Blogs from "./pages/Blogs";
 import Microsite from "./pages/microsite.tsx";
 import ThankYou from "./pages/ThankYou";
+import Test from "./pages/test/Test.tsx";
 
 function AppContent() {
   const location = useLocation();
   const hideNavbar =
     location.pathname === "/adminlogin" ||
     location.pathname === "/compare_agents" ||
+    location.pathname === "/test" ||
     location.pathname === "/find-realtor" ||
     location.pathname === "/adminpanel";
 
@@ -51,7 +53,8 @@ function AppContent() {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/adminlogin" element={<AdminLogin />} />
             <Route path="/adminpanel" element={<AdminPanel />} />
-            <Route path="/compare_agents" element={<CompareAgents />} />
+            <Route path="/compare_agents" element={<Test />} />
+            <Route path="/test" element={<Test />} />
             <Route path="/thank-you" element={<ThankYou />} />
             <Route
               path="/blog/market-trends"
