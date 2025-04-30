@@ -11,6 +11,8 @@ import PhoneInput from "react-phone-input-2";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { geocodeByAddress } from "react-google-places-autocomplete";
 import { getCityFromUrl } from "../../utils/urlUtils";
+import { createClient } from "@supabase/supabase-js";
+import { useNavigate } from "react-router-dom";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -75,6 +77,11 @@ interface PropertyAddressProps {
   formData: FormData;
   setFormData: (data: FormData) => void;
 }
+
+// Initialize Supabase client
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const LookingBuying = ({
   onNext,
@@ -483,30 +490,73 @@ const SellingProperty = ({ onSelect, onBack }: SellingPropertyProps) => {
   );
 };
 
-const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
+const PhoneNumber = ({ onBack, formData, setFormData }: StepProps) => {
   const [phone, setPhone] = useState(formData.phone || "");
   const [isValid, setIsValid] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  interface PhoneData {
-    countryCode: string;
-    dialCode: string;
-    format: string;
-    isValid: boolean;
-    name: string;
-    value: string;
-  }
-
-  const handlePhoneChange = (value: string, data: PhoneData) => {
+  const handlePhoneChange = (value: string) => {
     setPhone(value);
-    // Check if the phone number has at least 10 digits (excluding country code)
-    const phoneDigits = value.replace(/\D/g, "").slice(1); // Remove country code
+    const phoneDigits = value.replace(/\D/g, "").slice(1);
     setIsValid(phoneDigits.length >= 10);
   };
 
-  const handleAccept = () => {
-    if (phone) {
+  const formatPhoneNumber = (phone: string) => {
+    return phone.replace(/\D/g, "");
+  };
+
+  const handleAccept = async () => {
+    if (!phone || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Update form data with phone
       setFormData({ ...formData, phone });
-      onNext();
+
+      const budget = formData.budget || 600000;
+
+      // Format the data for Supabase
+      const submissionData = {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formatPhoneNumber(phone),
+        budget:
+          budget < 1000000
+            ? `${budget} - ${budget + 50000}`
+            : `${budget} - ${budget + 250000}`,
+        location: formData.location,
+        propertytype: formData.propertyType,
+        timeframe: formData.timeframe,
+        transaction_type: formData.transactionType,
+        mortgage_status: formData.mortgageStatus || null,
+        address: formData.address || null,
+        created_at: new Date().toISOString(),
+        type: formData.transactionType,
+        not_sure: formData.notSure || false,
+      };
+
+      // Insert data into Supabase
+      const { error } = await supabase
+        .from("submitted_data")
+        .insert([submissionData]);
+
+      if (error) {
+        console.error("Error submitting form:", error);
+        setSubmitError("Failed to submit your information. Please try again.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Redirect to thank you page
+      navigate("/thank-you");
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      setSubmitError("An unexpected error occurred. Please try again.");
+      setIsSubmitting(false);
     }
   };
 
@@ -568,15 +618,20 @@ const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         <div className="mt-8">
           <button
             onClick={handleAccept}
-            disabled={!isValid}
+            disabled={!isValid || isSubmitting}
             className={`w-full py-4 text-[20px] font-semibold text-white rounded transition-all ${
-              isValid
+              isValid && !isSubmitting
                 ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Accept
+            {isSubmitting ? "Submitting..." : "Accept"}
           </button>
+          {submitError && (
+            <p className="mt-2 text-sm text-center text-red-500">
+              {submitError}
+            </p>
+          )}
         </div>
 
         <p className="mt-4 text-[14px] text-[#585F69] text-start">
@@ -594,6 +649,7 @@ const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
       <div className="flex justify-start w-full py-6 mt-auto">
         <button
           onClick={onBack}
+          disabled={isSubmitting}
           className="w-1/2 lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
@@ -700,17 +756,6 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
           className="w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
-        </button>
-        <button
-          onClick={handleNext}
-          disabled={!isValid || !email}
-          className={`w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
-            isValid && email
-              ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
-              : "bg-gray-400 cursor-not-allowed"
-          }`}
-        >
-          Next
         </button>
       </div>
     </div>
