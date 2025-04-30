@@ -567,28 +567,28 @@ const PhoneNumber = ({ onBack, formData, setFormData }: StepProps) => {
           What's your phone number?
         </h1>
 
-        <div className="mx-auto mt-8 space-y-4 w-fit">
+        <div className="mx-auto mt-4 space-y-4 md:mt-8 w-fit">
           <div className="flex items-center gap-2">
             <div className="bg-[#047857] rounded-full p-1">
-              <Check className="w-4 h-4 text-white" />
+              <Check className="w-3 h-3 text-white md:w-4 md:h-4" />
             </div>
-            <p className="text-[18px] text-[#272727]">
+            <p className="text-[13px] md:text-[18px] text-[#272727]">
               A phone consultation with your recommended agents is the best way
               to get help
             </p>
           </div>
           <div className="flex items-center gap-2">
             <div className="bg-[#047857] rounded-full p-1">
-              <Check className="w-4 h-4 text-white" />
+              <Check className="w-3 h-3 text-white md:w-4 md:h-4 " />
             </div>
-            <p className="text-[18px] text-[#272727]">
+            <p className="text-[13px] md:text-[18px] text-[#272727]">
               We or your carefully selected agents may call you to assist with
               your transaction
             </p>
           </div>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-4 md:mt-8">
           <p className="text-[16px] text-[#585F69] mb-2">
             Please enter your phone number below:
           </p>
@@ -615,7 +615,7 @@ const PhoneNumber = ({ onBack, formData, setFormData }: StepProps) => {
           </div>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-4 md:mt-8">
           <button
             onClick={handleAccept}
             disabled={!isValid || isSubmitting}
@@ -644,16 +644,6 @@ const PhoneNumber = ({ onBack, formData, setFormData }: StepProps) => {
           listed on a corporate, state or federal Do-Not-Call list. Consent is
           not a condition for our service and you can revoke it at any time.
         </p>
-      </div>
-
-      <div className="flex justify-start w-full py-6 mt-auto">
-        <button
-          onClick={onBack}
-          disabled={isSubmitting}
-          className="w-1/2 lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
-        >
-          Back
-        </button>
       </div>
     </div>
   );
@@ -684,20 +674,20 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
           What's your email?
         </h1>
 
-        <div className="mx-auto mt-8 space-y-4 w-fit">
+        <div className="mx-auto mt-4 space-y-4 md:mt-8 w-fit">
           <div className="flex items-center gap-2">
             <div className="bg-[#047857] rounded-full p-1">
-              <Check className="w-4 h-4 text-white" />
+              <Check className="w-3 h-3 text-white md:w-4 md:h-4" />
             </div>
-            <p className="text-[18px] text-[#272727]">
+            <p className="text-[13px] md:text-[18px] text-[#272727]">
               Get a list of great local agents in your inbox today
             </p>
           </div>
           <div className="flex items-center gap-2">
             <div className="bg-[#047857] rounded-full p-1">
-              <Check className="w-4 h-4 text-white" />
+              <Check className="w-3 h-3 text-white md:w-4 md:h-4" />
             </div>
-            <p className="text-[18px] text-[#272727]">
+            <p className="text-[13px] md:text-[18px] text-[#272727]">
               We or your carefully selected agents may email you to help with
               your transaction
             </p>
@@ -769,12 +759,12 @@ const FullName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
           What's your name?
         </h1>
-        <p className="text-[20px] text-customblack text-center mt-4">
+        <p className="text-[13px] md:text-[20px] text-customblack text-center mt-4">
           Our recommendations are free. No strings attached.
         </p>
 
         <div className="mt-8">
-          <div className="grid w-full grid-cols-2 mx-auto gap-x-6">
+          <div className="grid w-full mx-auto md:grid-cols-2 gap-x-6 gap-y-4">
             <input
               type="text"
               placeholder="First Name"
@@ -846,13 +836,13 @@ const MortgageStatus = ({
           What is your <br /> Mortgage Status?
         </h1>
 
-        <div className="mt-8">
-          <div className="grid w-[80%] mx-auto grid-cols-2 gap-x-8 gap-y-4">
+        <div className="mt-4 md:mt-8">
+          <div className="grid w-full md:w-[80%] mx-auto md:grid-cols-2 gap-x-8 gap-y-2 md:gap-y-4">
             {mortgageOptions.map((option) => (
               <button
                 key={option}
                 onClick={() => handleMortgageSelect(option)}
-                className={`p-6 text-[20px] font-medium text-[#585F69] text-center border-2 ${
+                className={`p-3 md:p-6 text-[14px] md:text-[20px] font-medium text-[#585F69] text-center border-2 ${
                   formData.mortgageStatus === option
                     ? "border-[#EA580C]"
                     : "border-[#E0E0E0]"
@@ -899,13 +889,13 @@ const BuyHome = ({ onNext, onBack, formData, setFormData }: StepProps) => {
           When do you plan <br /> to buy a home?
         </h1>
 
-        <div className="mt-8">
-          <div className="grid w-[80%] mx-auto grid-cols-2 gap-x-8 gap-y-4">
+        <div className="mt-4 md:mt-8">
+          <div className="grid w-full md:w-[80%] mx-auto md:grid-cols-2 gap-x-8 gap-y-2 md:gap-y-4">
             {timeframes.map((timeframe) => (
               <button
                 key={timeframe}
                 onClick={() => handleTimeframeSelect(timeframe)}
-                className={`p-6 text-[20px] font-medium text-[#585F69] text-center border-2 ${
+                className={`p-3 md:p-6 text-[14px] md:text-[20px] font-medium text-[#585F69] text-center border-2 ${
                   formData.timeframe === timeframe
                     ? "border-[#EA580C]"
                     : "border-[#E0E0E0]"
@@ -1021,7 +1011,7 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
               setFormData({ ...formData, notSure: true });
               onNext();
             }}
-            className="w-full px-12 py-4 text-[20px] font-semibold text-[#EA580C] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+            className="w-full px-12 py-4 text-[20px] font-semibold text-[#EA580C] bg-white border-2 rounded transition-all border-[#EA580C]"
           >
             Not Sure
           </button>
@@ -1060,7 +1050,7 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
                 setFormData({ ...formData, notSure: true });
                 onNext();
               }}
-              className="px-12 py-4 text-[20px] font-semibold text-[#EA580C] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+              className="px-12 py-4 text-[20px] font-semibold text-[#EA580C] bg-white border-2 rounded transition-all border-[#EA580C]"
             >
               Not Sure
             </button>
@@ -1345,10 +1335,7 @@ const ProgressBar = ({ currentStep, totalSteps }: ProgressBarProps) => {
             }}
           >
             <div
-              className={cn(
-                "relative mt-2",
-                currentStep === totalSteps && "me-8"
-              )}
+              className={cn("relative mt-2", currentStep === totalSteps && "")}
             >
               <div className="absolute w-3 h-3 transform rotate-45 -translate-x-1/2 bg-orange-500 left-1/2 -top-1" />
               <div className="min-w-[120px] inline-flex items-center justify-center px-4 py-1 text-[16px] text-[#EA580C] font-semibold border border-orange-500 rounded-full bg-white relative">
@@ -1613,7 +1600,7 @@ function Test() {
         <div
           className="relative min-h-screen overflow-hidden bg-fixed bg-center bg-no-repeat bg-cover"
           style={{
-            backgroundImage: "url(/new-bg.jpg)",
+            backgroundImage: "url(/bg.jpg)",
             backgroundAttachment: "fixed",
           }}
         >
@@ -1634,7 +1621,7 @@ function Test() {
 
           <div
             className={cn(
-              "bg-[#FCFCFB] w-[98%] sm:w-[95%] md:w-[90%] lg:w-[72%] mx-auto min-h-[615px] lg:min-h-[670px] my-5 rounded md:my-10 lg:my-16 relative  shadow-[0_0_28px_rgba(30,41,59,0.08)]",
+              "bg-[#FCFCFB] w-[98%] xxs:w-[95%] xl:w-[72%] mx-auto min-h-[720px] xxs:min-h-[670px] sm:min-h-[615px] lg:min-h-[670px] my-5 rounded md:my-10 lg:my-16 relative  shadow-[0_0_28px_rgba(30,41,59,0.08)]",
               currentStep === 1 ? "p-4 md:p-16" : "px-6 md:px-16 pt-12 md:pt-16"
             )}
           >
