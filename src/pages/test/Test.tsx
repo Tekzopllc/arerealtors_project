@@ -96,7 +96,7 @@ const LookingBuying = ({
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
         <div className="text-center">
-          <h1 className="text-[40px] font-semibold text-customblack mt-2">
+          <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack mt-2">
             Where are you looking to buy?
           </h1>
           <p className="text-[20px] text-customblack mt-4">
@@ -280,7 +280,7 @@ const PropertyAddress = ({
   return (
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
+        <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
           What is the address
           <br />
           of your property?
@@ -448,7 +448,7 @@ const SellingProperty = ({ onSelect, onBack }: SellingPropertyProps) => {
   return (
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
+        <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
           What kind of property
           <br />
           are you selling?
@@ -513,7 +513,7 @@ const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   return (
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
+        <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
           What's your phone number?
         </h1>
 
@@ -624,7 +624,7 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   return (
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
+        <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
           What's your email?
         </h1>
 
@@ -721,7 +721,7 @@ const FullName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   return (
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
+        <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
           What's your name?
         </h1>
         <p className="text-[20px] text-customblack text-center mt-4">
@@ -797,7 +797,7 @@ const MortgageStatus = ({
   return (
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
+        <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
           What is your <br /> Mortgage Status?
         </h1>
 
@@ -850,7 +850,7 @@ const BuyHome = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   return (
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
+        <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
           When do you plan <br /> to buy a home?
         </h1>
 
@@ -914,11 +914,11 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   return (
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="">
-        <h1 className="text-[40px] font-semibold text-customblack text-center mt-2">
+        <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-2">
           What price are you hoping to buy at?
         </h1>
 
-        <div className="mt-16">
+        <div className="mt-10 lg:mt-16">
           <div className="flex items-center justify-between mb-8 w-full lg:w-[70%] mx-auto">
             <button
               onClick={decrementPrice}
@@ -1057,7 +1057,7 @@ const CityName = ({
     <div className="relative flex flex-col h-[calc(615px-95px)]">
       <div className="flex-1">
         <div className="text-center">
-          <h1 className="text-[40px] font-semibold text-customblack mt-2">
+          <h1 className="text-[28px] lg:text-[40px] font-semibold text-customblack mt-2">
             Where would you <br /> like to buy?
           </h1>
         </div>
@@ -1223,25 +1223,28 @@ const CityName = ({
 const InitialStep = ({ onSelect }: { onSelect: (value: string) => void }) => {
   return (
     <div>
-      <h1 className="text-[40px] font-semibold text-customblack text-center mt-4">
+      <h1 className="block lg:hidden text-[22px] font-semibold text-customblack text-center mt-4">
+        Are you buying or selling?
+      </h1>
+      <h1 className="hidden lg:block text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-4">
         Find The Best REALTORS® For You
       </h1>
-      <p className="text-[20px] text-customblack text-center mt-5">
+      <p className="hidden lg:block text-[20px] text-customblack text-center mt-5">
         Instantly see a personalized list of great agents to choose from.
       </p>
 
-      <div className="grid grid-cols-3 gap-10 mt-14">
+      <div className="grid gap-3 mx-5 md:mx-0 md:gap-10 md:grid-cols-3 mt-7 md:mt-14">
         {options.map((option) => {
           return (
             <div
               key={option.value}
               onClick={() => onSelect(option.value)}
-              className="text-[22px] font-medium text-customblack text-center p-9 cursor-pointer border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] shadow-[0_0_28px_rgba(30,41,59,0.08)] hover:shadow-[0_0_28px_rgba(30,41,59,0.16)]"
+              className="text-[14px] md:text-[22px] font-medium text-customblack text-center p-3 lg:p-9 cursor-pointer border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] shadow-[0_0_28px_rgba(30,41,59,0.08)] hover:shadow-[0_0_28px_rgba(30,41,59,0.16)]"
             >
               <img
                 src={option.icon}
                 alt={option.text}
-                className="w-16 h-16 mx-auto mb-4"
+                className="w-9 h-9 lg:w-[50px] lg:h-[50px] mx-auto mb-2 md:mb-4"
               />
               {option.text}
             </div>
@@ -1249,7 +1252,7 @@ const InitialStep = ({ onSelect }: { onSelect: (value: string) => void }) => {
         })}
       </div>
 
-      <div className="w-full h-[0.5px] bg-[#E0E0E0] my-10" />
+      <div className="w-full h-[0.5px] bg-[#E0E0E0] my-7 md:my-10" />
 
       <div className="px-2 mt-2 mb-4 text-center sm:px-0">
         {[
@@ -1264,7 +1267,7 @@ const InitialStep = ({ onSelect }: { onSelect: (value: string) => void }) => {
             <div className="bg-[#047857] rounded-full p-1 shrink-0">
               <Check className="w-3 h-3 text-white" strokeWidth={4} />
             </div>
-            <span className="text-[12px] sm:text-[16px] text-[#272727] leading-snug sm:leading-normal">
+            <span className="text-[14px] md:text-[16px] text-[#272727] leading-snug sm:leading-normal">
               {option}
             </span>
           </div>
@@ -1571,10 +1574,23 @@ function Test() {
         >
           <Header />
 
+          {currentStep === 1 && (
+            <>
+              <h1 className="block lg:hidden ms-2 text-[24px] font-semibold text-white text-start sm:text-center">
+                Find The Best REALTORS® in <br />{" "}
+                {utmCity ? utmCity : "Your Area"}
+              </h1>
+              <p className="block lg:hidden ms-2 text-[14px] text-white text-start sm:text-center mb-4">
+                Instantly see a personalized list of great agents to choose
+                from.
+              </p>
+            </>
+          )}
+
           <div
             className={cn(
-              "bg-[#FCFCFB] w-[99%] sm:w-[72%] mx-auto min-h-[615px] rounded my-16 relative  shadow-[0_0_28px_rgba(30,41,59,0.08)]",
-              currentStep === 1 ? "p-16" : "px-16 pt-16"
+              "bg-[#FCFCFB] w-[98%] sm:w-[95%] md:w-[90%] lg:w-[72%] mx-auto min-h-[615px] my-5 rounded md:my-10 lg:my-16 relative  shadow-[0_0_28px_rgba(30,41,59,0.08)]",
+              currentStep === 1 ? "p-4 md:p-16" : "px-6 md:px-16 pt-12 md:pt-16"
             )}
           >
             <ProgressBar
