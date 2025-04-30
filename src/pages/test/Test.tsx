@@ -232,17 +232,17 @@ const LookingBuying = ({
         </div>
       </div>
 
-      <div className="flex justify-between w-full py-6 mt-auto">
+      <div className="flex justify-between w-full gap-5 py-6 mt-auto lg:gap-0">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
         </button>
         <button
           onClick={handleNext}
           disabled={!cityName.trim()}
-          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+          className={`w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
             cityName.trim()
               ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
               : "bg-gray-400 cursor-not-allowed"
@@ -410,17 +410,17 @@ const PropertyAddress = ({
         </div>
       </div>
 
-      <div className="flex justify-between w-full py-6 mt-auto">
+      <div className="flex justify-between w-full gap-5 py-6 mt-auto lg:gap-0">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
         </button>
         <button
           onClick={handleNext}
           disabled={!streetAddress.trim()}
-          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+          className={`w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
             streetAddress.trim()
               ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
               : "bg-gray-400 cursor-not-allowed"
@@ -470,7 +470,7 @@ const SellingProperty = ({ onSelect, onBack }: SellingPropertyProps) => {
       <div className="flex justify-start w-full py-6 mt-auto">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-1/2 lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
         </button>
@@ -590,7 +590,7 @@ const PhoneNumber = ({ onNext, onBack, formData, setFormData }: StepProps) => {
       <div className="flex justify-start w-full py-6 mt-auto">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-1/2 lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
         </button>
@@ -606,7 +606,6 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setIsValid(emailRegex.test(newEmail));
   };
@@ -691,12 +690,23 @@ const Email = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         </p>
       </div>
 
-      <div className="flex justify-start w-full py-6 mt-auto">
+      <div className="flex justify-between w-full gap-5 py-6 mt-auto lg:gap-0">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={!isValid || !email}
+          className={`w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+            isValid && email
+              ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
+        >
+          Next
         </button>
       </div>
     </div>
@@ -738,17 +748,17 @@ const FullName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         </div>
       </div>
 
-      <div className="flex justify-between w-full py-6 mt-auto">
+      <div className="flex justify-between w-full gap-5 py-6 mt-auto lg:gap-0">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
         </button>
         <button
           onClick={onNext}
           disabled={!formData.firstName?.trim() || !formData.lastName?.trim()}
-          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+          className={`w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
             formData.firstName?.trim() && formData.lastName?.trim()
               ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
               : "bg-gray-400 cursor-not-allowed"
@@ -809,7 +819,7 @@ const MortgageStatus = ({
       <div className="flex justify-start w-full py-6 mt-auto">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-1/2 lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
         </button>
@@ -862,7 +872,7 @@ const BuyHome = ({ onNext, onBack, formData, setFormData }: StepProps) => {
       <div className="flex justify-start w-full py-6 mt-auto">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-1/2 lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
         </button>
@@ -955,17 +965,17 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         </div>
       </div>
 
-      <div className="flex justify-between w-full py-6 mt-auto">
+      <div className="flex justify-between w-full gap-5 py-6 mt-auto lg:gap-0">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
         </button>
         <button
           onClick={onNext}
           disabled={!formData.budget}
-          className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+          className={`w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
             formData.budget
               ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
               : "bg-gray-400 cursor-not-allowed"
@@ -1135,7 +1145,7 @@ const CityName = ({ onNext, onBack, formData, setFormData }: StepProps) => {
       <div className="flex justify-between w-full py-6 mt-auto">
         <button
           onClick={onBack}
-          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          className="w-1/2 lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
         >
           Back
         </button>
