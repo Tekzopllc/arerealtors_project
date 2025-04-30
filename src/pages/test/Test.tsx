@@ -1624,7 +1624,7 @@ function Test() {
 
           <div
             className={cn(
-              "bg-[#FCFCFB] w-[98%] xxs:w-[95%] xl:w-[72%] mx-auto min-h-[720px] xxs:min-h-[670px] sm:min-h-[615px] lg:min-h-[670px] my-5 rounded md:my-10 lg:my-16 relative  shadow-[0_0_28px_rgba(30,41,59,0.08)]",
+              "bg-[#FCFCFB] w-[98%] xxs:w-[95%] xl:w-[72%] mx-auto min-h-[615px] my-5 rounded md:my-10 lg:my-16 relative  shadow-[0_0_28px_rgba(30,41,59,0.08)]",
               currentStep === 1 ? "p-4 md:p-16" : "px-6 md:px-16 pt-12 md:pt-16"
             )}
           >
