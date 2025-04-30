@@ -61,6 +61,7 @@ interface StepProps {
 interface SellingPropertyProps {
   onSelect: (propertyType: string) => void;
   onNext: () => void;
+  onBack: () => void;
 }
 
 interface PropertyAddressProps {
@@ -198,7 +199,7 @@ const PropertyAddress = ({
   );
 };
 
-const SellingProperty = ({ onSelect, onNext }: SellingPropertyProps) => {
+const SellingProperty = ({ onSelect, onBack }: SellingPropertyProps) => {
   return (
     <div className="flex flex-col min-h-[calc(100vh-250px)] relative">
       <div className="flex-1">
@@ -212,10 +213,7 @@ const SellingProperty = ({ onSelect, onNext }: SellingPropertyProps) => {
           {propertyTypes.map((type) => (
             <button
               key={type.id}
-              onClick={() => {
-                onSelect(type.id);
-                onNext();
-              }}
+              onClick={() => onSelect(type.id)}
               className="w-full p-6 text-[20px] font-medium text-[#585F69] text-center border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] hover:shadow-[0_0_28px_rgba(30,41,59,0.08)]"
             >
               {type.label}
@@ -225,7 +223,10 @@ const SellingProperty = ({ onSelect, onNext }: SellingPropertyProps) => {
       </div>
 
       <div className="flex justify-start w-full py-6 mt-auto">
-        <button className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]">
+        <button
+          onClick={onBack}
+          className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+        >
           Back
         </button>
       </div>
@@ -777,7 +778,7 @@ const InitialStep = ({ onSelect }: { onSelect: (value: string) => void }) => {
             <div
               key={option.value}
               onClick={() => onSelect(option.value)}
-              className="text-[22px] font-medium text-customblack text-center p-9 cursor-pointer border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] hover:shadow-[0_0_28px_rgba(30,41,59,0.08)]"
+              className="text-[22px] font-medium text-customblack text-center p-9 cursor-pointer border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] shadow-[0_0_28px_rgba(30,41,59,0.08)] hover:shadow-[0_0_28px_rgba(30,41,59,0.16)]"
             >
               <img
                 src={option.icon}
@@ -868,13 +869,13 @@ function Test() {
   const getTotalSteps = (type: string) => {
     switch (type) {
       case "buying":
-        return 8; // Adjust based on your buying flow
+        return 8; // Buying steps
       case "selling":
-        return 7; // Adjust based on your selling flow
+        return 7; // Selling steps
       case "both":
-        return 8; // Adjust based on your buying & selling flow
+        return 8; // Buying & Selling steps
       default:
-        return 8;
+        return 7;
     }
   };
 
@@ -888,7 +889,200 @@ function Test() {
   };
 
   const handleBack = () => {
-    setCurrentStep((prev) => prev - 1);
+    setCurrentStep((prev) => Math.max(1, prev - 1));
+  };
+
+  const renderStep = () => {
+    if (currentStep === 1) {
+      return <InitialStep onSelect={handleOptionSelect} />;
+    }
+
+    // Common second step for all flows
+    if (currentStep === 2) {
+      return (
+        <PriceRange
+          onNext={handleNext}
+          onBack={handleBack}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      );
+    }
+
+    // Different flows based on transaction type
+    switch (formData.transactionType) {
+      case "buying":
+        switch (currentStep) {
+          case 3:
+            return (
+              <CityName
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 4:
+            return (
+              <BuyHome
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 5:
+            return (
+              <MortgageStatus
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 6:
+            return (
+              <FullName
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 7:
+            return (
+              <Email
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 8:
+            return (
+              <PhoneNumber
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+        }
+        break;
+
+      case "selling":
+        switch (currentStep) {
+          case 3:
+            return (
+              <SellingProperty
+                onSelect={(type) => {
+                  setFormData({ ...formData, propertyType: type });
+                  setCurrentStep((prev) => prev + 1);
+                }}
+                onNext={handleNext}
+                onBack={handleBack}
+              />
+            );
+          case 4:
+            return (
+              <PropertyAddress
+                onNext={handleNext}
+                onBack={() => setCurrentStep((prev) => prev - 1)}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 5:
+            return (
+              <FullName
+                onNext={handleNext}
+                onBack={() => setCurrentStep((prev) => prev - 1)}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 6:
+            return (
+              <Email
+                onNext={handleNext}
+                onBack={() => setCurrentStep((prev) => prev - 1)}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 7:
+            return (
+              <PhoneNumber
+                onNext={handleNext}
+                onBack={() => setCurrentStep((prev) => prev - 1)}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+        }
+        break;
+
+      case "both":
+        switch (currentStep) {
+          case 3:
+            return (
+              <SellingProperty
+                onSelect={(type) => {
+                  setFormData({ ...formData, propertyType: type });
+                  setCurrentStep((prev) => prev + 1);
+                }}
+                onNext={handleNext}
+                onBack={handleBack}
+              />
+            );
+          case 4:
+            return (
+              <PropertyAddress
+                onNext={handleNext}
+                onBack={() => setCurrentStep((prev) => prev - 1)}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 5:
+            return (
+              <LookingBuying
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 6:
+            return (
+              <FullName
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 7:
+            return (
+              <Email
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+          case 8:
+            return (
+              <PhoneNumber
+                onNext={handleNext}
+                onBack={handleBack}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            );
+        }
+        break;
+    }
   };
 
   return (
@@ -904,94 +1098,12 @@ function Test() {
           <Header />
           <div className="absolute inset-0 from-black/70 via-black/50 to-black/60" />
 
-          <div className="bg-[#FCFCFB] w-[99%] sm:w-[67%] mx-auto min-h-[615px] rounded my-16 relative p-16 shadow-[0_0_28px_rgba(30,41,59,0.08)]">
+          <div className="bg-[#FCFCFB] w-[99%] sm:w-[72%] mx-auto min-h-[615px] rounded my-16 relative p-16 shadow-[0_0_28px_rgba(30,41,59,0.08)]">
             <ProgressBar
               currentStep={currentStep}
               totalSteps={getTotalSteps(formData.transactionType)}
             />
-            {currentStep === 1 && <InitialStep onSelect={handleOptionSelect} />}
-            {currentStep === 2 && (
-              <PriceRange
-                onNext={handleNext}
-                onBack={handleBack}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {currentStep === 3 && (
-              <LookingBuying
-                onNext={handleNext}
-                onBack={handleBack}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {currentStep === 4 && (
-              <CityName
-                onNext={handleNext}
-                onBack={handleBack}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {currentStep === 5 && (
-              <BuyHome
-                onNext={handleNext}
-                onBack={handleBack}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {currentStep === 6 && (
-              <MortgageStatus
-                onNext={handleNext}
-                onBack={handleBack}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {currentStep === 7 && (
-              <FullName
-                onNext={handleNext}
-                onBack={handleBack}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {currentStep === 8 && (
-              <Email
-                onNext={handleNext}
-                onBack={handleBack}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {currentStep === 9 && (
-              <PhoneNumber
-                onNext={handleNext}
-                onBack={handleBack}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-
-            {currentStep === 10 && (
-              <SellingProperty
-                onSelect={(type) =>
-                  setFormData({ ...formData, propertyType: type })
-                }
-                onNext={handleNext}
-              />
-            )}
-
-            {currentStep === 11 && (
-              <PropertyAddress
-                onNext={handleNext}
-                onBack={handleBack}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
+            {renderStep()}
           </div>
 
           <Footer />
