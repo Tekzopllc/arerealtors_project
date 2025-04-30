@@ -1194,7 +1194,7 @@ const InitialStep = ({ onSelect }: { onSelect: (value: string) => void }) => {
         ].map((option) => (
           <div
             key={option}
-            className="flex items-start gap-2 mb-3 text-left sm:items-center sm:text-center bg-[#FFFFFF]"
+            className="flex items-start gap-2 mb-3 text-left sm:items-center sm:text-center"
           >
             <div className="bg-[#047857] rounded-full p-1 shrink-0">
               <Check className="w-3 h-3 text-white" strokeWidth={4} />
@@ -1273,7 +1273,11 @@ function Test() {
   };
 
   const handleOptionSelect = (value: string) => {
-    setFormData({ ...formData, transactionType: value });
+    // Reset form data to initial state when selecting a new transaction type
+    setFormData({
+      transactionType: value,
+      budget: 600000, // Keep the default budget
+    });
     setCurrentStep(2);
   };
 
