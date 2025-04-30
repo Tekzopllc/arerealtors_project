@@ -30,6 +30,7 @@ interface FormData {
   email?: string;
   phone?: string;
   suite?: string;
+  notSure?: boolean;
 }
 
 const propertyTypes = [
@@ -968,24 +969,69 @@ const PriceRange = ({ onNext, onBack, formData, setFormData }: StepProps) => {
         </div>
       </div>
 
-      <div className="flex justify-between w-full gap-5 py-6 mt-auto lg:gap-0">
-        <button
-          onClick={onBack}
-          className="w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
-        >
-          Back
-        </button>
-        <button
-          onClick={onNext}
-          disabled={!formData.budget}
-          className={`w-full lg:w-fit px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
-            formData.budget
-              ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
-              : "bg-gray-400 cursor-not-allowed"
-          }`}
-        >
-          Next
-        </button>
+      <div className="flex flex-col justify-between w-full gap-5 py-6 mt-auto lg:flex-row lg:gap-0">
+        <div className="flex flex-col w-full gap-5 lg:hidden">
+          <button
+            onClick={() => {
+              setFormData({ ...formData, notSure: true });
+              onNext();
+            }}
+            className="w-full px-12 py-4 text-[20px] font-semibold text-[#EA580C] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          >
+            Not Sure
+          </button>
+          <div className="flex justify-between w-full gap-5">
+            <button
+              onClick={onBack}
+              className="w-1/2 px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+            >
+              Back
+            </button>
+            <button
+              onClick={onNext}
+              disabled={!formData.budget}
+              className={`w-1/2 px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+                formData.budget
+                  ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop layout */}
+        <div className="justify-between hidden w-full lg:flex">
+          <button
+            onClick={onBack}
+            className="px-12 py-4 text-[20px] font-semibold text-[#272727] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+          >
+            Back
+          </button>
+          <div className="flex space-x-10">
+            <button
+              onClick={() => {
+                setFormData({ ...formData, notSure: true });
+                onNext();
+              }}
+              className="px-12 py-4 text-[20px] font-semibold text-[#EA580C] bg-white border-2 border-[#E0E0E0] rounded transition-all hover:border-[#EA580C]"
+            >
+              Not Sure
+            </button>
+            <button
+              onClick={onNext}
+              disabled={!formData.budget}
+              className={`px-12 py-4 text-[20px] font-semibold text-white rounded transition-all ${
+                formData.budget
+                  ? "bg-[#EA580C] hover:bg-[#EA580C]/90"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
