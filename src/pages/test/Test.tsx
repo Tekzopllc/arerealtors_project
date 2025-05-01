@@ -1275,14 +1275,20 @@ const InitialStep = ({ onSelect }: { onSelect: (value: string) => void }) => {
             <div
               key={option.value}
               onClick={() => onSelect(option.value)}
-              className="text-[14px] md:text-[22px] font-medium text-customblack text-center p-3 lg:p-9 cursor-pointer border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 hover:border-[#EA580C] shadow-[0_0_28px_rgba(30,41,59,0.08)] hover:shadow-[0_0_28px_rgba(30,41,59,0.16)]"
+              className="group relative text-[14px] md:text-[22px] font-medium text-customblack text-center p-3 lg:p-9 cursor-pointer border-2 border-[#E0E0E0] rounded-[5px] transition-all duration-300 shadow-[0_0_28px_rgba(30,41,59,0.08)] hover:shadow-[0_0_28px_rgba(30,41,59,0.16)] overflow-hidden"
             >
-              <img
-                src={option.icon}
-                alt={option.text}
-                className="w-9 h-9 lg:w-[50px] lg:h-[50px] mx-auto mb-2 md:mb-4"
-              />
-              {option.text}
+              <span className="ease absolute left-0 top-0 h-0 w-0 border-t-[3px] border-[#EA580C] transition-all duration-200 group-hover:w-full"></span>
+              <span className="ease absolute right-0 top-0 h-0 w-0 border-r-[3px] border-[#EA580C] transition-all duration-200 group-hover:h-full"></span>
+              <span className="ease absolute bottom-0 right-0 h-0 w-0 border-b-[3px] border-[#EA580C] transition-all duration-200 group-hover:w-full"></span>
+              <span className="ease absolute bottom-0 left-0 h-0 w-0 border-l-[3px] border-[#EA580C] transition-all duration-200 group-hover:h-full"></span>
+              <div className="relative">
+                <img
+                  src={option.icon}
+                  alt={option.text}
+                  className="w-9 h-9 lg:w-[50px] lg:h-[50px] mx-auto mb-2 md:mb-4"
+                />
+                {option.text}
+              </div>
             </div>
           );
         })}
