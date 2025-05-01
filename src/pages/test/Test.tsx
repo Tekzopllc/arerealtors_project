@@ -1622,7 +1622,7 @@ function Test() {
                 Find The Best REALTORS® in <br />{" "}
                 {utmCity ? utmCity : "Your Area"}
               </h1>
-              <p className="block lg:hidden ms-2 text-[14px] text-white text-start sm:text-center mb-4">
+              <p className="block lg:hidden mx-2 text-[14px] text-white text-start sm:text-center mb-4">
                 Instantly see a personalized list of great agents to choose
                 from.
               </p>
