@@ -1269,7 +1269,7 @@ const InitialStep = ({
         Are you buying or selling?
       </h1>
       <h1 className="hidden lg:block text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-4">
-        Find The Best REALTORS® {utmCity ? utmCity : "For You"}
+        Find The Best REALTORS® {utmCity ? `in ${utmCity}` : "For You"}
       </h1>
       <p className="hidden lg:block text-[20px] text-customblack text-center mt-5">
         Instantly see a personalized list of great agents to choose from.
