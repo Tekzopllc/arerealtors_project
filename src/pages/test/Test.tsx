@@ -1256,14 +1256,20 @@ const CityName = ({
   );
 };
 
-const InitialStep = ({ onSelect }: { onSelect: (value: string) => void }) => {
+const InitialStep = ({
+  onSelect,
+  utmCity,
+}: {
+  onSelect: (value: string) => void;
+  utmCity: string;
+}) => {
   return (
     <div>
       <h1 className="block lg:hidden text-[22px] font-semibold text-customblack text-center mt-4">
         Are you buying or selling?
       </h1>
       <h1 className="hidden lg:block text-[28px] lg:text-[40px] font-semibold text-customblack text-center mt-4">
-        Find The Best REALTORS® For You
+        Find The Best REALTORS® {utmCity ? utmCity : "For You"}
       </h1>
       <p className="hidden lg:block text-[20px] text-customblack text-center mt-5">
         Instantly see a personalized list of great agents to choose from.
@@ -1411,7 +1417,7 @@ function Test() {
 
   const renderStep = () => {
     if (currentStep === 1) {
-      return <InitialStep onSelect={handleOptionSelect} />;
+      return <InitialStep onSelect={handleOptionSelect} utmCity={utmCity} />;
     }
 
     // Common second step for all flows
