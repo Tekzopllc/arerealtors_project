@@ -82,7 +82,7 @@ const Information = () => {
       >
         <div className="flex items-center justify-center px-2 pt-20 pb-10 sm:py-24">
           <div className="w-[98%] md:w-[90%] xl:w-[70%] py-10 bg-white rounded-lg shadow-lg">
-            <h2 className="mb-2 text-[22px] sm:text-[36px] font-extralight text-center">
+            <h2 className="mx-2 xxs:mx-0 mb-2 text-[22px] sm:text-[36px] font-extralight text-center">
               Consumer Privacy Act Requests
             </h2>
             <p className="w-[92%] sm:w-[65%] mx-auto mb-6 text-[14px] sm:text-[18px] text-start text-gray-700">
