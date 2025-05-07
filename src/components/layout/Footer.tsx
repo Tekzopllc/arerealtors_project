@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Phone } from "lucide-react";
 import styles from "../../styles/Footer.module.css";
@@ -84,51 +83,51 @@ export default function Footer() {
             {/* Links */}
             <div className="flex items-center justify-center w-full">
               <nav className="flex flex-wrap justify-center">
-                <a
-                  href="/about"
+                <Link
+                  to="/about"
                   className="px-2 text-xs text-gray-400 hover:text-primary sm:text-sm"
                 >
                   About Us
-                </a>
+                </Link>
                 <span className="text-gray-400">|</span>
-                <a
-                  href="/contact"
+                <Link
+                  to="/contact"
                   className="px-2 text-xs text-gray-400 hover:text-primary sm:text-sm"
                 >
                   Contact Us
-                </a>
+                </Link>
                 <span className="text-gray-400">|</span>
-                <a
-                  href="/tos"
+                <Link
+                  to="/terms"
                   className="px-2 text-xs text-gray-400 hover:text-primary sm:text-sm"
                 >
                   Terms of Use
-                </a>
+                </Link>
                 <span className="text-gray-400">|</span>
-                <a
-                  href="/privacy"
+                <Link
+                  to="/privacy"
                   className="px-2 text-xs text-gray-400 hover:text-primary sm:text-sm"
                 >
                   Privacy Policy
-                </a>
+                </Link>
               </nav>
             </div>
 
             <div className="flex items-center justify-center w-full">
               <nav className="flex flex-wrap justify-center">
-                <a
-                  href="/contact"
+                <Link
+                  to="/contact"
                   className="px-2 text-xs text-gray-400 hover:text-primary sm:text-sm"
                 >
                   Agents Join Here
-                </a>
+                </Link>
                 <span className="text-gray-400">|</span>
-                <a
-                  href="https://www.referralexchange.com/information"
+                <Link
+                  to="/information"
                   className="px-2 text-xs text-gray-400 hover:text-primary sm:text-sm"
                 >
                   Do Not Sell Info
-                </a>
+                </Link>
               </nav>
             </div>
           </div>
@@ -157,20 +156,20 @@ export default function Footer() {
             <div className="col-span-3 row-span-1">
               <ul className="w-full space-y-2">
                 <li className="flex justify-start">
-                  <a
-                    href="/about"
+                  <Link
+                    to="/about"
                     className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1"
                   >
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li className="flex justify-start">
-                  <a
-                    href="/contact"
+                  <Link
+                    to="/contact"
                     className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1"
                   >
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -178,20 +177,20 @@ export default function Footer() {
             <div className="col-span-3 row-span-1">
               <ul className="w-full space-y-2">
                 <li className="flex justify-start">
-                  <a
-                    href="/tos"
+                  <Link
+                    to="/terms"
                     className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1"
                   >
                     Terms of Use
-                  </a>
+                  </Link>
                 </li>
                 <li className="flex justify-start">
-                  <a
-                    href="/privacy"
+                  <Link
+                    to="/privacy"
                     className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1"
                   >
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -229,34 +228,34 @@ export default function Footer() {
               className="flex items-center col-span-3 row-span-1"
               style={{ marginTop: "-3rem" }}
             >
-              <a
-                href="tel:855-696-1455"
+              <Link
+                to="tel:855-696-1455"
                 className="flex items-center text-gray-400 hover:text-primary whitespace-nowrap group"
               >
                 <div className="p-2 mr-2 bg-gray-800 rounded-full">
                   <Phone className="w-5 h-5 text-primary" />
                 </div>
                 <span className="text-base">855-696-1455</span>
-              </a>
+              </Link>
             </div>
 
             {/* Additional links */}
             <div className="flex items-center col-span-3 row-span-1">
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="text-xs text-gray-400 hover:text-primary sm:text-sm"
               >
                 Agents Join Here
-              </a>
+              </Link>
             </div>
 
             <div className="flex items-center col-span-3 row-span-1">
-              <a
-                href="https://www.referralexchange.com/information"
-                className="text-xs text-gray-400 hover:text-primary sm:text-sm"
+              <Link
+                to="/information"
+                className="text-xs text-gray-400 cursor-pointer hover:text-primary sm:text-sm"
               >
                 Do Not Sell Info
-              </a>
+              </Link>
             </div>
 
             <div className="col-span-3 row-span-1"></div>
@@ -270,8 +269,7 @@ export default function Footer() {
           <div
             className={`${styles.Footer__copyright} text-gray-500 text-xs text-center`}
           >
-            A REALTOR is a member of the National Association of REALTORS® ©2005
-            - 2025, AceRealtors.com. All Rights Reserved.
+            ©2005 - 2025, AceRealtors.org. All Rights Reserved.
           </div>
         </div>
       </div>
