@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { supabase } from "../../lib/supabase";
 
 interface Requests {
   information?: boolean;
@@ -18,14 +19,41 @@ interface FormData {
 
 const Information = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    setSubmitted(true);
+  const onSubmit = async (data: FormData) => {
+    setSubmitError(false);
+    try {
+      // Prepare data for Supabase
+      const submissionData = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        request_information: !!data.requests?.information,
+        request_delete: !!data.requests?.delete,
+        request_shared: !!data.requests?.shared,
+        request_not_sold: !!data.requests?.notSold,
+        certify: !!data.certify,
+        created_at: new Date().toISOString(),
+      };
+      const { error } = await supabase
+        .from("consumer_privacy_requests")
+        .insert([submissionData]);
+      if (error) {
+        setSubmitted(false);
+        setSubmitError(true);
+        return;
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitted(false);
+      setSubmitError(true);
+    }
     console.log(data);
   };
 
@@ -204,9 +232,15 @@ const Information = () => {
                 )}
               </div>
               <div className="grid place-items-center">
-                {submitted && (
-                  <div className="py-3 mb-2 text-sm text-green-700 bg-green-100 rounded px-7">
-                    Request Submitted!
+                {(submitted || submitError) && (
+                  <div
+                    className={`py-3 mb-2 text-sm rounded px-7 ${
+                      submitError
+                        ? "text-red-700 bg-red-100"
+                        : "text-green-700 bg-green-100"
+                    }`}
+                  >
+                    {submitError ? "Request failed" : "Request Submitted!"}
                   </div>
                 )}
                 <button
