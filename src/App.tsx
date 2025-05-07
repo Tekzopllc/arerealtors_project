@@ -24,6 +24,8 @@ import Blogs from "./pages/Blogs";
 import Microsite from "./pages/microsite.tsx";
 import ThankYou from "./pages/ThankYou";
 import Test from "./pages/test/Test.tsx";
+import Information from "./components/information/index.tsx";
+import Footer from "./components/layout/Footer.tsx";
 
 function AppContent() {
   const location = useLocation();
@@ -79,8 +81,10 @@ function AppContent() {
             />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/find-realtor" element={<Microsite />} />
+            <Route path="/information" element={<Information />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     );
   } catch (error) {

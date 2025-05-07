@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Phone } from "lucide-react";
 import styles from "../../styles/Footer.module.css";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
   return (
     <footer className={`${styles.Footer} bg-[#12151a]`}>
       <div className={`${styles.Footer__container} max-w-7xl mx-auto px-4`}>
@@ -252,8 +254,8 @@ export default function Footer() {
 
             <div className="flex items-center col-span-3 row-span-1">
               <a
-                href="https://www.referralexchange.com/information"
-                className="text-xs text-gray-400 hover:text-primary sm:text-sm"
+                onClick={() => navigate("/information")}
+                className="text-xs text-gray-400 cursor-pointer hover:text-primary sm:text-sm"
               >
                 Do Not Sell Info
               </a>
@@ -270,8 +272,7 @@ export default function Footer() {
           <div
             className={`${styles.Footer__copyright} text-gray-500 text-xs text-center`}
           >
-            A REALTOR is a member of the National Association of REALTORS® ©2005
-            - 2025, AceRealtors.com. All Rights Reserved.
+            ©2005 - 2025, AceRealtors.org. All Rights Reserved.
           </div>
         </div>
       </div>
