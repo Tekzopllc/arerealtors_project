@@ -181,7 +181,7 @@ export default function Footer() {
               <ul className="w-full space-y-2">
                 <li className="flex justify-start">
                   <a
-                    href="/tos"
+                    href="/terms"
                     className="text-gray-400 hover:text-primary flex items-center gap-1 text-xs sm:text-sm py-1 pt-[4px] sm:pt-1"
                   >
                     Terms of Use
