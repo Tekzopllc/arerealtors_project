@@ -74,7 +74,7 @@ export default function Home() {
       <div
         className="relative min-h-screen overflow-hidden bg-center bg-cover"
         style={{
-          backgroundImage: 'url("/bg.jpg")',
+          backgroundImage: 'url("/bg.jpg?width=800&quality=75")',
           paddingTop: "64px",
         }}
       >
@@ -228,12 +228,14 @@ export default function Home() {
               <div className="absolute transition duration-500 opacity-50 -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur group-hover:opacity-100"></div>
               <div className="relative">
                 <img
-                  src="/usp1.jpg"
+                  src="/usp1.jpg?width=600&quality=75"
                   alt="Happy family in their new home"
                   className="rounded-xl shadow-xl h-[250px] sm:h-[350px] md:h-auto w-full object-cover"
                   loading="lazy"
                   width="600"
                   height="400"
+                  decoding="async"
+                  fetchpriority="low"
                 />
                 <div className="absolute p-3 shadow-lg bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm sm:p-5 rounded-xl">
                   <div className="flex items-start gap-3 sm:gap-4">
@@ -278,12 +280,14 @@ export default function Home() {
               <div className="relative">
                 <div className="overflow-hidden shadow-xl image-container rounded-xl">
                   <img
-                    src="/usp2.webp"
+                    src="/usp2.webp?width=800&quality=75"
                     alt="Happy family enjoying their new home"
                     className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover transform"
                     loading="lazy"
                     width="800"
                     height="600"
+                    decoding="async"
+                    fetchpriority="low"
                   />
                 </div>
               </div>
@@ -365,12 +369,14 @@ export default function Home() {
                 <div className="h-full overflow-hidden border border-gray-100 shadow-md bg-gray-50 rounded-xl">
                   <div className="overflow-hidden">
                     <img
-                      src="/blog1.jpg"
+                      src="/blog1.jpg?width=400&quality=75"
                       alt="Real Estate Market Trends"
                       className="object-cover w-full h-36 sm:h-48"
                       loading="lazy"
                       width="400"
                       height="300"
+                      decoding="async"
+                      fetchpriority="low"
                     />
                   </div>
                   <div className="p-4 sm:p-6">
@@ -401,12 +407,14 @@ export default function Home() {
                 <div className="h-full overflow-hidden border border-gray-100 shadow-md bg-gray-50 rounded-xl">
                   <div className="overflow-hidden">
                     <img
-                      src="/blog2.jpg"
+                      src="/blog2.jpg?width=400&quality=75"
                       alt="Mortgage & Financing"
                       className="object-cover w-full h-36 sm:h-48"
                       loading="lazy"
                       width="400"
                       height="300"
+                      decoding="async"
+                      fetchpriority="low"
                     />
                   </div>
                   <div className="p-4 sm:p-6">
@@ -437,12 +445,14 @@ export default function Home() {
                 <div className="h-full overflow-hidden border border-gray-100 shadow-md bg-gray-50 rounded-xl">
                   <div className="overflow-hidden">
                     <img
-                      src="/blog3.jpg"
+                      src="/blog3.jpg?width=400&quality=75"
                       alt="Legal and Tax Considerations"
                       className="object-cover w-full h-36 sm:h-48"
                       loading="lazy"
                       width="400"
                       height="300"
+                      decoding="async"
+                      fetchpriority="low"
                     />
                   </div>
                   <div className="p-4 sm:p-6">
@@ -474,12 +484,14 @@ export default function Home() {
                 <div className="h-full overflow-hidden border border-gray-100 shadow-md bg-gray-50 rounded-xl">
                   <div className="overflow-hidden">
                     <img
-                      src="/blog4.jpg"
+                      src="/blog4.jpg?width=400&quality=75"
                       alt="Home Inspection and Appraisal"
                       className="object-cover w-full h-48"
                       loading="lazy"
                       width="400"
                       height="300"
+                      decoding="async"
+                      fetchpriority="low"
                     />
                   </div>
                   <div className="p-6">
@@ -511,12 +523,14 @@ export default function Home() {
                 <div className="h-full overflow-hidden border border-gray-100 shadow-md bg-gray-50 rounded-xl">
                   <div className="overflow-hidden">
                     <img
-                      src="/blog5.jpg"
+                      src="/blog5.jpg?width=400&quality=75"
                       alt="Real Estate Agent Role"
                       className="object-cover w-full h-48"
                       loading="lazy"
                       width="400"
                       height="300"
+                      decoding="async"
+                      fetchpriority="low"
                     />
                   </div>
                   <div className="p-6">
@@ -548,12 +562,14 @@ export default function Home() {
                 <div className="h-full overflow-hidden border border-gray-100 shadow-md bg-gray-50 rounded-xl">
                   <div className="overflow-hidden">
                     <img
-                      src="/blog6.jpg"
+                      src="/blog6.jpg?width=400&quality=75"
                       alt="Social Media Marketing in Real Estate"
                       className="object-cover w-full h-48"
                       loading="lazy"
                       width="400"
                       height="300"
+                      decoding="async"
+                      fetchpriority="low"
                     />
                   </div>
                   <div className="p-6">
