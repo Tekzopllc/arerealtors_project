@@ -32,6 +32,7 @@ export default function Home() {
   const [isQuestionnaireOpen, setIsQuestionnaireOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,8 +43,31 @@ export default function Home() {
       setIsMobile(window.innerWidth < 768);
     };
 
+    // Preload critical images
+    const preloadImages = async () => {
+      const criticalImages = [
+        '/bg.jpg?width=800&quality=75',
+        '/usp1.jpg?width=600&quality=75',
+        '/usp2.webp?width=800&quality=75'
+      ];
+      
+      await Promise.all(
+        criticalImages.map(src => {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = resolve;
+            img.onerror = reject;
+          });
+        })
+      );
+      
+      setImagesLoaded(true);
+    };
+
     // Initial checks
     handleResize();
+    preloadImages();
 
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);
@@ -231,11 +255,11 @@ export default function Home() {
                   src="/usp1.jpg?width=600&quality=75"
                   alt="Happy family in their new home"
                   className="rounded-xl shadow-xl h-[250px] sm:h-[350px] md:h-auto w-full object-cover"
-                  loading="lazy"
+                  loading="eager"
                   width="600"
                   height="400"
                   decoding="async"
-                  fetchpriority="low"
+                  fetchPriority="high"
                 />
                 <div className="absolute p-3 shadow-lg bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm sm:p-5 rounded-xl">
                   <div className="flex items-start gap-3 sm:gap-4">
@@ -283,11 +307,11 @@ export default function Home() {
                     src="/usp2.webp?width=800&quality=75"
                     alt="Happy family enjoying their new home"
                     className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover transform"
-                    loading="lazy"
+                    loading="eager"
                     width="800"
                     height="600"
                     decoding="async"
-                    fetchpriority="low"
+                    fetchPriority="high"
                   />
                 </div>
               </div>
@@ -376,7 +400,7 @@ export default function Home() {
                       width="400"
                       height="300"
                       decoding="async"
-                      fetchpriority="low"
+                      fetchPriority="low"
                     />
                   </div>
                   <div className="p-4 sm:p-6">
@@ -414,7 +438,7 @@ export default function Home() {
                       width="400"
                       height="300"
                       decoding="async"
-                      fetchpriority="low"
+                      fetchPriority="low"
                     />
                   </div>
                   <div className="p-4 sm:p-6">
@@ -452,7 +476,7 @@ export default function Home() {
                       width="400"
                       height="300"
                       decoding="async"
-                      fetchpriority="low"
+                      fetchPriority="low"
                     />
                   </div>
                   <div className="p-4 sm:p-6">
@@ -491,7 +515,7 @@ export default function Home() {
                       width="400"
                       height="300"
                       decoding="async"
-                      fetchpriority="low"
+                      fetchPriority="low"
                     />
                   </div>
                   <div className="p-6">
@@ -530,7 +554,7 @@ export default function Home() {
                       width="400"
                       height="300"
                       decoding="async"
-                      fetchpriority="low"
+                      fetchPriority="low"
                     />
                   </div>
                   <div className="p-6">
@@ -569,7 +593,7 @@ export default function Home() {
                       width="400"
                       height="300"
                       decoding="async"
-                      fetchpriority="low"
+                      fetchPriority="low"
                     />
                   </div>
                   <div className="p-6">
