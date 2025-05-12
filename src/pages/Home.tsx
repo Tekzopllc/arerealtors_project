@@ -76,7 +76,6 @@ export default function Home() {
         style={{
           backgroundImage: 'url("/bg.jpg")',
           paddingTop: "64px",
-          // backgroundAttachment: isMobile ? 'scroll' : 'fixed' // Remove fixed background on mobile for better performance
         }}
       >
         <div className="absolute inset-0 from-black/70 via-black/50 to-black/60" />
@@ -231,7 +230,10 @@ export default function Home() {
                 <img
                   src="/usp1.jpg"
                   alt="Happy family in their new home"
-                  className="rounded-xl shadow-xl h-[250px] sm:h-[350px] md:h-auto w-full object-cover "
+                  className="rounded-xl shadow-xl h-[250px] sm:h-[350px] md:h-auto w-full object-cover"
+                  loading="lazy"
+                  width="600"
+                  height="400"
                 />
                 <div className="absolute p-3 shadow-lg bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm sm:p-5 rounded-xl">
                   <div className="flex items-start gap-3 sm:gap-4">
@@ -278,7 +280,10 @@ export default function Home() {
                   <img
                     src="/usp2.webp"
                     alt="Happy family enjoying their new home"
-                    className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover transform "
+                    className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover transform"
+                    loading="lazy"
+                    width="800"
+                    height="600"
                   />
                 </div>
               </div>
@@ -363,6 +368,9 @@ export default function Home() {
                       src="/blog1.jpg"
                       alt="Real Estate Market Trends"
                       className="object-cover w-full h-36 sm:h-48"
+                      loading="lazy"
+                      width="400"
+                      height="300"
                     />
                   </div>
                   <div className="p-4 sm:p-6">
@@ -396,6 +404,9 @@ export default function Home() {
                       src="/blog2.jpg"
                       alt="Mortgage & Financing"
                       className="object-cover w-full h-36 sm:h-48"
+                      loading="lazy"
+                      width="400"
+                      height="300"
                     />
                   </div>
                   <div className="p-4 sm:p-6">
@@ -429,6 +440,9 @@ export default function Home() {
                       src="/blog3.jpg"
                       alt="Legal and Tax Considerations"
                       className="object-cover w-full h-36 sm:h-48"
+                      loading="lazy"
+                      width="400"
+                      height="300"
                     />
                   </div>
                   <div className="p-4 sm:p-6">
@@ -463,6 +477,9 @@ export default function Home() {
                       src="/blog4.jpg"
                       alt="Home Inspection and Appraisal"
                       className="object-cover w-full h-48"
+                      loading="lazy"
+                      width="400"
+                      height="300"
                     />
                   </div>
                   <div className="p-6">
@@ -497,6 +514,9 @@ export default function Home() {
                       src="/blog5.jpg"
                       alt="Real Estate Agent Role"
                       className="object-cover w-full h-48"
+                      loading="lazy"
+                      width="400"
+                      height="300"
                     />
                   </div>
                   <div className="p-6">
@@ -531,6 +551,9 @@ export default function Home() {
                       src="/blog6.jpg"
                       alt="Social Media Marketing in Real Estate"
                       className="object-cover w-full h-48"
+                      loading="lazy"
+                      width="400"
+                      height="300"
                     />
                   </div>
                   <div className="p-6">
