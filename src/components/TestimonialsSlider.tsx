@@ -31,12 +31,16 @@ export default function TestimonialsSlider() {
         breakpoints={{
           640: {
             slidesPerView: 2,
+            spaceBetween: 20,
           },
           1024: {
             slidesPerView: 3,
+            spaceBetween: 32,
           },
         }}
         className="testimonials-swiper"
+        preloadImages={false}
+        lazy={true}
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={index}>
@@ -46,6 +50,9 @@ export default function TestimonialsSlider() {
                   src={testimonial.image}
                   alt={testimonial.name}
                   className="object-cover w-16 h-16 mr-4 rounded-full"
+                  loading="lazy"
+                  width={64}
+                  height={64}
                 />
                 <div>
                   <div className="flex text-[#ff6b00] mb-1">

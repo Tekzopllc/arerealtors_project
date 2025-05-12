@@ -13,7 +13,6 @@ import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import AdminLogin from "./pages/adminlogin";
 import AdminPanel from "./pages/adminpanel";
-import CompareAgents from "./pages/compare_agents";
 import RealEstateBlogPost from "./pages/blogpost1";
 import MortgageFinancingBlogPost from "./pages/blogspot2.tsx";
 import LegalTaxBlogPost from "./pages/blogspot3.tsx";
@@ -26,12 +25,14 @@ import ThankYou from "./pages/ThankYou";
 import Test from "./pages/test/Test.tsx";
 import Information from "./components/information/index.tsx";
 import Footer from "./components/layout/Footer.tsx";
+import CompareAgentsChat from "./pages/CompareAgentsChat";
 
 function AppContent() {
   const location = useLocation();
   const hideNavbar =
     location.pathname === "/adminlogin" ||
     location.pathname === "/compare_agents" ||
+    location.pathname === "/compare_agents_chat" ||
     location.pathname === "/test" ||
     location.pathname === "/find-realtor" ||
     location.pathname === "/adminpanel";
@@ -56,6 +57,7 @@ function AppContent() {
             <Route path="/adminlogin" element={<AdminLogin />} />
             <Route path="/adminpanel" element={<AdminPanel />} />
             <Route path="/compare_agents" element={<Test />} />
+            <Route path="/compare_agents_chat" element={<CompareAgentsChat />} />
             <Route path="/test" element={<Test />} />
             <Route path="/thank-you" element={<ThankYou />} />
             <Route

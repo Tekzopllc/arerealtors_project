@@ -12,12 +12,18 @@ export default function Header() {
                 src="/new_logo.png"
                 alt="RealEstateAgents.com"
                 className="w-[120px] md:w-[180px] h-auto mix-blend-screen brightness-200 contrast-200"
+                loading="lazy"
+                width={180}
+                height={40}
               />
             </Link>
             <img
               src="/Flag-United-States-of-America.webp"
               alt="USA Flag"
               className="w-[30px] md:w-[40px] h-auto object-contain"
+              loading="lazy"
+              width={40}
+              height={40}
             />
           </div>
         </div>

@@ -7,25 +7,29 @@ interface PropertyCardProps {
 
 export default function PropertyCard({ property }: PropertyCardProps) {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="overflow-hidden bg-white rounded-lg shadow-md">
       <img
         src={property.imageUrl}
         alt={property.title}
-        className="w-full h-48 object-cover"
+        className="object-cover w-full h-48"
+        loading="lazy"
+        width={400}
+        height={192}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
       <div className="p-4">
-        <h3 className="text-xl font-semibold text-secondary mb-2">{property.title}</h3>
-        <p className="text-2xl font-bold text-primary mb-2">
+        <h3 className="mb-2 text-xl font-semibold text-secondary">{property.title}</h3>
+        <p className="mb-2 text-2xl font-bold text-primary">
           ${property.price.toLocaleString()}
         </p>
-        <p className="text-gray-600 mb-2">{property.location}</p>
-        <div className="flex justify-between text-sm text-gray-500 mb-4">
+        <p className="mb-2 text-gray-600">{property.location}</p>
+        <div className="flex justify-between mb-4 text-sm text-gray-500">
           <span>{property.bedrooms} beds</span>
           <span>{property.bathrooms} baths</span>
           <span>{property.sqft.toLocaleString()} sqft</span>
         </div>
-        <button className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-dark transition-colors flex items-center justify-center gap-2">
-          <Phone className="h-4 w-4" />
+        <button className="flex items-center justify-center w-full gap-2 px-4 py-2 text-white transition-colors rounded-md bg-primary hover:bg-primary-dark">
+          <Phone className="w-4 h-4" />
           Contact Agent
         </button>
       </div>
