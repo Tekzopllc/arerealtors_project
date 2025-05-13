@@ -53,7 +53,7 @@ export default function CompareAgentsPage() {
               </div>
             </div>
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </main>
     </div>
