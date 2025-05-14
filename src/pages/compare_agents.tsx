@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { getCityFromUrl } from "../utils/urlUtils";
 import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
 import AgentQuestionnaire, {
   QuestionnaireData,
 } from "../components/AgentQuestionnaire";
+import LiveChat from "../components/LiveChat";
 
 // Main Page Component
 export default function CompareAgentsPage() {
@@ -53,7 +53,7 @@ export default function CompareAgentsPage() {
               </div>
             </div>
           </div>
-          {/* <Footer /> */}
+          <LiveChat />
         </div>
       </main>
     </div>

@@ -1,3 +1,4 @@
+import LiveChat from '../components/LiveChat';
 
 const CompareAgentsChat = () => {
   return (
@@ -8,8 +9,7 @@ const CompareAgentsChat = () => {
           <p className="mb-4 text-gray-600">
             Chat with our real estate agents to compare their services and expertise.
           </p>
-          {/* LiveChat component will handle the chat widget */}
-         
+          <LiveChat />
         </div>
       </div>
     </div>

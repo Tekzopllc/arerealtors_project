@@ -63,15 +63,7 @@ export default function Footer() {
                   className="sm:w-[63px] sm:h-[37px]"
                 />
               </div>
-              <div className={`${styles.Footer__icon}`}>
-                <img
-                  alt="Realtor"
-                  src="/office_R_white.webp"
-                  width="28"
-                  height="31"
-                  className="sm:w-[34px] sm:h-[38px]"
-                />
-              </div>
+            
             </div>
 
             {/* Copyright Text */}
@@ -213,14 +205,7 @@ export default function Footer() {
                   height="37"
                 />
               </div>
-              <div className={`${styles.Footer__icon}`}>
-                <img
-                  alt="Realtor"
-                  src="/office_R_white.webp"
-                  width="34"
-                  height="38"
-                />
-              </div>
+            
             </div>
 
             {/* Phone number */}
